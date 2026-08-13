@@ -109,8 +109,15 @@ const App = {
             });
         }
 
-        // Top Back Button
+        // Top Navigation Buttons
         document.getElementById("btn-top-back")?.addEventListener("click", () => this.handleBack());
+        document.getElementById("btn-top-refresh")?.addEventListener("click", () => {
+            const icon = document.querySelector("#btn-top-refresh i");
+            if (icon) icon.classList.add("fa-spin");
+            setTimeout(() => {
+                window.location.reload();
+            }, 180);
+        });
 
         // Test Navigation buttons
         document.getElementById("btn-test-prev")?.addEventListener("click", () => this.navigateQuestion(-1));

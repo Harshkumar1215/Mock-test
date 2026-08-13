@@ -1,31 +1,34 @@
-// Strict 50-MCQ Engine adhering to all strict content and structural rules
+// Strict 60-MCQ Engine adhering to all strict content and structural rules
 
 const QuestionBank = {
     _cache: {},
 
-    // Retrieve exactly 50 MCQs for a given subtopic ID
-    get50Questions(subtopicId) {
+    // Retrieve exactly 60 MCQs for a given subtopic ID
+    get60Questions(subtopicId) {
         if (this._cache[subtopicId]) {
             return this._cache[subtopicId];
         }
-        const questions = this._generateStrict50MCQs(subtopicId);
+        const questions = this._generateStrict60MCQs(subtopicId);
         this._cache[subtopicId] = questions;
         return questions;
     },
 
-    // Backward compatibility alias
+    // Backward compatibility aliases
+    get50Questions(subtopicId) {
+        return this.get60Questions(subtopicId);
+    },
     get100Questions(subtopicId) {
-        return this.get50Questions(subtopicId);
+        return this.get60Questions(subtopicId);
     },
 
-    _generateStrict50MCQs(subtopicId) {
+    _generateStrict60MCQs(subtopicId) {
         const meta = findSubtopicGlobal(subtopicId);
         const subName = meta ? meta.subtopic.name : subtopicId;
         const topicName = meta ? meta.topic.name : "Topic";
         const subjectName = meta ? meta.subject.name : "Subject";
         
         const mcqList = [];
-        const baseQuestions = this._getSeed50Questions(subtopicId, subName, topicName, subjectName);
+        const baseQuestions = this._getSeed60Questions(subtopicId, subName, topicName, subjectName);
 
         baseQuestions.forEach((bq, i) => {
             mcqList.push({
@@ -45,10 +48,10 @@ const QuestionBank = {
         return mcqList;
     },
 
-    _getSeed50Questions(subtopicId, subName, topicName, subjectName) {
+    _getSeed60Questions(subtopicId, subName, topicName, subjectName) {
         const questions = [];
 
-        // 50 unique learning points tailored to subName and topicName
+        // 60 unique learning points tailored to subName and topicName
         const concepts = [
             { title: "Fundamental Definition", focus: "core definition and primary identity" },
             { title: "Primary Objective", focus: "main goal and core functionality" },
@@ -99,12 +102,22 @@ const QuestionBank = {
             { title: "Failure Recovery", focus: "fallback mechanisms upon crash" },
             { title: "Compliance Check", focus: "verifying standards adherence" },
             { title: "Audit & Logging", focus: "tracking operational history" },
-            { title: "Final Evaluation Criterion", focus: "determining total task completion" }
+            { title: "Final Evaluation Criterion", focus: "determining total task completion" },
+            { title: "Scalability Aspect", focus: "system behavior under increased load" },
+            { title: "Caching & Buffering", focus: "temporary data retention mechanism" },
+            { title: "Asynchronous Behavior", focus: "non-blocking processing flow" },
+            { title: "Data Serialization", focus: "encoding for transmission" },
+            { title: "Schema Consistency", focus: "structural integrity checks" },
+            { title: "Index Optimization", focus: "accelerating lookup speed" },
+            { title: "Transaction Boundaries", focus: "atomic execution guarantees" },
+            { title: "Event Propagation", focus: "notification dispatch chain" },
+            { title: "State Synchronization", focus: "reconciling concurrent state updates" },
+            { title: "Final Proficiency Evaluation", focus: "comprehensive mastery validation" }
         ];
 
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < 60; i++) {
             const concept = concepts[i];
-            const targetAnsIndex = i % 4; // Balanced distribution across 0=A, 1=B, 2=C, 3=D
+            const targetAnsIndex = i % 4; // Balanced distribution across 0=A, 1=B, 2=C, 3=D (15 per option index)
 
             let qText = "";
             let correctOpt = "";

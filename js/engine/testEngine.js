@@ -1,10 +1,10 @@
-// Test Engine: Handles Selection of Exactly 50 MCQs per Subtopic Session & Timer
+// Test Engine: Handles Selection of Exactly 60 MCQs per Subtopic Session & Timer
 
 const TestEngine = {
-    // Generate a fresh test session of 50 questions
-    createTestSession(subtopicId, timeLimitMinutes = 30) {
-        // Fetch all 50 MCQs for subtopic
-        const fullPool = QuestionBank.get50Questions(subtopicId) || [];
+    // Generate a fresh test session of 60 questions
+    createTestSession(subtopicId, timeLimitMinutes = 35) {
+        // Fetch all 60 MCQs for subtopic
+        const fullPool = QuestionBank.get60Questions(subtopicId) || [];
 
         if (!fullPool || fullPool.length === 0) {
             return {
@@ -21,8 +21,8 @@ const TestEngine = {
             };
         }
 
-        // Process exactly 50 questions
-        const processedQuestions = fullPool.slice(0, 50).map((q, idx) => {
+        // Process exactly 60 questions
+        const processedQuestions = fullPool.slice(0, 60).map((q, idx) => {
             return {
                 ...q,
                 testIndex: idx,

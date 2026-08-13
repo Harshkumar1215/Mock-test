@@ -125,10 +125,10 @@
                         <i class="fa-solid fa-circle-info"></i> Practice Test Parameters
                     </div>
                     <ul style="font-size:0.84rem; color:var(--text-secondary); line-height:1.7; padding-left:20px;">
-                        <li><strong>Test Length:</strong> Exactly 50 Questions</li>
-                        <li><strong>Question Pool:</strong> <span id="ins-pool-count">50 MCQs</span></li>
-                        <li><strong>Selection Mode:</strong> 50 unique questions sampled per attempt</li>
-                        <li><strong>Time Limit:</strong> 30 Minutes (auto-submit on zero)</li>
+                        <li><strong>Test Length:</strong> Exactly 60 Questions</li>
+                        <li><strong>Question Pool:</strong> <span id="ins-pool-count">60 MCQs</span></li>
+                        <li><strong>Selection Mode:</strong> 60 unique questions sampled per attempt</li>
+                        <li><strong>Time Limit:</strong> 35 Minutes (auto-submit on zero)</li>
                         <li><strong>Navigation:</strong> Next, Prev, Mark for Review & Question Palette</li>
                     </ul>
                 </div>
@@ -144,10 +144,10 @@
                 <!-- Sticky Top Status Header -->
                 <div class="sticky-test-header">
                     <div class="test-header-row">
-                        <div class="test-counter" id="test-question-counter">Question 1 / 50</div>
+                        <div class="test-counter" id="test-question-counter">Question 1 / 60</div>
                         <div class="timer-pill">
                             <i class="fa-regular fa-clock"></i>
-                            <span id="test-timer-val">30:00</span>
+                            <span id="test-timer-val">35:00</span>
                         </div>
                         <button class="btn-secondary" id="btn-open-palette" style="min-height:32px; padding:4px 10px; font-size:0.78rem;">
                             <i class="fa-solid fa-table-cells"></i> Palette
@@ -192,7 +192,7 @@
             <section id="screen-result" class="view-screen">
                 <div class="result-card">
                     <div style="font-size:0.85rem; font-weight:700; color:var(--text-muted);">TEST COMPLETED</div>
-                    <div class="score-display" id="res-score-val">0 / 50</div>
+                    <div class="score-display" id="res-score-val">0 / 60</div>
                     <div style="font-size:0.95rem; font-weight:800; color:var(--primary);" id="res-pct-val">0%</div>
 
                     <div id="res-perf-badge" class="performance-badge badge-good">Good Performance</div>
@@ -250,7 +250,7 @@
                         <i class="fa-solid fa-list-check"></i> Review All Answers
                     </button>
                     <button class="btn-secondary" id="btn-res-retry">
-                        <i class="fa-solid fa-rotate-right"></i> Retry Test (New 50 MCQs)
+                        <i class="fa-solid fa-rotate-right"></i> Retry Test (New 60 MCQs)
                     </button>
                     <button class="btn-secondary" id="btn-res-home">
                         <i class="fa-solid fa-house"></i> Back to Home
@@ -266,7 +266,7 @@
                 </div>
 
                 <div class="filter-tabs" style="display:flex; background:var(--surface); padding:4px; border-radius:var(--radius-md); border:1px solid var(--border); margin-bottom:14px; gap:4px;">
-                    <button class="filter-tab active" data-filter="all">All (50)</button>
+                    <button class="filter-tab active" data-filter="all">All (60)</button>
                     <button class="filter-tab" data-filter="correct">Correct</button>
                     <button class="filter-tab" data-filter="wrong">Incorrect</button>
                     <button class="filter-tab" data-filter="unattempted">Skipped</button>
@@ -298,7 +298,7 @@
                         <span>Average Accuracy</span>
                     </div>
                     <div class="stat-cell c-blue">
-                        <strong id="dash-best-score">0/50</strong>
+                        <strong id="dash-best-score">0/60</strong>
                         <span>Best Score</span>
                     </div>
                 </div>
@@ -356,7 +356,7 @@
                 Are you sure you want to finish the test? Here is your summary:
             </p>
             <div style="background:#f8fafc; padding:12px; border-radius:8px; font-size:0.84rem; margin-bottom:16px;">
-                <div>🟢 Answered: <strong id="modal-ans-num">0 / 50</strong></div>
+                <div>🟢 Answered: <strong id="modal-ans-num">0 / 60</strong></div>
                 <div>⚪ Unanswered: <strong id="modal-unans-num">0</strong></div>
             </div>
             <div style="display:flex; gap:10px;">

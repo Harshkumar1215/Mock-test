@@ -1,16 +1,21 @@
 // Recommendation Engine: Analyzes performance and generates intelligent practice suggestions
 
 const RecommendationEngine = {
-    // Generate practice suggestions based on attempt history and subtopic stats
+    // Generate practice suggestions based ONLY on subtopics/subjects the user has actually attempted
     generateSuggestions() {
         const stats = StorageManager.getSubtopicStats();
         const attempts = StorageManager.getAttempts();
         const suggestions = [];
 
-        // 1. Identify Weak Subtopics (Accuracy < 60% or Score < 60%)
+        // If user has not attempted any test yet, return empty array (do NOT show recommendations)
+        if (!attempts || attempts.length === 0) {
+            return [];
+        }
+
+        // 1. Identify Weak Subtopics among ONLY attempted subtopics
         const weakSubtopics = [];
         for (const [stId, data] of Object.entries(stats)) {
-            if (data.lastAccuracy < 65 || data.avgAccuracy < 65) {
+            if (data && data.attempts > 0 && (data.lastAccuracy < 65 || data.avgAccuracy < 65)) {
                 const meta = findSubtopicGlobal(stId);
                 if (meta) {
                     weakSubtopics.push({
@@ -20,7 +25,7 @@ const RecommendationEngine = {
                         topicName: meta.topic.name,
                         subjectId: meta.subject.id,
                         topicId: meta.topic.id,
-                        accuracy: data.lastAccuracy || data.avgAccuracy || 0,
+                        accuracy: data.lastAccuracy ?? data.avgAccuracy ?? 0,
                         attempts: data.attempts
                     });
                 }
@@ -46,77 +51,69 @@ const RecommendationEngine = {
             });
         }
 
-        // 2. Identify Unattempted Subtopics in Active Subject
+        // 2. Recommend next subtopic in the SAME subject that the user has already practiced
         const attemptedIds = new Set(Object.keys(stats));
-        const unattemptedList = [];
+        const attemptedSubjects = new Set();
+        for (const stId of attemptedIds) {
+            const meta = findSubtopicGlobal(stId);
+            if (meta) attemptedSubjects.add(meta.subject.id);
+        }
 
-        for (const sub of subjectsConfig) {
+        let nextInAttemptedSubject = null;
+        for (const subId of attemptedSubjects) {
+            const sub = subjectsConfig.find(s => s.id === subId);
+            if (!sub) continue;
             for (const topic of sub.topics) {
                 for (const st of topic.subtopics) {
                     if (!attemptedIds.has(st.id)) {
-                        unattemptedList.push({
+                        nextInAttemptedSubject = {
                             subtopicId: st.id,
                             name: st.name,
                             subjectId: sub.id,
                             topicId: topic.id,
                             subjectName: sub.name
-                        });
+                        };
+                        break;
                     }
                 }
+                if (nextInAttemptedSubject) break;
             }
+            if (nextInAttemptedSubject) break;
         }
 
-        if (unattemptedList.length > 0) {
-            const nextUnattempted = unattemptedList[0];
+        if (nextInAttemptedSubject) {
             suggestions.push({
                 type: "unattempted_subtopic",
-                badge: "Unexplored Topic",
+                badge: "Next in Your Subject",
                 icon: "fa-compass",
                 colorClass: "bg-info",
-                title: `Try New Subtopic: ${nextUnattempted.name}`,
-                description: `Expand your preparation by attempting a 25-question test on ${nextUnattempted.name} (${nextUnattempted.subjectName}).`,
-                ctaText: `Start ${nextUnattempted.name} Test`,
-                subtopicId: nextUnattempted.subtopicId,
-                subjectId: nextUnattempted.subjectId,
-                topicId: nextUnattempted.topicId
+                title: `Try ${nextInAttemptedSubject.name}`,
+                description: `Continue your ${nextInAttemptedSubject.subjectName} preparation by attempting 25 MCQs on ${nextInAttemptedSubject.name}.`,
+                ctaText: `Start ${nextInAttemptedSubject.name}`,
+                subtopicId: nextInAttemptedSubject.subtopicId,
+                subjectId: nextInAttemptedSubject.subjectId,
+                topicId: nextInAttemptedSubject.topicId
             });
         }
 
-        // 3. Revision Suggestion
-        if (attempts.length >= 3) {
+        // 3. Revision Suggestion based on recent attempted test
+        if (attempts.length > 0) {
             const recent = attempts[0];
             const meta = findSubtopicGlobal(recent.subtopicId);
-            if (meta) {
+            if (meta && !suggestions.some(s => s.subtopicId === recent.subtopicId)) {
                 suggestions.push({
                     type: "review_mistakes",
                     badge: "Revision Recommended",
                     icon: "fa-rotate-right",
                     colorClass: "bg-success",
-                    title: `Review Mistakes in ${meta.subtopic.name}`,
-                    description: `Re-evaluate your previous incorrect questions to eliminate recurring mistakes.`,
-                    ctaText: `Retake ${meta.subtopic.name} Test`,
+                    title: `Retake ${meta.subtopic.name}`,
+                    description: `You recently attempted ${meta.subtopic.name}. Retake with 25 fresh questions to improve your score.`,
+                    ctaText: `Retake ${meta.subtopic.name}`,
                     subtopicId: meta.subtopic.id,
                     subjectId: meta.subject.id,
                     topicId: meta.topic.id
                 });
             }
-        }
-
-        // Fallback default suggestion if empty
-        if (suggestions.length === 0) {
-            const defaultSt = subjectsConfig[0].topics[0].subtopics[0];
-            suggestions.push({
-                type: "general",
-                badge: "Recommended Practice",
-                icon: "fa-circle-play",
-                colorClass: "bg-primary",
-                title: `Start Practice Test: ${defaultSt.name}`,
-                description: "Test your preparation with a randomized 25-question mock test from a 100-MCQ bank.",
-                ctaText: `Start Practice`,
-                subtopicId: defaultSt.id,
-                subjectId: subjectsConfig[0].id,
-                topicId: subjectsConfig[0].topics[0].id
-            });
         }
 
         return suggestions;

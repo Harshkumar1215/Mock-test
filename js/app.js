@@ -406,25 +406,32 @@ const App = {
         }
 
         // Render Recommendations System ("Suggested Practice")
+        const suggestionsSection = document.getElementById("home-suggestions-section");
         if (suggestionsBox) {
             const suggestions = RecommendationEngine.generateSuggestions();
-            suggestionsBox.innerHTML = suggestions.map(sug => {
-                return `
-                    <div class="suggestion-card">
-                        <div class="suggestion-header">
-                            <span class="suggestion-badge ${sug.colorClass}">
-                                <i class="fa-solid ${sug.icon}"></i> ${sug.badge}
-                            </span>
+            if (suggestions && suggestions.length > 0) {
+                if (suggestionsSection) suggestionsSection.style.display = "block";
+                suggestionsBox.innerHTML = suggestions.map(sug => {
+                    return `
+                        <div class="suggestion-card">
+                            <div class="suggestion-header">
+                                <span class="suggestion-badge ${sug.colorClass}">
+                                    <i class="fa-solid ${sug.icon}"></i> ${sug.badge}
+                                </span>
+                            </div>
+                            <h4>${this.escapeHTML(sug.title)}</h4>
+                            <p>${this.escapeHTML(sug.description)}</p>
+                            <button class="btn-cta" onclick="App.openSubtopicFromSuggestion('${sug.subjectId}', '${sug.topicId}', '${sug.subtopicId}')">
+                                <span>${sug.ctaText}</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
                         </div>
-                        <h4>${this.escapeHTML(sug.title)}</h4>
-                        <p>${this.escapeHTML(sug.description)}</p>
-                        <button class="btn-cta" onclick="App.openSubtopicFromSuggestion('${sug.subjectId}', '${sug.topicId}', '${sug.subtopicId}')">
-                            <span>${sug.ctaText}</span>
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </button>
-                    </div>
-                `;
-            }).join("");
+                    `;
+                }).join("");
+            } else {
+                if (suggestionsSection) suggestionsSection.style.display = "none";
+                suggestionsBox.innerHTML = "";
+            }
         }
     },
 

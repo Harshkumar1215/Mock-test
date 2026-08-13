@@ -18,6 +18,13 @@ const App = {
     },
 
     init() {
+        if (typeof subjectsConfig !== "undefined" && Array.isArray(subjectsConfig)) {
+            subjectsConfig.sort((a, b) => {
+                const nameA = a.name.replace(/^\d+\.\s*/, "").trim().toLowerCase();
+                const nameB = b.name.replace(/^\d+\.\s*/, "").trim().toLowerCase();
+                return nameA.localeCompare(nameB);
+            });
+        }
         this.bindEvents();
         this.renderHome();
         this.checkAndRestoreDraft();

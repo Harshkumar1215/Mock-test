@@ -373,7 +373,8 @@ const App = {
 
                 s.topics.forEach(t => {
                     t.subtopics.forEach(st => {
-                        totalMCQs += st.count;
+                        const qCount = QuestionBank.get100Questions(st.id).length;
+                        totalMCQs += qCount;
                         if (stats[st.id] && stats[st.id].attempts > 0) {
                             attemptedSubtopics++;
                         }
@@ -505,7 +506,7 @@ const App = {
         const list = document.getElementById("topics-list-container");
 
         list.innerHTML = subject.topics.map(t => {
-            const totalMCQs = t.subtopics.reduce((acc, st) => acc + st.count, 0);
+            const totalMCQs = t.subtopics.reduce((acc, st) => acc + QuestionBank.get100Questions(st.id).length, 0);
 
             return `
                 <div class="card-item" onclick="App.openTopic('${t.id}')">
@@ -545,23 +546,24 @@ const App = {
         list.innerHTML = topic.subtopics.map(st => {
             const stStat = stats[st.id];
             const hasAttempts = stStat && stStat.attempts > 0;
+            const qCount = QuestionBank.get100Questions(st.id).length;
 
             return `
                 <div class="card-item" style="flex-direction:column; align-items:stretch;" onclick="App.openInstructions('${st.id}')">
                     <div style="display:flex; align-items:center; justify-content:space-between;">
                         <div class="card-title">${st.name}</div>
-                        <span class="tag-badge">100 MCQs Pool</span>
+                        <span class="tag-badge">${qCount} MCQs Pool</span>
                     </div>
                     <div class="card-subtitle" style="margin: 6px 0 10px 0;">${st.desc}</div>
                     <div style="display:flex; align-items:center; justify-content:space-between; padding-top:8px; border-top:1px dashed var(--border);">
                         <div class="card-meta">
                             ${hasAttempts 
                                 ? `<span><i class="fa-solid fa-trophy" style="color:var(--success);"></i> Best: ${stStat.highScore}/25 (${stStat.attempts} attempts)</span>`
-                                : `<span><i class="fa-regular fa-clock"></i> 25 MCQs · 20 Mins</span>`
+                                : `<span><i class="fa-regular fa-file-lines"></i> ${qCount} MCQs Available</span>`
                             }
                         </div>
                         <button class="btn-cta" style="width:auto; min-height:36px; padding:4px 12px; font-size:0.78rem;">
-                            Start Test
+                            View Subtopic
                         </button>
                     </div>
                 </div>
@@ -583,15 +585,32 @@ const App = {
     // =========================================================================
     renderInstructionsPage(subtopic) {
         document.getElementById("ins-subtopic-title").innerText = subtopic.name;
-        document.getElementById("ins-pool-count").innerText = `${subtopic.count} MCQs`;
+        const qCount = QuestionBank.get100Questions(subtopic.id).length;
+        document.getElementById("ins-pool-count").innerText = `${qCount} MCQs`;
+
+        const startBtn = document.getElementById("btn-start-instruction-test");
+        if (startBtn) {
+            if (qCount === 0) {
+                startBtn.style.opacity = "0.6";
+                startBtn.innerHTML = `<span>No MCQs Available Yet</span> <i class="fa-solid fa-ban"></i>`;
+            } else {
+                startBtn.style.opacity = "1";
+                startBtn.innerHTML = `<span>Start Test Now</span> <i class="fa-solid fa-circle-play"></i>`;
+            }
+        }
     },
 
     // =========================================================================
     // PAGE 6: TEST ENGINE EXECUTION
     // =========================================================================
     launchTestEngine(subtopicId) {
-        // Create fresh test session: 25 random questions from 100 pool
-        this.state.testSession = TestEngine.createTestSession(subtopicId, 20);
+        const session = TestEngine.createTestSession(subtopicId, 20);
+        if (!session.questions || session.questions.length === 0) {
+            alert("No MCQs are currently available for this subtopic.");
+            return;
+        }
+
+        this.state.testSession = session;
         StorageManager.saveActiveDraft(this.state.testSession);
 
         this.renderTestQuestion();

@@ -3,11 +3,22 @@
 const TestEngine = {
     // Generate a fresh test session of 25 random questions from 100 subtopic pool
     createTestSession(subtopicId, timeLimitMinutes = 20) {
-        // Fetch all 100 MCQs
-        const full100Pool = QuestionBank.get100Questions(subtopicId);
+        // Fetch all MCQs for subtopic
+        const full100Pool = QuestionBank.get100Questions(subtopicId) || [];
 
-        if (!full100Pool || full100Pool.length < 25) {
-            console.warn("Not enough questions in pool, fallback available");
+        if (!full100Pool || full100Pool.length === 0) {
+            return {
+                subtopicId: subtopicId,
+                questions: [],
+                userAnswers: {},
+                markedReview: {},
+                currentQuestionIndex: 0,
+                startTime: Date.now(),
+                totalTimeSeconds: timeLimitMinutes * 60,
+                timeRemainingSeconds: timeLimitMinutes * 60,
+                isCompleted: false,
+                isEmpty: true
+            };
         }
 
         // Randomly shuffle all 100 questions

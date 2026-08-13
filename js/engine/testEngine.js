@@ -1,12 +1,12 @@
-// Test Engine: Handles Selection of Exactly 60 MCQs per Subtopic Session & Timer
+// Test Engine: Handles Selection of 25 Random Unique MCQs from 60 Question Pool per Attempt
 
 const TestEngine = {
-    // Generate a fresh test session of 60 questions
-    createTestSession(subtopicId, timeLimitMinutes = 35) {
-        // Fetch all 60 MCQs for subtopic
-        const fullPool = QuestionBank.get60Questions(subtopicId) || [];
+    // Generate a fresh test session of 25 random questions from 60 subtopic pool
+    createTestSession(subtopicId, timeLimitMinutes = 20) {
+        // Fetch all 60 MCQs pool for subtopic
+        const full60Pool = QuestionBank.get60Questions(subtopicId) || [];
 
-        if (!fullPool || fullPool.length === 0) {
+        if (!full60Pool || full60Pool.length === 0) {
             return {
                 subtopicId: subtopicId,
                 questions: [],
@@ -21,13 +21,23 @@ const TestEngine = {
             };
         }
 
-        // Process exactly 60 questions
-        const processedQuestions = fullPool.slice(0, 60).map((q, idx) => {
+        // Randomly shuffle all 60 questions from pool
+        const shuffledPool = this._shuffleArray([...full60Pool]);
+
+        // Select exactly 25 unique questions for this attempt
+        const selected25 = shuffledPool.slice(0, 25);
+
+        // Shuffle options for each question and update correctAnswer index
+        const processedQuestions = selected25.map((q, idx) => {
+            const originalCorrectText = q.options[q.correctAnswer];
+            const shuffledOptions = this._shuffleArray([...q.options]);
+            const newCorrectIndex = shuffledOptions.indexOf(originalCorrectText);
+
             return {
                 ...q,
                 testIndex: idx,
-                options: [...q.options],
-                correctAnswer: q.correctAnswer,
+                options: shuffledOptions,
+                correctAnswer: newCorrectIndex,
                 originalCorrectIndex: q.correctAnswer
             };
         });

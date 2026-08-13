@@ -558,8 +558,8 @@ const App = {
                     <div style="display:flex; align-items:center; justify-content:space-between; padding-top:8px; border-top:1px dashed var(--border);">
                         <div class="card-meta">
                             ${hasAttempts 
-                                ? `<span><i class="fa-solid fa-trophy" style="color:var(--success);"></i> Best: ${stStat.highScore}/25 (${stStat.attempts} attempts)</span>`
-                                : `<span><i class="fa-regular fa-file-lines"></i> ${qCount} MCQs Available</span>`
+                                ? `<span><i class="fa-solid fa-trophy" style="color:var(--success);"></i> Best: ${stStat.highScore}/50 (${stStat.attempts} attempts)</span>`
+                                : `<span><i class="fa-regular fa-clock"></i> 50 MCQs · 30 Mins</span>`
                             }
                         </div>
                         <button class="btn-cta" style="width:auto; min-height:36px; padding:4px 12px; font-size:0.78rem;">
@@ -604,7 +604,7 @@ const App = {
     // PAGE 6: TEST ENGINE EXECUTION
     // =========================================================================
     launchTestEngine(subtopicId) {
-        const session = TestEngine.createTestSession(subtopicId, 20);
+        const session = TestEngine.createTestSession(subtopicId, 30);
         if (!session.questions || session.questions.length === 0) {
             alert("No MCQs are currently available for this subtopic.");
             return;

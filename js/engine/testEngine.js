@@ -1,12 +1,12 @@
-// Test Engine: Handles Random Selection of 25 MCQs from 100 Pool, Option Shuffling & Timer
+// Test Engine: Handles Selection of Exactly 50 MCQs per Subtopic Session & Timer
 
 const TestEngine = {
-    // Generate a fresh test session of 25 random questions from 100 subtopic pool
-    createTestSession(subtopicId, timeLimitMinutes = 20) {
-        // Fetch all MCQs for subtopic
-        const full100Pool = QuestionBank.get100Questions(subtopicId) || [];
+    // Generate a fresh test session of 50 questions
+    createTestSession(subtopicId, timeLimitMinutes = 30) {
+        // Fetch all 50 MCQs for subtopic
+        const fullPool = QuestionBank.get50Questions(subtopicId) || [];
 
-        if (!full100Pool || full100Pool.length === 0) {
+        if (!fullPool || fullPool.length === 0) {
             return {
                 subtopicId: subtopicId,
                 questions: [],
@@ -21,23 +21,13 @@ const TestEngine = {
             };
         }
 
-        // Randomly shuffle all 100 questions
-        const shuffledPool = this._shuffleArray([...full100Pool]);
-
-        // Select exactly 25 unique questions
-        const selected25 = shuffledPool.slice(0, 25);
-
-        // Shuffle options for each question and update correctAnswer index
-        const processedQuestions = selected25.map((q, idx) => {
-            const originalCorrectText = q.options[q.correctAnswer];
-            const shuffledOptions = this._shuffleArray([...q.options]);
-            const newCorrectIndex = shuffledOptions.indexOf(originalCorrectText);
-
+        // Process exactly 50 questions
+        const processedQuestions = fullPool.slice(0, 50).map((q, idx) => {
             return {
                 ...q,
                 testIndex: idx,
-                options: shuffledOptions,
-                correctAnswer: newCorrectIndex,
+                options: [...q.options],
+                correctAnswer: q.correctAnswer,
                 originalCorrectIndex: q.correctAnswer
             };
         });

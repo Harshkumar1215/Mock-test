@@ -1,18 +1,32 @@
 // Recommendation Engine: Analyzes performance and generates intelligent practice suggestions
 
+function findSubtopicGlobal(subtopicId) {
+    if (typeof subjectsConfig === "undefined") return null;
+    for (const subject of subjectsConfig) {
+        for (const topic of subject.topics) {
+            for (const subtopic of topic.subtopics) {
+                if (subtopic.id === subtopicId) {
+                    return { subject, topic, subtopic };
+                }
+            }
+        }
+    }
+    return null;
+}
+
 const RecommendationEngine = {
-    // Generate practice suggestions based ONLY on subtopics/subjects the user has actually attempted
+    // Generate practice suggestions based on user history and performance
     generateSuggestions() {
         const stats = StorageManager.getSubtopicStats();
         const attempts = StorageManager.getAttempts();
         const suggestions = [];
 
-        // If user has not attempted any test yet, return empty array (do NOT show recommendations)
+        // If user has not attempted any test yet, return empty array
         if (!attempts || attempts.length === 0) {
             return [];
         }
 
-        // 1. Identify Weak Subtopics among ONLY attempted subtopics
+        // 1. Identify Weak Subtopics among attempted subtopics
         const weakSubtopics = [];
         for (const [stId, data] of Object.entries(stats)) {
             if (data && data.attempts > 0 && (data.lastAccuracy < 65 || data.avgAccuracy < 65)) {

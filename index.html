@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mock Test & Practice App</title>
+    <title>Mock Test & Practice App - C Programming Master Edition</title>
     
     <!-- Google Fonts (Inter) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,13 +16,13 @@
     <!-- Chart.js Library CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- Custom Mobile CSS -->
+    <!-- Custom Flexible CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <!-- Main Mobile Application Viewport Shell -->
-    <div class="app-shell">
+    <!-- Main Application Viewport Shell -->
+    <div class="app-shell" id="main-app-shell">
         
         <!-- Top App Bar Header -->
         <header class="top-bar">
@@ -35,9 +35,18 @@
                 </div>
                 <h1 class="top-bar-title" id="app-top-title">Practice Test Pro</h1>
             </div>
-            <button class="btn-icon-nav" id="btn-top-refresh" title="Reload / Refresh App">
-                <i class="fa-solid fa-rotate-right"></i>
-            </button>
+            
+            <div class="top-bar-actions">
+                <button class="btn-icon-nav" id="btn-top-theme" title="Toggle Dark / Light Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <button class="btn-icon-nav" id="btn-top-expand" title="Toggle Desktop Fluid / Mobile Frame View">
+                    <i class="fa-solid fa-expand"></i>
+                </button>
+                <button class="btn-icon-nav" id="btn-top-refresh" title="Reload / Refresh App">
+                    <i class="fa-solid fa-rotate-right"></i>
+                </button>
+            </div>
         </header>
 
         <!-- Main Body Scroll Area -->
@@ -49,91 +58,148 @@
                 <!-- Global Search Box on Home Page -->
                 <div class="search-container" style="margin-bottom: 18px;">
                     <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                    <input type="text" id="home-search-input" class="search-input" placeholder="Search Subject, Topic (e.g. Sets, Python, Matrices)...">
-                    <button class="search-clear-btn" id="home-search-clear" style="display: none;" title="Clear Search">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
+                    <input type="text" id="home-search-input" class="search-input" placeholder="Search Topics, Subtopics & MCQs (e.g. Tokens, Pointers, Struct)...">
+                    <button id="home-search-clear" class="search-clear"><i class="fa-solid fa-xmark"></i></button>
                 </div>
 
-                <!-- Search Results Container (Hidden by default, shown when searching) -->
+                <!-- Global Search Results View -->
                 <div id="home-search-results-container" style="display: none; margin-bottom: 20px;">
-                    <div id="home-search-meta" style="font-size:0.85rem; font-weight:700; color:var(--primary); margin-bottom:10px;"></div>
-                    <div id="home-search-results" class="card-stack"></div>
+                    <div style="font-size:0.85rem; font-weight:700; color:var(--text-secondary); margin-bottom:10px;" id="home-search-meta">
+                        Search Results
+                    </div>
+                    <div id="home-search-results"></div>
                 </div>
 
-                <!-- Main Home Content (Hidden during active search) -->
                 <div id="home-main-content">
-                    <!-- Suggested Practice Recommendations -->
-                    <div id="home-suggestions-section" style="margin-bottom: 18px; display: none;">
-                        <div style="font-size:0.92rem; font-weight:800; color:var(--text-primary); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-                            <i class="fa-solid fa-wand-magic-sparkles" style="color:var(--primary);"></i> Recommended for You
-                        </div>
-                        <div id="home-suggestions">
-                            <!-- Populated dynamically via recommendationEngine.js -->
+                    <!-- Hero Banner -->
+                    <div class="hero-banner" style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); color:#fff; padding:18px; border-radius:var(--radius-lg); margin-bottom:18px; box-shadow:var(--shadow-md);">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                            <div>
+                                <span class="badge bg-amber" style="margin-bottom:6px;"><i class="fa-solid fa-star"></i> Master Syllabus</span>
+                                <h2 style="font-size:1.25rem; font-weight:800; margin-bottom:4px;">C Programming Practice</h2>
+                                <p style="font-size:0.82rem; opacity:0.9;">14 Topics • 47 Subtopics • 4,700 MCQs (100 per subtopic)</p>
+                            </div>
+                            <div style="font-size:2.2rem; opacity:0.85;">
+                                <i class="fa-solid fa-code"></i>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Subjects Cards -->
-                    <div style="font-size:0.92rem; font-weight:800; color:var(--text-primary); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-                        <i class="fa-solid fa-book-open" style="color:var(--primary);"></i> Explore Subjects
+                    <!-- Available Subject Cards Grid -->
+                    <div class="section-title" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                        <span style="font-size:0.92rem; font-weight:800; color:var(--text-primary);">Course Syllabus</span>
+                        <span style="font-size:0.75rem; color:var(--primary); font-weight:700;">4,700 MCQs Total</span>
                     </div>
-                    <div id="home-subject-grid" class="card-stack">
-                        <!-- Populated dynamically via app.js -->
+
+                    <div id="home-subject-grid" class="home-subject-grid">
+                        <!-- Rendered via App.renderHome() -->
+                    </div>
+
+                    <!-- AI Suggested Practice Section -->
+                    <div id="home-suggestions-section" style="margin-top:20px; display:none;">
+                        <div class="section-title" style="margin-bottom:10px; font-weight:800; font-size:0.92rem; display:flex; align-items:center; gap:6px;">
+                            <i class="fa-solid fa-wand-magic-sparkles" style="color:var(--primary);"></i> Intelligent Recommendations
+                        </div>
+                        <div class="suggestions-scroll-wrapper" id="home-suggestions">
+                            <!-- Rendered via RecommendationEngine -->
+                        </div>
                     </div>
                 </div>
+
             </section>
 
-            <!-- PAGE 2: SUBJECTS LIST & SEARCH -->
+            <!-- PAGE 2: SUBJECTS LIST PAGE -->
             <section id="screen-subjects" class="view-screen">
-                <div class="breadcrumb-trail">Home ➔ <span>Subjects</span></div>
-                
-                <div class="search-container">
+                <div class="search-container" style="margin-bottom: 16px;">
                     <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                    <input type="text" id="search-input" class="search-input" placeholder="Search Subjects, Topics, Subtopics...">
-                    <button class="search-clear-btn" id="subjects-search-clear" style="display: none;" title="Clear Search">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
+                    <input type="text" id="search-input" class="search-input" placeholder="Search topics & keywords...">
+                    <button id="subjects-search-clear" class="search-clear"><i class="fa-solid fa-xmark"></i></button>
                 </div>
 
-                <div id="subjects-full-list" class="card-stack">
-                    <!-- Populated dynamically via app.js -->
+                <div class="section-title" style="margin-bottom: 12px; font-weight:800; font-size:0.95rem;">All Topics & Categories</div>
+                <div id="subjects-full-list">
+                    <!-- Rendered via App.renderSubjectsList() -->
                 </div>
             </section>
 
-            <!-- PAGE 3: TOPICS LIST -->
+            <!-- PAGE 3: TOPICS PAGE -->
             <section id="screen-topics" class="view-screen">
-                <div class="breadcrumb-trail">Subjects ➔ <span id="topic-subject-title">Subject</span></div>
-                <div id="topics-list-container" class="card-stack">
-                    <!-- Populated dynamically via app.js -->
+                <div style="margin-bottom:14px; background:var(--surface); padding:14px; border-radius:var(--radius-md); border:1px solid var(--border);">
+                    <div style="font-size:0.75rem; color:var(--primary); font-weight:700; text-transform:uppercase;">Subject Topic Index</div>
+                    <h2 id="topic-subject-title" style="font-size:1.15rem; font-weight:800; color:var(--text-primary); margin-top:2px;">Subject Name</h2>
+                </div>
+
+                <div class="section-title" style="margin-bottom: 10px; font-weight:800; font-size:0.9rem;">Select Topic:</div>
+                <div id="topics-list-container">
+                    <!-- Rendered via App.renderTopics() -->
                 </div>
             </section>
 
-            <!-- PAGE 4: SUBTOPICS LIST -->
+            <!-- PAGE 4: SUBTOPICS PAGE -->
             <section id="screen-subtopics" class="view-screen">
-                <div class="breadcrumb-trail">Topics ➔ <span id="subtopic-topic-title">Topic</span></div>
-                <div id="subtopics-list-container" class="card-stack">
-                    <!-- Populated dynamically via app.js -->
+                <div style="margin-bottom:14px; background:var(--surface); padding:14px; border-radius:var(--radius-md); border:1px solid var(--border);">
+                    <div style="font-size:0.75rem; color:var(--primary); font-weight:700; text-transform:uppercase;">Subtopic Modules</div>
+                    <h2 id="subtopic-topic-title" style="font-size:1.1rem; font-weight:800; color:var(--text-primary); margin-top:2px;">Topic Name</h2>
+                </div>
+
+                <div class="section-title" style="margin-bottom: 10px; font-weight:800; font-size:0.9rem;">Select Subtopic (100 MCQs Each):</div>
+                <div id="subtopics-list-container">
+                    <!-- Rendered via App.renderSubtopics() -->
                 </div>
             </section>
 
-            <!-- PAGE 5: TEST INSTRUCTIONS -->
+            <!-- PAGE 5: TEST INSTRUCTIONS & CONFIGURATION PAGE -->
             <section id="screen-instructions" class="view-screen">
-                <div class="hero-banner">
-                    <h2>Test Instructions</h2>
-                    <p id="ins-subtopic-title">Subtopic Name</p>
+                <div class="hero-banner" style="background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); color:#fff; padding:18px; border-radius:var(--radius-lg); margin-bottom:16px;">
+                    <span class="badge bg-amber" style="margin-bottom:4px;"><i class="fa-solid fa-play"></i> Test Session Config</span>
+                    <h2 style="font-size:1.2rem; font-weight:800;" id="ins-subtopic-title">Subtopic Name</h2>
+                    <p style="font-size:0.8rem; opacity:0.9;">Available Pool: <span id="ins-pool-count">100 MCQs</span></p>
                 </div>
 
                 <div class="card-item" style="flex-direction:column; align-items:stretch; margin-bottom:16px;">
-                    <div style="font-size:0.9rem; font-weight:800; margin-bottom:10px; color:var(--primary-dark);">
-                        <i class="fa-solid fa-circle-info"></i> Practice Test Parameters
+                    <div style="font-size:0.9rem; font-weight:800; margin-bottom:10px; color:var(--primary);">
+                        <i class="fa-solid fa-sliders"></i> Flexible Test Parameters
                     </div>
-                    <ul style="font-size:0.84rem; color:var(--text-secondary); line-height:1.7; padding-left:20px;">
-                        <li><strong>Test Length:</strong> Exactly 25 Questions</li>
-                        <li><strong>Question Pool:</strong> <span id="ins-pool-count">60 MCQs</span></li>
-                        <li><strong>Selection Mode:</strong> 25 unique questions randomly sampled per attempt</li>
-                        <li><strong>Time Limit:</strong> 20 Minutes (auto-submit on zero)</li>
-                        <li><strong>Navigation:</strong> Next, Prev, Mark for Review & Question Palette</li>
-                    </ul>
+
+                    <!-- Question Count Selector -->
+                    <div style="margin-bottom:12px;">
+                        <label for="practice-count-select" style="font-size:0.82rem; font-weight:700; color:var(--text-primary); display:block; margin-bottom:6px;">
+                            <i class="fa-solid fa-list-check"></i> Questions Per Attempt:
+                        </label>
+                        <select id="practice-count-select" class="search-input" style="padding:8px 12px; font-size:0.85rem; width:100%; border-radius:var(--radius-sm);">
+                            <option value="25">25 Questions (Standard Test)</option>
+                            <option value="20">20 Questions (Quick Test)</option>
+                            <option value="15">15 Questions (Short Quiz)</option>
+                            <option value="10">10 Questions (Sprint)</option>
+                        </select>
+                    </div>
+
+                    <!-- Time Limit Selector -->
+                    <div style="margin-bottom:12px;">
+                        <label for="practice-time-select" style="font-size:0.82rem; font-weight:700; color:var(--text-primary); display:block; margin-bottom:6px;">
+                            <i class="fa-regular fa-clock"></i> Time Limit:
+                        </label>
+                        <select id="practice-time-select" class="search-input" style="padding:8px 12px; font-size:0.85rem; width:100%; border-radius:var(--radius-sm);">
+                            <option value="20">20 Minutes (Standard)</option>
+                            <option value="15">15 Minutes</option>
+                            <option value="10">10 Minutes</option>
+                            <option value="30">30 Minutes (Relaxed)</option>
+                            <option value="999">No Time Limit (Practice Mode)</option>
+                        </select>
+                    </div>
+
+                    <!-- Difficulty Mode Selector -->
+                    <div>
+                        <label for="practice-mode-select" style="font-size:0.82rem; font-weight:700; color:var(--text-primary); display:block; margin-bottom:6px;">
+                            <i class="fa-solid fa-layer-group"></i> Difficulty Mode:
+                        </label>
+                        <select id="practice-mode-select" class="search-input" style="padding:8px 12px; font-size:0.85rem; width:100%; border-radius:var(--radius-sm);">
+                            <option value="random">Random Mix (From 100 MCQ Pool)</option>
+                            <option value="easy">Easy Difficulty Focus</option>
+                            <option value="medium">Medium Difficulty Focus</option>
+                            <option value="hard">Hard Difficulty Focus</option>
+                        </select>
+                    </div>
                 </div>
 
                 <button class="btn-cta" id="btn-start-instruction-test">
@@ -144,236 +210,266 @@
 
             <!-- PAGE 6: TEST ENGINE -->
             <section id="screen-test" class="view-screen">
-                <!-- Sticky Top Status Header -->
-                <div class="sticky-test-header">
-                    <div class="test-header-row">
-                        <div class="test-counter" id="test-question-counter">Question 1 / 25</div>
-                        <div class="timer-pill">
-                            <i class="fa-regular fa-clock"></i>
-                            <span id="test-timer-val">20:00</span>
+                <div class="test-layout-grid">
+                    <!-- Left Test Main Panel -->
+                    <div>
+                        <!-- Sticky Top Status Header -->
+                        <div class="test-header-bar">
+                            <div style="font-weight:800; font-size:0.88rem; color:var(--primary);" id="test-question-counter">Question 1 / 25</div>
+                            <div class="timer-box">
+                                <i class="fa-regular fa-clock"></i>
+                                <span id="test-timer-val">20:00</span>
+                            </div>
                         </div>
-                        <button class="btn-secondary" id="btn-open-palette" style="min-height:32px; padding:4px 10px; font-size:0.78rem;">
-                            <i class="fa-solid fa-table-cells"></i> Palette
-                        </button>
-                    </div>
-                    <div class="progress-bar-sm" style="margin-top:10px;">
-                        <div class="progress-bar-sm-fill" id="test-progress-fill" style="width:0%;"></div>
-                    </div>
-                </div>
 
-                <!-- Question & Options Card -->
-                <div class="question-box">
-                    <div class="question-text-val" id="test-q-text">Loading question...</div>
-                    <div class="options-stack" id="test-options-stack">
-                        <!-- Populated dynamically via app.js -->
+                        <!-- Progress Bar -->
+                        <div class="progress-bar-sm" style="margin-bottom:14px;">
+                            <div class="progress-bar-sm-fill" id="test-progress-fill" style="width: 4%;"></div>
+                        </div>
+
+                        <!-- Question Container -->
+                        <div class="question-box">
+                            <div class="question-text" id="test-q-text">Loading question...</div>
+                            <div class="options-stack" id="test-options-stack"></div>
+                        </div>
+
+                        <!-- Bottom Control Buttons -->
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:10px;">
+                            <button class="btn-secondary" id="btn-test-prev" style="justify-content:center;">
+                                <i class="fa-solid fa-chevron-left"></i> Previous
+                            </button>
+                            <button class="btn-cta" id="btn-test-next" style="justify-content:center;">
+                                <span>Next</span>
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                        </div>
+
+                        <div style="display:flex; justify-content:space-between; gap:8px;">
+                            <button class="btn-secondary" id="btn-test-clear" style="flex:1; font-size:0.78rem; min-height:38px;">
+                                Clear Answer
+                            </button>
+                            <button class="btn-secondary" id="btn-test-mark" style="flex:1; font-size:0.78rem; min-height:38px;">
+                                <i class="fa-regular fa-bookmark"></i> Mark
+                            </button>
+                            <button class="btn-secondary" id="btn-open-palette" style="flex:1; font-size:0.78rem; min-height:38px; color:var(--primary); font-weight:700;">
+                                <i class="fa-solid fa-grid-2"></i> Palette
+                            </button>
+                            <button class="btn-cta" id="btn-test-submit" style="flex:1.2; font-size:0.8rem; min-height:38px; background:linear-gradient(135deg, #059669 0%, #10b981 100%);">
+                                Submit
+                            </button>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Test Controls Bar -->
-                <div class="controls-grid">
-                    <button class="btn-secondary" id="btn-test-prev">
-                        <i class="fa-solid fa-chevron-left"></i> Prev
-                    </button>
-                    <button class="btn-secondary" id="btn-test-clear">Clear</button>
-                    <button class="btn-mark" id="btn-test-mark">
-                        <i class="fa-regular fa-bookmark"></i> Mark
-                    </button>
-                </div>
-
-                <div style="margin-top:12px;">
-                    <button class="btn-cta" id="btn-test-next">
-                        <span>Next Question</span>
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </button>
-                    <button class="btn-cta" id="btn-test-submit" style="background:var(--success); margin-top:8px;">
-                        <i class="fa-solid fa-check-double"></i> Submit Test
-                    </button>
+                    <!-- Right Desktop Side Palette Panel -->
+                    <div class="desktop-palette-panel" style="background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px; box-shadow:var(--shadow-sm);">
+                        <div style="font-weight:800; font-size:0.95rem; margin-bottom:10px; color:var(--text-primary); display:flex; align-items:center; justify-content:space-between;">
+                            <span><i class="fa-solid fa-grid-2" style="color:var(--primary);"></i> Question Palette</span>
+                        </div>
+                        <div style="display:flex; gap:10px; font-size:0.72rem; font-weight:700; margin-bottom:12px;">
+                            <span style="color:var(--success);">🟢 Answered</span>
+                            <span style="color:var(--warning);">🟡 Marked</span>
+                            <span style="color:var(--text-muted);">⬜ Skipped</span>
+                        </div>
+                        <div class="palette-grid-5col" id="desktop-palette-grid" style="max-height:380px;"></div>
+                    </div>
                 </div>
             </section>
 
-            <!-- PAGE 7: RESULT DASHBOARD & CHARTS -->
+            <!-- PAGE 7: RESULT & DETAILED PERFORMANCE DASHBOARD -->
             <section id="screen-result" class="view-screen">
-                <div class="result-card">
-                    <div style="font-size:0.85rem; font-weight:700; color:var(--text-muted);">TEST COMPLETED</div>
-                    <div class="score-display" id="res-score-val">0 / 25</div>
-                    <div style="font-size:0.95rem; font-weight:800; color:var(--primary);" id="res-pct-val">0%</div>
-
-                    <div id="res-perf-badge" class="performance-badge badge-good">Good Performance</div>
-
-                    <div class="stats-3col">
-                        <div class="stat-cell c-green">
-                            <strong id="res-c-count">0</strong>
-                            <span>Correct</span>
-                        </div>
-                        <div class="stat-cell c-red">
-                            <strong id="res-w-count">0</strong>
-                            <span>Incorrect</span>
-                        </div>
-                        <div class="stat-cell c-gray">
-                            <strong id="res-u-count">0</strong>
-                            <span>Skipped</span>
-                        </div>
-                    </div>
-
-                    <div style="display:flex; justify-content:space-around; margin-top:10px; font-size:0.82rem; color:var(--text-secondary);">
-                        <div>Accuracy: <strong id="res-acc-val">0%</strong></div>
-                        <div>Time Taken: <strong id="res-time-val">0m 0s</strong></div>
+                <!-- Result Hero Score Box -->
+                <div style="background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); color:#fff; padding:20px; border-radius:var(--radius-lg); text-align:center; margin-bottom:16px; box-shadow:var(--shadow-md);">
+                    <div style="font-size:0.8rem; font-weight:700; opacity:0.9; text-transform:uppercase;">Test Score Summary</div>
+                    <div style="font-size:2.4rem; font-weight:800; margin:4px 0;" id="res-score-val">18 / 25</div>
+                    <div style="display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.2); padding:4px 14px; border-radius:var(--radius-full); font-size:0.85rem; font-weight:700;">
+                        <span id="res-pct-val">72%</span> • <span id="res-perf-badge" class="performance-badge">Good</span>
                     </div>
                 </div>
 
-                <!-- Doughnut Score Chart -->
-                <div class="chart-box">
-                    <h4><i class="fa-solid fa-chart-pie" style="color:var(--primary);"></i> Score Breakdown</h4>
-                    <div class="canvas-container">
+                <!-- 4 Metrics Row -->
+                <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:8px; margin-bottom:16px;">
+                    <div style="background:var(--surface); padding:10px 4px; border-radius:var(--radius-md); text-align:center; border:1px solid var(--border);">
+                        <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700;">CORRECT</div>
+                        <div style="font-size:1.1rem; font-weight:800; color:var(--success);" id="res-c-count">0</div>
+                    </div>
+                    <div style="background:var(--surface); padding:10px 4px; border-radius:var(--radius-md); text-align:center; border:1px solid var(--border);">
+                        <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700;">WRONG</div>
+                        <div style="font-size:1.1rem; font-weight:800; color:var(--danger);" id="res-w-count">0</div>
+                    </div>
+                    <div style="background:var(--surface); padding:10px 4px; border-radius:var(--radius-md); text-align:center; border:1px solid var(--border);">
+                        <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700;">SKIPPED</div>
+                        <div style="font-size:1.1rem; font-weight:800; color:var(--text-secondary);" id="res-u-count">0</div>
+                    </div>
+                    <div style="background:var(--surface); padding:10px 4px; border-radius:var(--radius-md); text-align:center; border:1px solid var(--border);">
+                        <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700;">ACCURACY</div>
+                        <div style="font-size:1.1rem; font-weight:800; color:var(--primary);" id="res-acc-val">0%</div>
+                    </div>
+                </div>
+
+                <!-- Charts Container -->
+                <div style="background:var(--surface); padding:14px; border-radius:var(--radius-md); border:1px solid var(--border); margin-bottom:16px;">
+                    <div style="font-size:0.85rem; font-weight:800; margin-bottom:10px; color:var(--text-primary);">
+                        <i class="fa-solid fa-chart-pie" style="color:var(--primary);"></i> Score Breakdown & Performance Trend
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center; height:180px;">
                         <canvas id="chart-score-doughnut"></canvas>
                     </div>
                 </div>
 
-                <!-- Line Trend Chart -->
-                <div class="chart-box">
-                    <h4><i class="fa-solid fa-chart-line" style="color:var(--accent);"></i> Performance Trend (Attempts)</h4>
-                    <div class="canvas-container">
-                        <canvas id="chart-trend-line"></canvas>
-                    </div>
+                <!-- Action Buttons -->
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:16px;">
+                    <button class="btn-secondary" id="btn-res-review" style="justify-content:center;">
+                        <i class="fa-solid fa-list-check"></i> Review Answers
+                    </button>
+                    <button class="btn-cta" id="btn-res-retry" style="justify-content:center;">
+                        <span>Retry Test</span>
+                        <i class="fa-solid fa-rotate-right"></i>
+                    </button>
                 </div>
 
-                <!-- Review Mistakes Section -->
-                <div style="margin-bottom:16px;">
-                    <div style="font-size:0.92rem; font-weight:800; color:var(--text-primary); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-                        <i class="fa-solid fa-circle-exclamation" style="color:var(--danger);"></i> Review Mistakes & Explanations
+                <!-- Strong vs Weak Summary -->
+                <div style="background:var(--surface); padding:14px; border-radius:var(--radius-md); border:1px solid var(--border); margin-bottom:16px;">
+                    <div style="font-size:0.88rem; font-weight:800; color:var(--text-primary); margin-bottom:8px;">
+                        <i class="fa-solid fa-chart-line" style="color:var(--primary);"></i> Topic Strengths & Weaknesses
                     </div>
-                    <div id="res-mistakes-container" class="card-stack">
-                        <!-- Populated dynamically via app.js -->
-                    </div>
+                    <div id="res-strong-weak-container"></div>
                 </div>
 
-                <!-- Action CTAs -->
-                <div style="display:flex; flex-direction:column; gap:8px;">
-                    <button class="btn-cta" id="btn-res-review">
-                        <i class="fa-solid fa-list-check"></i> Review All Answers
-                    </button>
-                    <button class="btn-secondary" id="btn-res-retry">
-                        <i class="fa-solid fa-rotate-right"></i> Retry Test (New 25 MCQs)
-                    </button>
-                    <button class="btn-secondary" id="btn-res-home">
-                        <i class="fa-solid fa-house"></i> Back to Home
-                    </button>
+                <!-- Mistakes Breakdown -->
+                <div style="background:var(--surface); padding:14px; border-radius:var(--radius-md); border:1px solid var(--border); margin-bottom:16px;">
+                    <div style="font-size:0.88rem; font-weight:800; color:var(--text-primary); margin-bottom:10px;">
+                        <i class="fa-solid fa-circle-xmark" style="color:var(--danger);"></i> Incorrect Answers Review
+                    </div>
+                    <div id="res-mistakes-container"></div>
                 </div>
+
+                <!-- Recommendations -->
+                <div id="res-suggestions-container"></div>
             </section>
 
-            <!-- PAGE 8: DETAILED ANSWER REVIEW -->
+            <!-- PAGE 8: DETAILED ANSWER KEY REVIEW -->
             <section id="screen-review" class="view-screen">
-                <div class="hero-banner">
-                    <h2>Detailed Answer Key</h2>
-                    <p>Review questions with step-by-step solutions</p>
+                <!-- Review Header -->
+                <div style="margin-bottom:14px; background:var(--surface); padding:14px; border-radius:var(--radius-md); border:1px solid var(--border);">
+                    <h2 style="font-size:1.1rem; font-weight:800; color:var(--text-primary);">Detailed Answer Key Review</h2>
+                    <p style="font-size:0.8rem; color:var(--text-secondary);">Inspect explanations for all 25 questions.</p>
                 </div>
 
-                <div class="filter-tabs" style="display:flex; background:var(--surface); padding:4px; border-radius:var(--radius-md); border:1px solid var(--border); margin-bottom:14px; gap:4px;">
-                    <button class="filter-tab active" data-filter="all">All (25)</button>
-                    <button class="filter-tab" data-filter="correct">Correct</button>
-                    <button class="filter-tab" data-filter="wrong">Incorrect</button>
-                    <button class="filter-tab" data-filter="unattempted">Skipped</button>
+                <!-- Review Filter Tabs -->
+                <div style="display:flex; gap:6px; margin-bottom:14px; overflow-x:auto;">
+                    <button class="btn-secondary filter-tab active" data-filter="all" style="font-size:0.78rem; padding:6px 12px;">All</button>
+                    <button class="btn-secondary filter-tab" data-filter="wrong" style="font-size:0.78rem; padding:6px 12px; color:var(--danger);">Mistakes</button>
+                    <button class="btn-secondary filter-tab" data-filter="correct" style="font-size:0.78rem; padding:6px 12px; color:var(--success);">Correct</button>
+                    <button class="btn-secondary filter-tab" data-filter="unattempted" style="font-size:0.78rem; padding:6px 12px;">Skipped</button>
                 </div>
 
-                <div id="review-full-list" class="card-stack">
-                    <!-- Populated dynamically via app.js -->
-                </div>
+                <!-- Full Itemized List -->
+                <div id="review-full-list"></div>
             </section>
 
-            <!-- PAGE 9: DASHBOARD & HISTORY -->
+            <!-- PAGE 9: USER DASHBOARD & HISTORY -->
             <section id="screen-dashboard" class="view-screen">
-                <div class="hero-banner">
-                    <h2>My Progress Dashboard</h2>
-                    <p>Overall practice statistics and attempt history</p>
+                <div style="background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); color:#fff; padding:18px; border-radius:var(--radius-lg); margin-bottom:16px;">
+                    <div style="font-size:0.8rem; font-weight:700; opacity:0.9; text-transform:uppercase;">Performance Dashboard</div>
+                    <h2 style="font-size:1.25rem; font-weight:800; margin-top:2px;">User Practice Analytics</h2>
                 </div>
 
-                <div class="stats-3col" style="grid-template-columns: repeat(2, 1fr); margin-bottom:16px;">
-                    <div class="stat-cell">
-                        <strong id="dash-tests-count">0</strong>
-                        <span>Tests Attempted</span>
+                <!-- Overall Stats Grid -->
+                <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin-bottom:16px;">
+                    <div style="background:var(--surface); padding:12px; border-radius:var(--radius-md); border:1px solid var(--border);">
+                        <div style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">TESTS TAKEN</div>
+                        <div style="font-size:1.4rem; font-weight:800; color:var(--primary);" id="dash-tests-count">0</div>
                     </div>
-                    <div class="stat-cell">
-                        <strong id="dash-questions-count">0</strong>
-                        <span>Questions Attempted</span>
+                    <div style="background:var(--surface); padding:12px; border-radius:var(--radius-md); border:1px solid var(--border);">
+                        <div style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">QUESTIONS ANSWERED</div>
+                        <div style="font-size:1.4rem; font-weight:800; color:var(--accent);" id="dash-questions-count">0</div>
                     </div>
-                    <div class="stat-cell c-green">
-                        <strong id="dash-avg-acc">0%</strong>
-                        <span>Average Accuracy</span>
+                    <div style="background:var(--surface); padding:12px; border-radius:var(--radius-md); border:1px solid var(--border);">
+                        <div style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">AVG ACCURACY</div>
+                        <div style="font-size:1.4rem; font-weight:800; color:var(--success);" id="dash-avg-acc">0%</div>
                     </div>
-                    <div class="stat-cell c-blue">
-                        <strong id="dash-best-score">0/25</strong>
-                        <span>Best Score</span>
+                    <div style="background:var(--surface); padding:12px; border-radius:var(--radius-md); border:1px solid var(--border);">
+                        <div style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">BEST SCORE</div>
+                        <div style="font-size:1.4rem; font-weight:800; color:var(--warning);" id="dash-best-score">0/25</div>
                     </div>
                 </div>
 
-                <div style="font-size:0.92rem; font-weight:800; color:var(--text-primary); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-                    <i class="fa-solid fa-clock-rotate-left" style="color:var(--primary);"></i> Attempt History
-                </div>
-                <div id="dash-history-list" class="card-stack">
-                    <!-- Populated dynamically via app.js -->
-                </div>
+                <!-- Subject Progress List -->
+                <div class="section-title" style="margin-bottom:10px; font-weight:800; font-size:0.9rem;">Course Progress</div>
+                <div id="dash-subject-progress-container" style="margin-bottom:16px;"></div>
+
+                <!-- Historical Attempts List -->
+                <div class="section-title" style="margin-bottom:10px; font-weight:800; font-size:0.9rem;">Recent Test Attempts</div>
+                <div id="dash-history-list"></div>
             </section>
 
         </main>
 
-        <!-- Bottom Navigation Bar -->
+        <!-- Fixed Bottom Navigation Bar -->
         <nav class="bottom-nav">
             <button class="nav-item active" id="nav-home" data-target="screen-home">
                 <i class="fa-solid fa-house"></i>
                 <span>Home</span>
             </button>
             <button class="nav-item" id="nav-subjects" data-target="screen-subjects">
-                <i class="fa-solid fa-book-open"></i>
-                <span>Subjects</span>
+                <i class="fa-solid fa-layer-group"></i>
+                <span>Topics</span>
             </button>
             <button class="nav-item" id="nav-dashboard" data-target="screen-dashboard">
-                <i class="fa-solid fa-chart-pie"></i>
-                <span>Dashboard</span>
+                <i class="fa-solid fa-chart-simple"></i>
+                <span>Analytics</span>
             </button>
         </nav>
     </div>
 
-    <!-- Question Palette Modal -->
+    <!-- Question Palette Modal Dialog -->
     <div class="modal-mask" id="modal-palette">
         <div class="modal-content-box">
-            <div style="display:flex; align-items:center; justify-content:space-between;">
-                <h3 style="font-size:1.05rem; font-weight:800;">Question Palette</h3>
-                <button class="btn-icon-nav" id="btn-close-palette" style="background:#f1f5f9; color:#000;">
-                    <i class="fa-solid fa-xmark"></i>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                <div style="font-weight:800; font-size:0.95rem;">Question Palette</div>
+                <button id="btn-close-palette" style="background:none; border:none; font-size:1.1rem; cursor:pointer; color:var(--text-muted);"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div style="display:flex; gap:10px; font-size:0.75rem; font-weight:700; margin-bottom:10px;">
+                <span style="color:var(--success);">🟢 Answered</span>
+                <span style="color:var(--warning);">🟡 Marked</span>
+                <span style="color:var(--text-muted);">⬜ Unanswered</span>
+            </div>
+
+            <div class="palette-grid-5col" id="palette-grid"></div>
+
+            <button class="btn-cta" onclick="App.closePaletteModal()" style="margin-top:10px; min-height:38px; font-size:0.85rem;">
+                Back to Test
+            </button>
+        </div>
+    </div>
+
+    <!-- Submit Confirmation Modal Dialog -->
+    <div class="modal-mask" id="modal-submit">
+        <div class="modal-content-box" style="text-align:center;">
+            <div style="font-size:2rem; color:var(--primary); margin-bottom:8px;">
+                <i class="fa-solid fa-circle-question"></i>
+            </div>
+            <h3 style="font-size:1.1rem; font-weight:800; margin-bottom:6px;">Submit Test Attempt?</h3>
+            <p style="font-size:0.82rem; color:var(--text-secondary); margin-bottom:14px;">
+                You answered <strong id="modal-ans-num" style="color:var(--success);">0 / 25</strong> questions.<br>
+                Unanswered: <strong id="modal-unans-num" style="color:var(--danger);">0</strong>
+            </p>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                <button class="btn-secondary" id="btn-modal-cancel-submit" style="justify-content:center;">
+                    Continue Test
+                </button>
+                <button class="btn-cta" id="btn-modal-confirm-submit" style="justify-content:center; background:linear-gradient(135deg, #059669 0%, #10b981 100%);">
+                    Confirm Submit
                 </button>
             </div>
-            <p style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">
-                🟢 Answered | 🟡 Marked | ⬜ Unanswered
-            </p>
-            <div class="palette-grid-5col" id="palette-grid">
-                <!-- 1 to 25 question grid -->
-            </div>
         </div>
     </div>
 
-    <!-- Submit Confirmation Modal -->
-    <div class="modal-mask" id="modal-submit">
-        <div class="modal-content-box">
-            <h3 style="font-size:1.1rem; font-weight:800;"><i class="fa-solid fa-circle-question" style="color:var(--primary);"></i> Submit Test?</h3>
-            <p style="font-size:0.82rem; color:var(--text-secondary); margin: 8px 0 14px 0;">
-                Are you sure you want to finish the test? Here is your summary:
-            </p>
-            <div style="background:#f8fafc; padding:12px; border-radius:8px; font-size:0.84rem; margin-bottom:16px;">
-                <div>🟢 Answered: <strong id="modal-ans-num">0 / 25</strong></div>
-                <div>⚪ Unanswered: <strong id="modal-unans-num">0</strong></div>
-            </div>
-            <div style="display:flex; gap:10px;">
-                <button class="btn-secondary" id="btn-modal-cancel-submit" style="flex:1;">Continue</button>
-                <button class="btn-cta" id="btn-modal-confirm-submit" style="flex:1; background:var(--success);">Submit</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Data Registers -->
+    <!-- Application Script Files -->
     <script src="js/data/subjectsConfig.js"></script>
     <script src="js/data/questionBank.js"></script>
-
-    <!-- Storage Manager & Engines -->
     <script src="js/storage.js"></script>
     <script src="js/engine/testEngine.js"></script>
     <script src="js/engine/analyticsEngine.js"></script>

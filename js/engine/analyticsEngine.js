@@ -1,7 +1,7 @@
-// Analytics Engine: Score Math, Chart.js Visualizations & Error Analysis
+// Analytics Engine: Score Math, Chart.js Visualizations & Performance Analysis
 
 const AnalyticsEngine = {
-    // Chart instances cache
+    // Chart instances cache to prevent canvas reuse errors
     _charts: {},
 
     // Calculate test result metrics
@@ -10,7 +10,7 @@ const AnalyticsEngine = {
         let wrong = 0;
         let unattempted = 0;
 
-        const total = session.questions.length; // 25
+        const total = session.questions.length; // 25 questions
 
         const itemizedResults = session.questions.map((q, idx) => {
             const userAns = session.userAnswers[idx];
@@ -71,6 +71,39 @@ const AnalyticsEngine = {
         };
     },
 
+    // Analyze Strong and Weak Subtopics across user history
+    getTopicPerformanceSummary() {
+        const stats = StorageManager.getSubtopicStats();
+        const strong = [];
+        const weak = [];
+
+        for (const [stId, data] of Object.entries(stats)) {
+            if (data && data.attempts > 0) {
+                const meta = findSubtopicGlobal(stId);
+                if (meta) {
+                    const item = {
+                        subtopicId: stId,
+                        name: meta.subtopic.name,
+                        subjectName: meta.subject.name,
+                        topicName: meta.topic.name,
+                        accuracy: data.lastAccuracy ?? data.avgAccuracy ?? 0,
+                        attempts: data.attempts
+                    };
+                    if (item.accuracy >= 75) {
+                        strong.push(item);
+                    } else if (item.accuracy < 65) {
+                        weak.push(item);
+                    }
+                }
+            }
+        }
+
+        strong.sort((a, b) => b.accuracy - a.accuracy);
+        weak.sort((a, b) => a.accuracy - b.accuracy);
+
+        return { strong, weak };
+    },
+
     // Render Doughnut Chart for Score Breakdown
     renderScoreDoughnutChart(canvasId, result) {
         this._destroyChart(canvasId);
@@ -121,7 +154,7 @@ const AnalyticsEngine = {
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Score Percentage (%)',
+                    label: 'Score (%)',
                     data: data,
                     borderColor: '#2563eb',
                     backgroundColor: 'rgba(37, 99, 235, 0.1)',

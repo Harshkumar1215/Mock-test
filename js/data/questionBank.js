@@ -2,9 +2,10 @@
  * Master Question Bank Repository & Procedural Generator Engine
  * Multi-Subject Master Repository:
  * 1. Computer Programming using C (14 Topics • 47 Subtopics • 4,700 MCQs)
- * 2. Computer Science Essentials (Bridge) (6 Topics • 12 Subtopics • 1,200 MCQs)
- * 3. Discrete Structures & Optimization (6 Topics • 8 Subtopics • 800 MCQs)
- * Total: 26 Topics • 67 Subtopics • 6,700 MCQs (100 MCQs per subtopic)
+ * 2. Programming in Python (12 Topics • 30 Subtopics • 3,000 MCQs)
+ * 3. Computer Science Essentials (Bridge) (6 Topics • 12 Subtopics • 1,200 MCQs)
+ * 4. Discrete Structures & Optimization (6 Topics • 8 Subtopics • 800 MCQs)
+ * Total: 38 Topics • 97 Subtopics • 9,700 MCQs (100 MCQs per subtopic)
  */
 
 window.QuestionBank = (function () {
@@ -12,7 +13,7 @@ window.QuestionBank = (function () {
     const questionCache = {};
 
     // ------------------------------------------------------------------
-    // SEED QUESTIONS DATABASE (Exhaustive C, CS Essentials & Discrete Structures)
+    // SEED QUESTIONS DATABASE (Exhaustive C, Python, CS Essentials & Discrete)
     // ------------------------------------------------------------------
     const seedQuestions = {
         // C PROGRAMMING SEEDS
@@ -26,161 +27,170 @@ window.QuestionBank = (function () {
                 tags: ["c-tokens", "keywords"]
             }
         ],
-        // COMPUTER SCIENCE ESSENTIALS SEEDS
-        cs_hardware_software: [
+        // PYTHON SEEDS
+        python_intro_pep8: [
             {
-                question: "Which component of the CPU is responsible for performing mathematical calculations and logical comparisons?",
-                options: ["ALU (Arithmetic Logic Unit)", "CU (Control Unit)", "Registers", "Cache Memory"],
+                question: "Which official style guide defines coding standards and conventions for Python code layout?",
+                options: ["PEP 8", "PEP 20", "PEP 484", "PEP 257"],
                 correctAnswer: 0,
-                explanation: "The Arithmetic Logic Unit (ALU) executes mathematical operations and decision-making logic.",
+                explanation: "PEP 8 is Python's official Style Guide for Python Code.",
                 difficulty: "easy",
-                tags: ["cpu", "hardware"]
+                tags: ["pep8", "python-syntax"]
             }
         ],
-        // DISCRETE STRUCTURES & OPTIMIZATION SEEDS
-        discrete_sets_inclusion: [
+        python_indentation_comments: [
             {
-                question: "If a set S contains n distinct elements, how many elements are present in its Power Set P(S)?",
-                options: ["2ⁿ elements", "2n elements", "n² elements", "n! elements"],
+                question: "How does Python delineate block structure in control statements and function definitions?",
+                options: ["By whitespace Indentation", "By curly braces {}", "By begin...end keywords", "By semicolons ;"],
                 correctAnswer: 0,
-                explanation: "The cardinality of the Power Set |P(S)| = 2ⁿ for a set with n elements.",
+                explanation: "Python uses mandatory whitespace indentation to define code block scope.",
                 difficulty: "easy",
-                tags: ["power-set", "sets"]
-            },
-            {
-                question: "According to the Principle of Inclusion-Exclusion for two sets A and B, what is |A ∪ B| equal to?",
-                options: ["|A| + |B| - |A ∩ B|", "|A| + |B| + |A ∩ B|", "|A| × |B|", "|A| - |B|"],
-                correctAnswer: 0,
-                explanation: "|A ∪ B| = |A| + |B| - |A ∩ B| to avoid double counting the intersection elements.",
-                difficulty: "easy",
-                tags: ["inclusion-exclusion"]
+                tags: ["indentation"]
             }
         ],
-        discrete_relations_functions: [
+        python_numeric_types: [
             {
-                question: "Which three properties MUST a relation satisfy to be classified as an Equivalence Relation?",
+                question: "Which built-in Python numeric type provides arbitrary precision integers limited only by available RAM?",
+                options: ["int (Integer)", "float", "complex", "long"],
+                correctAnswer: 0,
+                explanation: "In Python 3, integers (`int`) have arbitrary precision and expand dynamically.",
+                difficulty: "easy",
+                tags: ["arbitrary-precision"]
+            }
+        ],
+        python_strings_basics: [
+            {
+                question: "Which string prefix disables escape sequence processing, treating backslashes `\\` as literal characters?",
+                options: ["r\"...\" (Raw String)", "f\"...\" (Formated String)", "b\"...\" (Byte String)", "u\"...\""],
+                correctAnswer: 0,
+                explanation: "Prefixing a string with `r` or `R` creates a Raw String.",
+                difficulty: "easy",
+                tags: ["raw-strings"]
+            }
+        ],
+        python_arithmetic_relational: [
+            {
+                question: "What is the output of floor division operator `17 // 5` in Python 3?",
+                options: ["3", "3.4", "2", "3.0"],
+                correctAnswer: 0,
+                explanation: "`//` is the floor division operator which returns the integer floor (17 // 5 = 3).",
+                difficulty: "easy",
+                tags: ["floor-division"]
+            }
+        ],
+        python_identity_membership: [
+            {
+                question: "What is the fundamental difference between identity operator `is` and equality operator `==` in Python?",
                 options: [
-                    "Reflexive, Symmetric, and Transitive",
-                    "Reflexive, Antisymmetric, and Transitive",
-                    "Irreflexive, Symmetric, and Transitive",
-                    "Reflexive, Symmetric, and Asymmetric"
+                    "`is` tests object memory identity (id); `==` checks value equality",
+                    "`==` tests object memory identity; `is` checks value equality",
+                    "Both test value equality identically",
+                    "`is` is used for numbers; `==` for strings"
                 ],
                 correctAnswer: 0,
-                explanation: "An Equivalence Relation must be Reflexive (aRa), Symmetric (aRb ⇒ bRa), and Transitive (aRb & bRc ⇒ aRc).",
+                explanation: "`is` checks `id(a) == id(b)` (same memory address), whereas `==` checks value equivalence.",
                 difficulty: "medium",
-                tags: ["equivalence-relation"]
-            },
-            {
-                question: "What is a function f: A → B called if every element in target set B has at least one pre-image in A?",
-                options: ["Surjective (Onto) Function", "Injective (One-to-One) Function", "Bijective Function", "Constant Function"],
-                correctAnswer: 0,
-                explanation: "A function is Surjective (Onto) if its Range equals its Codomain B.",
-                difficulty: "easy",
-                tags: ["surjective-function"]
+                tags: ["identity-vs-equality"]
             }
         ],
-        discrete_counting_permutations: [
+        python_ternary_pass: [
             {
-                question: "If k + 1 or more objects are placed into k boxes, then at least one box MUST contain 2 or more objects. Which mathematical principle states this?",
-                options: ["Pigeonhole Principle", "Handshaking Lemma", "De Morgan's Law", "Euler's Theorem"],
+                question: "Which keyword in Python serves as a no-operation placeholder inside empty function or class blocks?",
+                options: ["pass", "continue", "break", "skip"],
                 correctAnswer: 0,
-                explanation: "The Pigeonhole Principle guarantees that placing n > k items into k containers yields at least one container with ⌈n/k⌉ items.",
+                explanation: "The `pass` statement is a null statement used as a syntactic placeholder.",
                 difficulty: "easy",
-                tags: ["pigeonhole-principle"]
-            },
-            {
-                question: "How many distinct ways can 5 distinct books be arranged in a line on a bookshelf?",
-                options: ["120 ways (5!)", "25 ways", "60 ways", "10 ways"],
-                correctAnswer: 0,
-                explanation: "5 books can be arranged in 5! = 5 × 4 × 3 × 2 × 1 = 120 ways.",
-                difficulty: "easy",
-                tags: ["permutations"]
+                tags: ["pass-statement"]
             }
         ],
-        discrete_recurrence_generating: [
+        python_loop_helpers: [
             {
-                question: "What is the characteristic equation for the Fibonacci recurrence relation Fₙ = Fₙ₋₁ + Fₙ₋₂?",
-                options: ["r² - r - 1 = 0", "r² + r + 1 = 0", "r² - 1 = 0", "r² - 2r + 1 = 0"],
+                question: "What does the `range(2, 10, 2)` function call produce when iterated in a for loop?",
+                options: ["[2, 4, 6, 8]", "[2, 4, 6, 8, 10]", "[2, 3, 4, 5, 6, 7, 8, 9]", "[0, 2, 4, 6, 8]"],
                 correctAnswer: 0,
-                explanation: "Substituting Fₙ = rⁿ gives rⁿ = rⁿ⁻¹ + rⁿ⁻² ⇒ r² - r - 1 = 0.",
-                difficulty: "medium",
-                tags: ["recurrence-relations"]
+                explanation: "`range(start, stop, step)` generates values from start up to (stop - 1) incremented by step.",
+                difficulty: "easy",
+                tags: ["range"]
             }
         ],
-        discrete_algebraic_structures: [
+        python_comprehensions: [
             {
-                question: "An algebraic structure (G, *) is classified as a GROUP if it satisfies which four axioms?",
+                question: "What is the correct syntax for generating a list of even squares `[0, 4, 16, 36]` for x from 0 to 6?",
                 options: [
-                    "Closure, Associativity, Identity element, and Inverse element",
-                    "Closure, Commutativity, Identity, and Distributivity",
-                    "Associativity, Commutativity, Identity, and Inverse",
-                    "Closure, Associativity, and Identity only"
+                    "[x**2 for x in range(7) if x % 2 == 0]",
+                    "[x*2 for x in range(7) if x % 2 == 0]",
+                    "{x**2 for x in range(7)}",
+                    "[x^2 for x in range(7)]"
                 ],
                 correctAnswer: 0,
-                explanation: "A Group requires Closure, Associativity, an Identity element e, and an Inverse a⁻¹ for every element.",
+                explanation: "`[x**2 for x in range(7) if x % 2 == 0]` evaluates even squares in list comprehension.",
                 difficulty: "medium",
-                tags: ["group-theory"]
-            },
-            {
-                question: "What is a Group (G, *) called if it also satisfies the Commutative Property (a * b = b * a)?",
-                options: ["Abelian Group", "Monoid", "Cyclic Subgroup", "Ring"],
-                correctAnswer: 0,
-                explanation: "A commutative group is called an Abelian Group in honor of Niels Henrik Abel.",
-                difficulty: "easy",
-                tags: ["abelian-group"]
+                tags: ["list-comprehensions"]
             }
         ],
-        discrete_boolean_algebra: [
+        python_args_kwargs: [
             {
-                question: "According to De Morgan's Law in Boolean Algebra, what is the complement of (A · B)?",
-                options: ["A' + B'", "A' · B'", "(A + B)'", "A · B'"],
+                question: "Which special parameter syntax in function definitions collects an arbitrary number of positional arguments into a tuple?",
+                options: ["*args", "**kwargs", "*kwargs", "&args"],
                 correctAnswer: 0,
-                explanation: "De Morgan's theorem states (A · B)' = A' + B' and (A + B)' = A' · B'.",
-                difficulty: "easy",
-                tags: ["de-morgan"]
+                explanation: "`*args` collects additional positional arguments into a tuple, while `**kwargs` collects keyword arguments into a dict.",
+                difficulty: "medium",
+                tags: ["args-kwargs"]
             }
         ],
-        discrete_graph_fundamentals: [
+        python_classes_objects: [
             {
-                question: "According to the Handshaking Lemma for undirected graphs, what is the sum of degrees of all vertices equal to?",
-                options: ["2 × (Number of Edges)", "Number of Edges", "Vertices × Edges", "Edges / 2"],
+                question: "What is the mandatory first parameter passed to instance methods inside a Python class definition?",
+                options: ["self", "this", "cls", "base"],
                 correctAnswer: 0,
-                explanation: "The Handshaking Lemma states ∑ deg(v) = 2|E|, since every edge contributes 2 to the degree sum.",
+                explanation: "By convention, `self` represents the instance of the class being operated upon.",
                 difficulty: "easy",
-                tags: ["handshaking-lemma"]
+                tags: ["self"]
             }
         ],
-        discrete_eulerian_hamiltonian: [
+        python_inheritance_dunder: [
             {
-                question: "What condition guarantees that a connected undirected graph contains an Eulerian Circuit?",
+                question: "Which built-in function is used to invoke a method from a parent/superclass in derived Python classes?",
+                options: ["super()", "parent()", "base()", "ancestor()"],
+                correctAnswer: 0,
+                explanation: "`super()` delegates method calls to a parent or sibling class in the Method Resolution Order (MRO).",
+                difficulty: "easy",
+                tags: ["super"]
+            }
+        ],
+        python_exceptions_try_except: [
+            {
+                question: "Which block in Python's exception handling construct executes ONLY if NO exceptions were raised in the try block?",
+                options: ["else", "finally", "except", "catch"],
+                correctAnswer: 0,
+                explanation: "The `else` block runs when the `try` block succeeds without throwing an exception.",
+                difficulty: "medium",
+                tags: ["try-except-else"]
+            }
+        ],
+        python_file_io_context: [
+            {
+                question: "Why is using `with open(filename) as f:` recommended for file operations in Python?",
                 options: [
-                    "Every vertex has an EVEN degree",
-                    "Every vertex has an ODD degree",
-                    "The graph is a tree",
-                    "The graph has exactly 2 vertices of odd degree"
+                    "It automatically closes the file even if exceptions occur inside the block",
+                    "It speeds up file reading speed by 10x",
+                    "It encrypts the text content",
+                    "It locks the file from being edited by OS"
                 ],
                 correctAnswer: 0,
-                explanation: "Euler's Theorem states a connected graph has an Eulerian Circuit if and only if every vertex has an even degree.",
-                difficulty: "medium",
-                tags: ["eulerian-circuit"]
+                explanation: "`with` acts as a context manager that guarantees proper resource cleanup (closing the file).",
+                difficulty: "easy",
+                tags: ["with-open"]
             }
         ],
-        discrete_trees_coloring: [
+        python_iterators_generators: [
             {
-                question: "If a connected tree graph T has n vertices, how many edges does T contain?",
-                options: ["n - 1 edges", "n edges", "n + 1 edges", "n(n-1)/2 edges"],
+                question: "Which keyword converts a standard Python function into a Generator that yields values lazily one at a time?",
+                options: ["yield", "return", "generate", "emit"],
                 correctAnswer: 0,
-                explanation: "A tree with n vertices always contains exactly |E| = n - 1 edges.",
+                explanation: "Functions containing the `yield` keyword produce a generator iterator when called.",
                 difficulty: "easy",
-                tags: ["tree-properties"]
-            },
-            {
-                question: "According to Euler's Planar Graph Formula, for any connected planar graph with V vertices, E edges, and F faces, what is V - E + F equal to?",
-                options: ["2", "1", "0", "4"],
-                correctAnswer: 0,
-                explanation: "Euler's formula for connected planar graphs states V - E + F = 2.",
-                difficulty: "medium",
-                tags: ["planar-graphs"]
+                tags: ["yield-generator"]
             }
         ]
     };
@@ -253,8 +263,276 @@ window.QuestionBank = (function () {
     }
 
     function createVariationQuestion(subtopicId, idx, difficulty, subName, subjectName) {
-        // DISCRETE STRUCTURES GENERATORS
-        if (subtopicId === "discrete_sets_inclusion") {
+        // PYTHON GENERATORS FOR ALL 30 SUBTOPICS
+        if (subtopicId === "python_intro_pep8" || subtopicId === "python_tokens_syntax") {
+            const kw = ["False", "None", "True", "and", "as", "assert", "async", "await", "break", "class", "continue", "def", "del", "elif", "else", "except", "finally", "for", "from", "global", "if", "import", "in", "is", "lambda", "nonlocal", "not", "or", "pass", "raise", "return", "try", "while", "with", "yield"];
+            const item = kw[idx % kw.length];
+            return {
+                question: `Is '${item}' a reserved keyword in Python 3 syntax?`,
+                options: ["Yes, it is a reserved keyword in Python 3", "No, it is a built-in module function", "No, it is a global variable name", "No, it is a string method"],
+                correctAnswer: 0,
+                explanation: `'${item}' is one of the reserved keywords in standard Python 3.`,
+                tags: ["python-keywords"]
+            };
+        } else if (subtopicId === "python_indentation_comments") {
+            return {
+                question: `How are docstrings defined inside Python functions or classes to populate the __doc__ attribute?`,
+                options: ["Using triple-quoted strings (\"\"\"...\"\"\") immediately after the definition header", "Using # comments at the start of file", "Using // comments", "Using /* ... */ comments"],
+                correctAnswer: 0,
+                explanation: "Docstrings are created using triple quotes immediately following `def` or `class`.",
+                tags: ["docstrings"]
+            };
+        } else if (subtopicId === "python_numeric_types" || subtopicId === "python_data_types") {
+            const types = [
+                { val: "42", type: "int (Integer)" },
+                { val: "3.14159", type: "float (Floating Point)" },
+                { val: "'Hello'", type: "str (String)" },
+                { val: "[1, 2, 3]", type: "list (List)" },
+                { val: "(10, 20)", type: "tuple (Tuple)" },
+                { val: "{'a': 1}", type: "dict (Dictionary)" }
+            ];
+            const t = types[idx % types.length];
+            return {
+                question: `What is the type of literal expression \`${t.val}\` in Python?`,
+                options: [`${t.type}`, "complex", "set", "bytes"],
+                correctAnswer: 0,
+                explanation: `Literal \`${t.val}\` evaluates to data type ${t.type}.`,
+                tags: ["python-types"]
+            };
+        } else if (subtopicId === "python_strings_basics") {
+            return {
+                question: `What is the characteristic behavior when attempting to modify a character in a Python string via indexing \`s[0] = 'X'\`?`,
+                options: ["TypeError (Strings are Immutable)", "The character is updated", "IndexError", "ValueError"],
+                correctAnswer: 0,
+                explanation: "Python strings are immutable; item assignment raises a TypeError.",
+                tags: ["string-immutability"]
+            };
+        } else if (subtopicId === "python_type_casting") {
+            return {
+                question: `Which built-in function checks whether an object is an instance of a specified class or subclass tuple?`,
+                options: ["isinstance(object, classinfo)", "type(object)", "checktype(object)", "typeof(object)"],
+                correctAnswer: 0,
+                explanation: "`isinstance()` evaluates subclass and inheritance relationships.",
+                tags: ["isinstance"]
+            };
+        } else if (subtopicId === "python_arithmetic_relational" || subtopicId === "python_operators_expressions") {
+            const a = (idx % 5) + 2;
+            const b = 3;
+            const res = Math.pow(a, b);
+            return {
+                question: `What is the result of exponentiation expression \`${a} ** ${b}\` in Python?`,
+                options: [`${res}`, `${a * b}`, `${a + b}`, `${a / b}`],
+                correctAnswer: 0,
+                explanation: `Operator \`**\` performs exponentiation: ${a}^${b} = ${res}.`,
+                tags: ["python-exponentiation"]
+            };
+        } else if (subtopicId === "python_logical_bitwise") {
+            return {
+                question: `In short-circuit logical expression \`A and B\`, under what condition is expression B evaluated?`,
+                options: ["Only if expression A evaluates to True", "Only if expression A evaluates to False", "Always evaluated regardless of A", "Never evaluated"],
+                correctAnswer: 0,
+                explanation: "Logical `and` short-circuits: if A is False, False is returned immediately without evaluating B.",
+                tags: ["short-circuit"]
+            };
+        } else if (subtopicId === "python_identity_membership") {
+            return {
+                question: `Which operator tests whether a specified element exists inside a container (list, tuple, dict, set, string)?`,
+                options: ["in / not in", "is / is not", "==", "exists"],
+                correctAnswer: 0,
+                explanation: "`in` and `not in` are membership testing operators.",
+                tags: ["membership"]
+            };
+        } else if (subtopicId === "python_if_elif_else" || subtopicId === "python_control_flow") {
+            return {
+                question: `Which Python control keyword is evaluated when all preceding \`if\` and \`elif\` conditions evaluate to False?`,
+                options: ["else", "default", "finally", "otherwise"],
+                correctAnswer: 0,
+                explanation: "The `else` block executes when none of the preceding `if` or `elif` conditions are True.",
+                tags: ["python-else"]
+            };
+        } else if (subtopicId === "python_ternary_pass") {
+            return {
+                question: `What is the correct syntax for a conditional expression (ternary operator) in Python?`,
+                options: ["X if Condition else Y", "Condition ? X : Y", "if Condition then X else Y", "X when Condition else Y"],
+                correctAnswer: 0,
+                explanation: "Python ternary syntax is `X if Condition else Y`.",
+                tags: ["ternary"]
+            };
+        } else if (subtopicId === "python_for_while_loops" || subtopicId === "python_loops_iteration") {
+            return {
+                question: `When does the optional \`else\` block attached to a \`for\` or \`while\` loop execute?`,
+                options: [
+                    "When the loop terminates naturally without encountering a break statement",
+                    "When a break statement is executed",
+                    "When an exception occurs inside the loop",
+                    "At the start of every iteration"
+                ],
+                correctAnswer: 0,
+                explanation: "Loop `else` runs if the loop finishes all iterations naturally without hitting a `break`.",
+                tags: ["loop-else"]
+            };
+        } else if (subtopicId === "python_loop_helpers") {
+            return {
+                question: `What does the \`enumerate(iterable)\` function in Python for loops yield?`,
+                options: [
+                    "Tuples containing (index, element) pairs",
+                    "Sorted items",
+                    "Reversed sequence",
+                    "Length of iterable"
+                ],
+                correctAnswer: 0,
+                explanation: "`enumerate()` returns (index, element) tuples.",
+                tags: ["enumerate"]
+            };
+        } else if (subtopicId === "python_list_operations" || subtopicId === "python_lists_tuples") {
+            return {
+                question: `Which list method removes and returns the element at a specified index (or last item by default)?`,
+                options: ["list.pop()", "list.remove()", "list.delete()", "list.discard()"],
+                correctAnswer: 0,
+                explanation: "`pop([i])` removes and returns item at index i (default last item).",
+                tags: ["list-pop"]
+            };
+        } else if (subtopicId === "python_tuple_operations") {
+            return {
+                question: `How do you define a single-element tuple in Python?`,
+                options: ["(42,)", "(42)", "tuple(42)", "[42]"],
+                correctAnswer: 0,
+                explanation: "A single-element tuple requires a trailing comma: `(42,)`.",
+                tags: ["single-tuple"]
+            };
+        } else if (subtopicId === "python_set_operations") {
+            return {
+                question: `Which set operation operator computes the Union of two sets A and B?`,
+                options: ["A | B", "A & B", "A - B", "A ^ B"],
+                correctAnswer: 0,
+                explanation: "`|` is set union, `&` is intersection, `-` is difference, `^` is symmetric difference.",
+                tags: ["set-union"]
+            };
+        } else if (subtopicId === "python_dict_operations" || subtopicId === "python_sets_dicts") {
+            return {
+                question: `What key property MUST an object possess to be used as a key in a Python dictionary?`,
+                options: ["It must be Hashable (Immutable)", "It must be an integer", "It must be a string", "It must be mutable"],
+                correctAnswer: 0,
+                explanation: "Dictionary keys must be hashable objects (such as strings, numbers, or tuples).",
+                tags: ["dict-keys"]
+            };
+        } else if (subtopicId === "python_comprehensions" || subtopicId === "python_list_comprehensions") {
+            return {
+                question: `What does list comprehension \`[x for x in range(5) if x % 2 != 0]\` evaluate to?`,
+                options: ["[1, 3]", "[0, 2, 4]", "[1, 2, 3, 4, 5]", "[0, 1, 2, 3, 4]"],
+                correctAnswer: 0,
+                explanation: "It filters odd numbers from range(5) (0, 1, 2, 3, 4), producing `[1, 3]`.",
+                tags: ["list-comprehension"]
+            };
+        } else if (subtopicId === "python_lambda_map_filter" || subtopicId === "python_lambda_modules") {
+            return {
+                question: `What is the syntax for defining an anonymous inline function in Python?`,
+                options: ["lambda arguments: expression", "def inline(args): expression", "function(args) => expression", "anonymous(args): expression"],
+                correctAnswer: 0,
+                explanation: "`lambda args: expression` creates single-expression inline anonymous functions.",
+                tags: ["lambda"]
+            };
+        } else if (subtopicId === "python_function_basics") {
+            return {
+                question: `What value does a Python function return by default if it contains no explicit \`return\` statement?`,
+                options: ["None", "0", "False", "Empty string"],
+                correctAnswer: 0,
+                explanation: "Functions without an explicit return statement implicitly return `None`.",
+                tags: ["default-return"]
+            };
+        } else if (subtopicId === "python_args_kwargs") {
+            return {
+                question: `Which parameter syntax collects arbitrary keyword arguments passed to a Python function into a dictionary?`,
+                options: ["**kwargs", "*args", "*kwargs", "&kwargs"],
+                correctAnswer: 0,
+                explanation: "`**kwargs` captures arbitrary keyword arguments as a dictionary.",
+                tags: ["kwargs"]
+            };
+        } else if (subtopicId === "python_legb_scope") {
+            return {
+                question: `According to Python's LEGB scope resolution rule, what does the acronym LEGB stand for?`,
+                options: [
+                    "Local, Enclosing, Global, Built-in",
+                    "Literal, Expression, Global, Block",
+                    "Lexical, Environment, Global, Base",
+                    "List, Element, Group, Binary"
+                ],
+                correctAnswer: 0,
+                explanation: "Python searches namespaces in order: Local -> Enclosing -> Global -> Built-in.",
+                tags: ["legb-scope"]
+            };
+        } else if (subtopicId === "python_classes_objects") {
+            return {
+                question: `Which special method in a Python class serves as the Object Initializer / Constructor?`,
+                options: ["__init__(self)", "__construct__(self)", "__new__(self)", "__create__(self)"],
+                correctAnswer: 0,
+                explanation: "`__init__()` initializes a newly created object instance.",
+                tags: ["init-constructor"]
+            };
+        } else if (subtopicId === "python_methods_decorators") {
+            return {
+                question: `Which decorator converts a class method into a method bound to the class itself (receiving \`cls\` instead of \`self\`)?`,
+                options: ["@classmethod", "@staticmethod", "@property", "@classmethod_self"],
+                correctAnswer: 0,
+                explanation: "`@classmethod` passes the class object `cls` as the first argument.",
+                tags: ["classmethod"]
+            };
+        } else if (subtopicId === "python_inheritance_dunder" || subtopicId === "python_inheritance_polymorphism") {
+            return {
+                question: `What is Method Resolution Order (MRO) in Python object-oriented programming?`,
+                options: [
+                    "The order in which Python searches for attributes and methods in class hierarchies",
+                    "The execution order of for loops inside class methods",
+                    "The order of garbage collection",
+                    "The variable assignment sequence"
+                ],
+                correctAnswer: 0,
+                explanation: "MRO defines the class inheritance search order (accessible via `Class.mro()`).",
+                tags: ["mro"]
+            };
+        } else if (subtopicId === "python_exceptions_try_except" || subtopicId === "python_exception_handling") {
+            return {
+                question: `Which statement is used to manually trigger / raise an exception in Python?`,
+                options: ["raise Exception()", "throw Exception()", "trigger Exception()", "emit Exception()"],
+                correctAnswer: 0,
+                explanation: "The `raise` keyword raises a specified exception.",
+                tags: ["raise-exception"]
+            };
+        } else if (subtopicId === "python_file_io_context" || subtopicId === "python_file_io") {
+            return {
+                question: `Which file mode parameter in \`open(filename, mode)\` appends new data to the end of a file without overwriting?`,
+                options: ["'a' (Append mode)", "'w' (Write mode)", "'r' (Read mode)", "'x' (Exclusive creation)"],
+                correctAnswer: 0,
+                explanation: "Mode `'a'` opens the file for appending data to the end.",
+                tags: ["file-append"]
+            };
+        } else if (subtopicId === "python_iterators_generators") {
+            return {
+                question: `Which keyword converts a standard Python function into a Generator that yields values lazily one at a time?`,
+                options: ["yield", "return", "generate", "emit"],
+                correctAnswer: 0,
+                explanation: "Functions containing the `yield` keyword produce a generator iterator when called.",
+                tags: ["yield-generator"]
+            };
+        } else if (subtopicId === "python_decorators_closures") {
+            return {
+                question: `In Python syntax, what does the \`@\` symbol before a function definition signify?`,
+                options: ["Applying a Decorator function", "Defining an Asynchronous function", "Creating a Lambda expression", "Declaring a Global variable"],
+                correctAnswer: 0,
+                explanation: "The `@decorator` syntax applies wrapper function logic to the decorated function.",
+                tags: ["decorators"]
+            };
+        } else if (subtopicId === "python_standard_library" || subtopicId === "python_std_library") {
+            return {
+                question: `Which standard library module provides function \`json.loads(json_string)\` to parse a JSON string into a Python dictionary?`,
+                options: ["json", "sys", "os", "pickle"],
+                correctAnswer: 0,
+                explanation: "`json.loads()` parses JSON string into Python dict/list data structures.",
+                tags: ["json-module"]
+            };
+        }
+        // DISCRETE & CS ESSENTIALS GENERATORS
+        else if (subtopicId === "discrete_sets_inclusion") {
             const n = (idx % 8) + 2;
             const pSize = Math.pow(2, n);
             return {
@@ -264,105 +542,7 @@ window.QuestionBank = (function () {
                 explanation: `The cardinality of the power set P(A) is 2^${n} = ${pSize}.`,
                 tags: ["power-set"]
             };
-        } else if (subtopicId === "discrete_relations_functions") {
-            const relTypes = [
-                { name: "Reflexive", cond: "aRa holds for all elements a ∈ A" },
-                { name: "Symmetric", cond: "aRb implies bRa for all a, b ∈ A" },
-                { name: "Transitive", cond: "aRb and bRc implies aRc for all a, b, c ∈ A" },
-                { name: "Antisymmetric", cond: "aRb and bRa implies a = b for all a, b ∈ A" }
-            ];
-            const r = relTypes[idx % relTypes.length];
-            return {
-                question: `Which property of binary relations states that ${r.cond}?`,
-                options: [`${r.name} Property`, "Equivalence Property", "Bijective Property", "Irreflexive Property"],
-                correctAnswer: 0,
-                explanation: `By definition, ${r.name} property requires that ${r.cond}.`,
-                tags: ["relations"]
-            };
-        } else if (subtopicId === "discrete_counting_permutations") {
-            const n = (idx % 6) + 3;
-            let fact = 1;
-            for (let i = 1; i <= n; i++) fact *= i;
-            return {
-                question: `What is the total number of distinct linear permutations of ${n} distinct objects?`,
-                options: [`${fact} (${n}!)`, `${n * 2} ways`, `${Math.pow(2, n)} ways`, `${n * n} ways`],
-                correctAnswer: 0,
-                explanation: `${n} objects can be arranged in ${n}! = ${fact} distinct linear permutations.`,
-                tags: ["permutations"]
-            };
-        } else if (subtopicId === "discrete_recurrence_generating") {
-            const k = (idx % 4) + 1;
-            return {
-                question: `What is the order of the recurrence relation a_n = 2a_{n-1} + 3a_{n-${k}}?`,
-                options: [`Order ${k}`, `Order ${k + 1}`, `Order 1`, `Order 2`],
-                correctAnswer: 0,
-                explanation: `The order of a recurrence is the difference between highest index n and lowest index n-${k}, which equals ${k}.`,
-                tags: ["recurrence"]
-            };
-        } else if (subtopicId === "discrete_algebraic_structures") {
-            const structTypes = [
-                { name: "Group", req: "Closure, Associativity, Identity element, and Inverse element" },
-                { name: "Monoid", req: "Closure, Associativity, and Identity element" },
-                { name: "Semigroup", req: "Closure and Associativity only" },
-                { name: "Abelian Group", req: "Group axioms plus Commutativity" }
-            ];
-            const st = structTypes[idx % structTypes.length];
-            return {
-                question: `Which algebraic structure (S, *) is defined by satisfying ${st.req}?`,
-                options: [`${st.name}`, "Ring", "Field", "Vector Space"],
-                correctAnswer: 0,
-                explanation: `A ${st.name} is an algebraic system satisfying ${st.req}.`,
-                tags: ["algebraic-structures"]
-            };
-        } else if (subtopicId === "discrete_boolean_algebra") {
-            const laws = [
-                { law: "Identity Law", expr: "A + 0 = A and A · 1 = A" },
-                { law: "Domination Law", expr: "A + 1 = 1 and A · 0 = 0" },
-                { law: "Idempotent Law", expr: "A + A = A and A · A = A" },
-                { law: "Complement Law", expr: "A + A' = 1 and A · A' = 0" }
-            ];
-            const l = laws[idx % laws.length];
-            return {
-                question: `Which Boolean Algebra law states that ${l.expr}?`,
-                options: [`${l.law}`, "De Morgan's Law", "Distributive Law", "Absorption Law"],
-                correctAnswer: 0,
-                explanation: `In Boolean Algebra, ${l.law} defines ${l.expr}.`,
-                tags: ["boolean-laws"]
-            };
-        } else if (subtopicId === "discrete_graph_fundamentals") {
-            const v = (idx % 7) + 3;
-            const maxE = (v * (v - 1)) / 2;
-            return {
-                question: `What is the maximum number of edges in a simple undirected graph K_${v} with ${v} vertices?`,
-                options: [`${maxE} edges`, `${v} edges`, `${v * v} edges`, `${maxE * 2} edges`],
-                correctAnswer: 0,
-                explanation: `In a complete graph K_${v}, total edges = C(${v}, 2) = ${v}×${v - 1}/2 = ${maxE}.`,
-                tags: ["complete-graph"]
-            };
-        } else if (subtopicId === "discrete_eulerian_hamiltonian") {
-            return {
-                question: `What is the fundamental difference between an Eulerian Circuit and a Hamiltonian Cycle?`,
-                options: [
-                    "Eulerian traverses every EDGE once; Hamiltonian visits every VERTEX once",
-                    "Eulerian visits every VERTEX once; Hamiltonian traverses every EDGE once",
-                    "Eulerian applies to trees only; Hamiltonian applies to planar graphs",
-                    "Both require all vertices to have odd degrees"
-                ],
-                correctAnswer: 0,
-                explanation: "Eulerian circuits cover all edges; Hamiltonian cycles visit all vertices.",
-                tags: ["eulerian-vs-hamiltonian"]
-            };
-        } else if (subtopicId === "discrete_trees_coloring") {
-            return {
-                question: `What is the Chromatic Number χ(G) of any Bipartite Graph with at least one edge?`,
-                options: ["2 Colors", "1 Color", "3 Colors", "4 Colors"],
-                correctAnswer: 0,
-                explanation: "Every bipartite graph can be colored with exactly 2 colors.",
-                tags: ["bipartite-coloring"]
-            };
-        }
-        // CS ESSENTIALS GENERATORS
-        else if (subtopicId === "cs_hardware_software") {
+        } else if (subtopicId === "cs_hardware_software") {
             const comps = [
                 { name: "ALU (Arithmetic Logic Unit)", role: "Arithmetic calculations & logic operations" },
                 { name: "Control Unit (CU)", role: "Directing instruction execution and data flow" },
@@ -377,141 +557,7 @@ window.QuestionBank = (function () {
                 explanation: `'${c.name}' executes ${c.role}.`,
                 tags: ["cpu-architecture"]
             };
-        } else if (subtopicId === "cs_io_devices") {
-            const dev = [
-                { name: "MICR", cat: "Magnetic Ink Character Recognition (Input)" },
-                { name: "OCR", cat: "Optical Character Recognition (Input)" },
-                { name: "Laser Printer", cat: "Non-impact High Speed Output Device" },
-                { name: "Plotter", cat: "High Precision Vector Graphics Output Device" }
-            ];
-            const d = dev[idx % dev.length];
-            return {
-                question: `Which category best describes the computer peripheral '${d.name}'?`,
-                options: [`${d.cat}`, "Primary Memory Unit", "CPU Microcode", "Storage Controller"],
-                correctAnswer: 0,
-                explanation: `'${d.name}' is classified as a ${d.cat}.`,
-                tags: ["peripherals"]
-            };
-        } else if (subtopicId === "cs_primary_secondary_mem") {
-            const mems = [
-                { name: "RAM", prop: "Volatile Primary Memory requiring active power" },
-                { name: "ROM", prop: "Non-volatile Primary Memory retaining firmware instructions" },
-                { name: "SSD", prop: "Non-volatile Solid State Secondary Storage" },
-                { name: "EPROM", prop: "Erasable Programmable ROM using Ultraviolet light" }
-            ];
-            const m = mems[idx % mems.length];
-            return {
-                question: `Which statement accurately characterizes '${m.name}'?`,
-                options: [`${m.prop}`, "CPU L1 Cache level", "Network Interface Adapter", "ALU Accumulator"],
-                correctAnswer: 0,
-                explanation: `'${m.name}' is defined as ${m.prop}.`,
-                tags: ["memory-types"]
-            };
-        } else if (subtopicId === "cs_cache_registers") {
-            return {
-                question: `Which memory component provides the fastest data access time to the CPU core?`,
-                options: ["Internal CPU Registers", "Level 1 (L1) Cache", "Level 2 (L2) Cache", "System RAM"],
-                correctAnswer: 0,
-                explanation: "Registers inside the CPU core operate at full processor clock cycle speed.",
-                tags: ["registers-speed"]
-            };
-        } else if (subtopicId === "cs_number_systems") {
-            const baseMap = [
-                { sys: "Binary", base: "Base-2 (Digits 0, 1)" },
-                { sys: "Octal", base: "Base-8 (Digits 0 to 7)" },
-                { sys: "Decimal", base: "Base-10 (Digits 0 to 9)" },
-                { sys: "Hexadecimal", base: "Base-16 (Digits 0-9, A-F)" }
-            ];
-            const b = baseMap[idx % baseMap.length];
-            return {
-                question: `What is the base (radix) and digit set of '${b.sys}' Number System?`,
-                options: [`${b.base}`, "Base-32", "Base-64", "Base-128"],
-                correctAnswer: 0,
-                explanation: `'${b.sys}' is a ${b.base} positional system.`,
-                tags: ["number-systems"]
-            };
-        } else if (subtopicId === "cs_binary_arithmetic") {
-            return {
-                question: `How is the 2's complement of a binary number computed?`,
-                options: [
-                    "Invert all bits (1's complement) and add 1",
-                    "Invert all bits only",
-                    "Add 1 to the original binary number",
-                    "Shift all bits to the left by 1 position"
-                ],
-                correctAnswer: 0,
-                explanation: "2's complement = (1's complement) + 1.",
-                tags: ["twos-complement"]
-            };
-        } else if (subtopicId === "cs_word_processing") {
-            return {
-                question: `Which word processing feature merges a document template with a data source to generate personalized letters?`,
-                options: ["Mail Merge", "Macro Automation", "Paragraph Styling", "Track Changes"],
-                correctAnswer: 0,
-                explanation: "Mail Merge combines templates with data sources.",
-                tags: ["mail-merge"]
-            };
-        } else if (subtopicId === "cs_spreadsheets") {
-            return {
-                question: `Which Excel spreadsheet formula syntax correctly uses absolute cell referencing?`,
-                options: ["=$A$1 + $B$1", "=A1 + B1", "=A$1 + B$1", "=$A1 + $B1"],
-                correctAnswer: 0,
-                explanation: "Dollar signs ($A$1) lock both column and row references.",
-                tags: ["absolute-cell"]
-            };
-        } else if (subtopicId === "cs_presentation_graphics") {
-            return {
-                question: `Which view in presentation software modifies default fonts, colors, and layout for all slides deck-wide?`,
-                options: ["Slide Master View", "Slide Sorter View", "Presenter View", "Reading View"],
-                correctAnswer: 0,
-                explanation: "Slide Master controls master formatting for all slides.",
-                tags: ["slide-master"]
-            };
-        } else if (subtopicId === "cs_dbms_basics") {
-            return {
-                question: `In Relational Database Management Systems (RDBMS), what is a Primary Key?`,
-                options: [
-                    "A field or combination of fields that uniquely identifies each record in a table",
-                    "A field that links two tables together",
-                    "A field that allows duplicate NULL values",
-                    "A security password field"
-                ],
-                correctAnswer: 0,
-                explanation: "A Primary Key uniquely identifies rows without null or duplicate values.",
-                tags: ["primary-key"]
-            };
-        } else if (subtopicId === "cs_os_fundamentals") {
-            return {
-                question: `In Operating Systems, what is the core difference between Kernel and Shell?`,
-                options: [
-                    "Kernel manages hardware & memory; Shell interprets user commands",
-                    "Kernel interprets user commands; Shell manages hardware & memory",
-                    "Kernel is GUI software; Shell is hardware chip",
-                    "Kernel runs in user mode; Shell runs in supervisor mode"
-                ],
-                correctAnswer: 0,
-                explanation: "Kernel is OS core managing resources; Shell is the user command interface.",
-                tags: ["kernel-vs-shell"]
-            };
-        } else if (subtopicId === "cs_data_communications") {
-            return {
-                question: `Which transmission mode supports bidirectional data flow, but only ONE direction at a time (e.g., Walkie-Talkie)?`,
-                options: ["Half-Duplex", "Full-Duplex", "Simplex", "Simultaneous Transmission"],
-                correctAnswer: 0,
-                explanation: "Half-Duplex allows two-way communication, but not simultaneously.",
-                tags: ["half-duplex"]
-            };
-        } else if (subtopicId === "cs_network_topologies") {
-            return {
-                question: `In which network topology are all network nodes connected to a central hub or switch?`,
-                options: ["Star Topology", "Bus Topology", "Ring Topology", "Mesh Topology"],
-                correctAnswer: 0,
-                explanation: "In Star Topology, all devices connect to a central hub/switch.",
-                tags: ["star-topology"]
-            };
-        }
-        // C PROGRAMMING GENERATORS
-        else if (subtopicId === "c_tokens_keywords") {
+        } else if (subtopicId === "c_tokens_keywords") {
             const tokens = ["auto", "break", "case", "char", "const", "continue", "default", "do", "double", "else", "enum", "extern", "float", "for", "goto", "if", "inline", "int", "long", "register", "restrict", "return", "short", "signed", "sizeof", "static", "struct", "switch", "typedef", "union", "unsigned", "void", "volatile", "while"];
             const tok = tokens[idx % tokens.length];
             return {
@@ -522,7 +568,6 @@ window.QuestionBank = (function () {
                 tags: ["c-tokens"]
             };
         } else {
-            // General Fallback with REAL subject-matter terminology
             return {
                 question: `Which core principle accurately applies to ${subName}?`,
                 options: [

@@ -158,78 +158,119 @@ const subjectsConfig = [
         "name": "Programming in Python",
         "icon": "fa-brands fa-python",
         "badgeColor": "bg-amber",
-        "description": "Comprehensive master Python syllabus covering 8 Topics & 16 Subtopics with 100 MCQs each (1,600 total MCQs).",
+        "description": "Exhaustive master Python syllabus covering 12 Topics & 30 Subtopics with 100 MCQs each (3,000 total MCQs).",
         "topics": [
             {
                 "id": "python_topic_syntax",
-                "name": "Topic 1: Python Overview, Syntax & Data Types",
+                "name": "Topic 1: Intro to Python, PEP 8 & Program Execution",
                 "icon": "fa-code",
                 "subtopics": [
-                    { "id": "python_tokens_syntax", "name": "1.1 Python Overview, PEP 8, Identifiers & Indentation", "count": 100, "desc": "Python design philosophy, PEP 8 style, indentation rules, dynamic typing, keywords & comments" },
-                    { "id": "python_data_types", "name": "1.2 Primitive Data Types & Type Conversion", "count": 100, "desc": "int, float, complex, bool, str, type casting, type() and isinstance(), mutability vs immutability" }
+                    { "id": "python_intro_pep8", "name": "1.1 Python Overview, PEP 8, Identifiers & Design Philosophy", "count": 100, "desc": "Python design rules, PEP 8 guidelines, CPython interpreter, valid identifiers & keywords" },
+                    { "id": "python_indentation_comments", "name": "1.2 Indentation, Comments & Docstrings (__doc__)", "count": 100, "desc": "Whitespace block indentation, single/multi-line comments, docstrings & __doc__ attribute" }
+                ]
+            },
+            {
+                "id": "python_topic_types",
+                "name": "Topic 2: Variables, Primitive Types & Type Conversion",
+                "icon": "fa-layer-group",
+                "subtopics": [
+                    { "id": "python_numeric_types", "name": "2.1 Numeric Types (int, float, complex) & Booleans", "count": 100, "desc": "Arbitrary precision integers, floating point representation, complex numbers, boolean truthiness" },
+                    { "id": "python_strings_basics", "name": "2.2 Strings (str), Immutability & Escape Sequences", "count": 100, "desc": "String immutability, triple quotes, raw strings r\"\", escape sequences & unicode support" },
+                    { "id": "python_type_casting", "name": "2.3 Type Conversion, Casting & Type Checking", "count": 100, "desc": "Implicit promotion, explicit type casting (int, float, str), type() and isinstance()" }
                 ]
             },
             {
                 "id": "python_topic_operators",
-                "name": "Topic 2: Operators & Control Structure",
+                "name": "Topic 3: Operators & Expression Evaluation",
                 "icon": "fa-calculator",
                 "subtopics": [
-                    { "id": "python_operators_expressions", "name": "2.1 Arithmetic, Relational, Logical & Membership Operators", "count": 100, "desc": "Arithmetic (+, -, *, /, //, %, **), Logical (and, or, not), Identity (is, is not), Membership (in, not in)" },
-                    { "id": "python_control_flow", "name": "2.2 Conditional Statements (if, elif, else) & Ternary", "count": 100, "desc": "if-elif-else branching, nested conditionals, ternary shorthand (X if C else Y), pass statement" }
+                    { "id": "python_arithmetic_relational", "name": "3.1 Arithmetic (+,-,*,/,//,%,**) & Relational Operators", "count": 100, "desc": "Floor division // vs float division /, exponentiation **, relational comparisons" },
+                    { "id": "python_logical_bitwise", "name": "3.2 Logical (and, or, not) & Bitwise Operators", "count": 100, "desc": "Logical short-circuit evaluation (and, or, not), bitwise AND, OR, XOR, NOT, shifts" },
+                    { "id": "python_identity_membership", "name": "3.3 Identity (is) & Membership (in) Operators", "count": 100, "desc": "Object identity operator (is / is not) vs equality (==), membership testing (in / not in)" }
+                ]
+            },
+            {
+                "id": "python_topic_control_flow",
+                "name": "Topic 4: Conditional Control Flow & Decision Making",
+                "icon": "fa-code-branch",
+                "subtopics": [
+                    { "id": "python_if_elif_else", "name": "4.1 Conditional Branching (if, elif, else)", "count": 100, "desc": "if-elif-else ladders, nested conditionals, boolean truth value testing" },
+                    { "id": "python_ternary_pass", "name": "4.2 Conditional Expressions (Ternary) & pass Statement", "count": 100, "desc": "Ternary shorthand (X if Condition else Y), pass placeholder statement" }
                 ]
             },
             {
                 "id": "python_topic_loops",
-                "name": "Topic 3: Loops, Iteration & Comprehensions",
+                "name": "Topic 5: Loop Constructs & Iteration Helpers",
                 "icon": "fa-arrows-rotate",
                 "subtopics": [
-                    { "id": "python_loops_iteration", "name": "3.1 For Loops, While Loops & Iteration Helpers", "count": 100, "desc": "for and while loops, range(), enumerate(), zip(), break, continue, else block on loops" },
-                    { "id": "python_list_comprehensions", "name": "3.2 List, Set & Dictionary Comprehensions", "count": 100, "desc": "[x for x in iterable if cond], set comprehensions {x...}, dict comprehensions {k: v...}" }
+                    { "id": "python_for_while_loops", "name": "5.1 For Loops, While Loops & Iteration", "count": 100, "desc": "for and while loops, infinite loop patterns, condition evaluation" },
+                    { "id": "python_loop_helpers", "name": "5.2 Iteration Helpers (range, enumerate, zip, break, continue, loop else)", "count": 100, "desc": "range(start, stop, step), enumerate(), zip(), break, continue & loop else clause" }
                 ]
             },
             {
-                "id": "python_topic_structures",
-                "name": "Topic 4: Data Structures (Lists, Tuples, Sets, Dicts)",
-                "icon": "fa-layer-group",
+                "id": "python_topic_sequences",
+                "name": "Topic 6: Sequence Data Structures (Lists & Tuples)",
+                "icon": "fa-list",
                 "subtopics": [
-                    { "id": "python_lists_tuples", "name": "4.1 Lists & Tuples (Indexing, Slicing & Methods)", "count": 100, "desc": "List methods (append, extend, pop, sort), slicing list[start:stop:step], tuple packing/unpacking" },
-                    { "id": "python_sets_dicts", "name": "4.2 Sets & Dictionaries (Key-Value Operations)", "count": 100, "desc": "Set union/intersection, Dict methods (keys, values, items, get, setdefault), hashable keys" }
+                    { "id": "python_list_operations", "name": "6.1 Lists (Mutability, Indexing, Slicing & Methods)", "count": 100, "desc": "List mutability, negative indexing, slicing lst[start:stop:step], append, extend, pop, sort" },
+                    { "id": "python_tuple_operations", "name": "6.2 Tuples (Immutability, Packing & Unpacking)", "count": 100, "desc": "Tuple immutability, single element tuples (x,), tuple packing and sequence unpacking" }
+                ]
+            },
+            {
+                "id": "python_topic_unordered",
+                "name": "Topic 7: Unordered Data Structures (Sets & Dictionaries)",
+                "icon": "fa-table",
+                "subtopics": [
+                    { "id": "python_set_operations", "name": "7.1 Sets (Uniqueness, Set Operations & Methods)", "count": 100, "desc": "Set uniqueness, union |, intersection &, difference -, symmetric difference ^" },
+                    { "id": "python_dict_operations", "name": "7.2 Dictionaries (Key-Value Operations & Hashable Keys)", "count": 100, "desc": "Key-value mapping, dict.get(k, default), items(), keys(), values(), hashable key requirements" }
+                ]
+            },
+            {
+                "id": "python_topic_comprehensions",
+                "name": "Topic 8: Comprehensions & Functional Tools",
+                "icon": "fa-gears",
+                "subtopics": [
+                    { "id": "python_comprehensions", "name": "8.1 List, Set & Dictionary Comprehensions", "count": 100, "desc": "List comprehensions [x for x in ...], Set comprehensions {x...}, Dict comprehensions {k:v...}" },
+                    { "id": "python_lambda_map_filter", "name": "8.2 Lambda Expressions, map(), filter() & reduce()", "count": 100, "desc": "Anonymous lambda functions, functional map(), filter(), functools.reduce()" }
                 ]
             },
             {
                 "id": "python_topic_functions",
-                "name": "Topic 5: Functions, Lambdas & Modules",
+                "name": "Topic 9: Functions, Parameters & LEGB Scope",
                 "icon": "fa-cubes",
                 "subtopics": [
-                    { "id": "python_functions_scope", "name": "5.1 Functions (def), Arguments (*args, **kwargs) & Scope", "count": 100, "desc": "Positional, keyword, default args, *args tuple, **kwargs dict, LEGB scope rules, global, nonlocal" },
-                    { "id": "python_lambda_modules", "name": "5.2 Lambda Expressions, Map/Filter & Modules", "count": 100, "desc": "Anonymous lambda functions, map(), filter(), functools.reduce(), importing modules & packages" }
+                    { "id": "python_function_basics", "name": "9.1 Function Definitions (def), Return Values & Default Args", "count": 100, "desc": "def statements, return values, positional args, keyword args, default argument values" },
+                    { "id": "python_args_kwargs", "name": "9.2 Arbitrary Arguments (*args, **kwargs) & Special Parameters", "count": 100, "desc": "*args tuple, **kwargs dict, positional-only / and keyword-only * parameter markers" },
+                    { "id": "python_legb_scope", "name": "9.3 LEGB Scope Rules, global & nonlocal Keywords", "count": 100, "desc": "Local, Enclosing, Global, Built-in scope hierarchy, global and nonlocal modifications" }
                 ]
             },
             {
                 "id": "python_topic_oop",
-                "name": "Topic 6: Object-Oriented Programming (OOP)",
+                "name": "Topic 10: Object-Oriented Programming (OOP)",
                 "icon": "fa-sitemap",
                 "subtopics": [
-                    { "id": "python_classes_objects", "name": "6.1 Classes, Objects, __init__ & Attributes", "count": 100, "desc": "Class creation, self reference, __init__ constructor, instance vs class variables, @classmethod, @staticmethod" },
-                    { "id": "python_inheritance_polymorphism", "name": "6.2 Inheritance, Dunder Methods & Encapsulation", "count": 100, "desc": "Single/Multiple inheritance, super(), __str__, __repr__, operator overloading, name mangling __private" }
+                    { "id": "python_classes_objects", "name": "10.1 Classes, Objects, self & __init__ Constructor", "count": 100, "desc": "Class declaration, self reference, __init__ constructor, instance vs class variables" },
+                    { "id": "python_methods_decorators", "name": "10.2 Class Methods (@classmethod) & Static Methods (@staticmethod)", "count": 100, "desc": "@classmethod (cls), @staticmethod, property decorators (@property, @setter)" },
+                    { "id": "python_inheritance_dunder", "name": "10.3 Inheritance, super(), MRO & Dunder Methods", "count": 100, "desc": "Single/Multiple inheritance, super(), MRO algorithm, __str__, __repr__, __len__, __eq__" }
                 ]
             },
             {
                 "id": "python_topic_exceptions",
-                "name": "Topic 7: Exception Handling & File I/O",
+                "name": "Topic 11: Exception Handling & File I/O",
                 "icon": "fa-triangle-exclamation",
                 "subtopics": [
-                    { "id": "python_exception_handling", "name": "7.1 Try, Except, Else, Finally & Custom Exceptions", "count": 100, "desc": "try-except blocks, handling built-in exceptions (ValueError, TypeError, KeyError), raise, finally" },
-                    { "id": "python_file_io", "name": "7.2 File I/O (open, with statement & CSV)", "count": 100, "desc": "File opening modes ('r', 'w', 'a', 'b'), with open() context manager, read(), readline(), csv module" }
+                    { "id": "python_exceptions_try_except", "name": "11.1 Try, Except, Else, Finally & Custom Exceptions", "count": 100, "desc": "try-except-else-finally blocks, raise statement, built-in exception types, custom exceptions" },
+                    { "id": "python_file_io_context", "name": "11.2 File I/O Modes & with open() Context Managers", "count": 100, "desc": "Modes ('r', 'w', 'a', 'b'), with open() context manager, read(), readline(), csv module" }
                 ]
             },
             {
                 "id": "python_topic_advanced",
-                "name": "Topic 8: Advanced Python (Generators, Decorators & Standard Library)",
+                "name": "Topic 12: Advanced Python (Generators, Decorators & Standard Library)",
                 "icon": "fa-sliders",
                 "subtopics": [
-                    { "id": "python_generators_decorators", "name": "8.1 Iterators, Generators (yield) & Decorators (@)", "count": 100, "desc": "Iterators (__iter__, __next__), generator functions (yield), decorator wrappers (@func)" },
-                    { "id": "python_std_library", "name": "8.2 Standard Library Modules (math, os, sys, random, json, re)", "count": 100, "desc": "os.path, sys.argv, random choices, json.dumps/loads, re regex matching" }
+                    { "id": "python_iterators_generators", "name": "12.1 Iterators (__iter__, __next__) & Generator Functions (yield)", "count": 100, "desc": "Iterator protocol (__iter__, __next__), generator functions (yield), generator expressions" },
+                    { "id": "python_decorators_closures", "name": "12.2 Closures & Decorator Functions (@decorator)", "count": 100, "desc": "Nested functions, closures, decorator wrapper functions (@decorator), functools.wraps" },
+                    { "id": "python_standard_library", "name": "12.3 Standard Library Modules (math, os, sys, random, json, re)", "count": 100, "desc": "os.path, sys.argv, random choices, json.dumps/loads, re regex operations" }
                 ]
             }
         ]

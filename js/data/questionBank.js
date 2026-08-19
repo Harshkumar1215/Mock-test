@@ -4,10 +4,10 @@
  * 1. Computer Programming using C (14 Topics • 47 Subtopics • 4,700 MCQs)
  * 2. Programming in Python (12 Topics • 30 Subtopics • 3,000 MCQs)
  * 3. Advanced Data Structures (7 Topics • 14 Subtopics • 1,400 MCQs)
- * 4. Advanced Database Management System (8 Topics • 13 Subtopics • 1,300 MCQs)
+ * 4. Advanced Database Management System (12 Topics • 21 Subtopics • 2,100 MCQs)
  * 5. Computer Science Essentials (Bridge) (6 Topics • 12 Subtopics • 1,200 MCQs)
  * 6. Discrete Structures & Optimization (6 Topics • 8 Subtopics • 800 MCQs)
- * Total: 53 Topics • 124 Subtopics • 12,400 MCQs (100 MCQs per subtopic)
+ * Total: 57 Topics • 132 Subtopics • 13,200 MCQs (100 MCQs per subtopic)
  */
 
 window.QuestionBank = (function () {
@@ -50,6 +50,16 @@ window.QuestionBank = (function () {
                 tags: ["eer-specialization"]
             }
         ],
+        adbms_relational_query: [
+            {
+                question: "Which component of the DBMS Query Processing Engine translates high-level SQL queries into Relational Algebra expressions?",
+                options: ["Query Parser and Translator", "Query Optimizer", "Execution Engine", "Buffer Manager"],
+                correctAnswer: 0,
+                explanation: "The Query Parser and Translator parses SQL syntax and builds equivalent Relational Algebra trees.",
+                difficulty: "easy",
+                tags: ["query-processing"]
+            }
+        ],
         adbms_relational_algebra_calculus: [
             {
                 question: "Which relational calculus variant expresses queries using variables that range over individual tuples in a relation?",
@@ -88,6 +98,16 @@ window.QuestionBank = (function () {
                 tags: ["5nf-pjnf"]
             }
         ],
+        adbms_query_cost_eval: [
+            {
+                question: "Which Join algorithm operates in O(M + N) I/O cost when both input relations M and N are already sorted on the join attribute?",
+                options: ["Sort-Merge Join", "Block Nested-Loop Join", "Hash Join", "Nested-Loop Join"],
+                correctAnswer: 0,
+                explanation: "Sort-Merge Join scans pre-sorted relations M and N in a single linear pass.",
+                difficulty: "medium",
+                tags: ["sort-merge-join"]
+            }
+        ],
         adbms_transactions_acid: [
             {
                 question: "In database transaction management, which ACID property guarantees that all operations in a transaction either complete fully or roll back completely?",
@@ -96,6 +116,16 @@ window.QuestionBank = (function () {
                 explanation: "Atomicity enforces the 'all-or-nothing' execution guarantee.",
                 difficulty: "easy",
                 tags: ["atomicity", "acid"]
+            }
+        ],
+        adbms_concurrency_locking: [
+            {
+                question: "Which variation of Two-Phase Locking (2PL) requires that ALL exclusive (X) locks held by a transaction MUST be held until the transaction COMMITS?",
+                options: ["Strict 2PL", "Basic 2PL", "Rigorous 2PL", "Conservative 2PL"],
+                correctAnswer: 0,
+                explanation: "Strict 2PL prevents cascading aborts by holding all X-locks until final commit.",
+                difficulty: "medium",
+                tags: ["strict-2pl"]
             }
         ],
         adbms_concurrency_protocols: [
@@ -108,7 +138,7 @@ window.QuestionBank = (function () {
                 tags: ["timestamp-ordering"]
             }
         ],
-        adbms_recovery_systems: [
+        adbms_recovery_logging: [
             {
                 question: "According to the Write-Ahead Logging (WAL) protocol, when MUST a log record for a database modification be written to stable storage?",
                 options: [
@@ -121,6 +151,56 @@ window.QuestionBank = (function () {
                 explanation: "WAL protocol dictates log records must reach stable storage prior to database page disk flushes.",
                 difficulty: "easy",
                 tags: ["wal-protocol"]
+            }
+        ],
+        adbms_recovery_systems: [
+            {
+                question: "What are the three distinct phases of the ARIES Log-Based Database Recovery Algorithm?",
+                options: [
+                    "Analysis Phase, Redo Phase, and Undo Phase",
+                    "Parse Phase, Optimize Phase, Execute Phase",
+                    "Lock Phase, Growth Phase, Shrink Phase",
+                    "Scan Phase, Sort Phase, Merge Phase"
+                ],
+                correctAnswer: 0,
+                explanation: "ARIES recovery proceeds through Analysis -> Redo (repeating history) -> Undo.",
+                difficulty: "medium",
+                tags: ["aries-recovery"]
+            }
+        ],
+        adbms_indexing_hashing: [
+            {
+                question: "In B+ Trees, where are the actual data pointers or record data entries stored?",
+                options: [
+                    "EXCLUSIVELY in the Leaf Nodes",
+                    "In Internal Nodes only",
+                    "Equally across Root and Internal Nodes",
+                    "In the Header page only"
+                ],
+                correctAnswer: 0,
+                explanation: "B+ Trees store data records exclusively in leaf nodes linked sequentially for range queries.",
+                difficulty: "easy",
+                tags: ["bplus-tree-leaves"]
+            }
+        ],
+        adbms_distributed_db: [
+            {
+                question: "What form of data fragmentation splits a relation schema into subsets of columns with matching primary keys?",
+                options: ["Vertical Fragmentation", "Horizontal Fragmentation", "Mixed Fragmentation", "Derived Fragmentation"],
+                correctAnswer: 0,
+                explanation: "Vertical Fragmentation divides attributes/columns across sites, joined by Primary Keys.",
+                difficulty: "medium",
+                tags: ["vertical-fragmentation"]
+            }
+        ],
+        adbms_distributed_commit: [
+            {
+                question: "What is the primary drawback of the Two-Phase Commit (2PC) protocol during coordinator failure?",
+                options: ["It can cause Participant processes to BLOCK indefinitely", "It loses data integrity", "It causes deadlock cycles", "It corrupts the WAL log"],
+                correctAnswer: 0,
+                explanation: "If the Coordinator crashes during 2PC, participant sites holding locks enter a blocking state.",
+                difficulty: "medium",
+                tags: ["2pc-blocking"]
             }
         ],
         adbms_parallel_distributed_db: [
@@ -151,17 +231,27 @@ window.QuestionBank = (function () {
                 tags: ["r-tree-spatial"]
             }
         ],
-        adbms_xml_databases: [
+        adbms_oodb_xml: [
             {
-                question: "Which XML query language uses path expressions to navigate XML document node trees and extract elements?",
+                question: "Which standardized query language is specified by the Object Data Management Group (ODMG) for querying Object Databases?",
+                options: ["OQL (Object Query Language)", "SQL-92", "XQuery", "GraphQL"],
+                correctAnswer: 0,
+                explanation: "OQL is the Object Query Language standard defined for Object-Oriented Databases.",
+                difficulty: "easy",
+                tags: ["oql"]
+            }
+        ],
+        adbms_xml_json_db: [
+            {
+                question: "Which XML navigation language uses expression paths like `/bookstore/book[price > 35]/title` to select nodes?",
                 options: ["XPath", "XSLT", "XLink", "DTD"],
                 correctAnswer: 0,
-                explanation: "XPath provides syntax for selecting nodes or node-sets in an XML document.",
+                explanation: "XPath provides path expressions for navigating XML document tree structures.",
                 difficulty: "easy",
                 tags: ["xpath"]
             }
         ],
-        adbms_bigdata_nosql: [
+        adbms_nosql_architecture: [
             {
                 question: "Which NoSQL database category is Apache Cassandra classified under?",
                 options: ["Wide-Column Store (Column-Family)", "Document Store", "Key-Value Store", "Graph Database"],
@@ -169,6 +259,16 @@ window.QuestionBank = (function () {
                 explanation: "Cassandra is a distributed wide-column store designed for high scalability.",
                 difficulty: "easy",
                 tags: ["cassandra-nosql"]
+            }
+        ],
+        adbms_data_warehousing: [
+            {
+                question: "In Data Warehousing OLAP operations, what operation changes the dimensional orientation of a report or cube view (e.g. swapping rows and columns)?",
+                options: ["Pivot (Rotate)", "Roll-up", "Drill-down", "Slice and Dice"],
+                correctAnswer: 0,
+                explanation: "Pivot (or Rotate) rotates the data axes to provide an alternative presentation of data.",
+                difficulty: "easy",
+                tags: ["olap-pivot"]
             }
         ]
     };
@@ -270,6 +370,21 @@ window.QuestionBank = (function () {
                 explanation: "A weak entity requires its identifying owner's primary key plus its own partial key.",
                 tags: ["weak-entity"]
             };
+        } else if (subtopicId === "adbms_relational_query") {
+            const ops = [
+                { name: "Selection (σ)", desc: "Filters rows matching a boolean predicate" },
+                { name: "Projection (π)", desc: "Selects specified column attributes" },
+                { name: "Natural Join (⋈)", desc: "Combines tuples with matching common attributes" },
+                { name: "Cartesian Product (×)", desc: "Combines every row of table A with every row of table B" }
+            ];
+            const op = ops[idx % ops.length];
+            return {
+                question: `In Relational Algebra, what is the exact function of operator '${op.name}'?`,
+                options: [`${op.desc}`, "Sorts records in descending order", "Creates an index page", "Deletes foreign key constraints"],
+                correctAnswer: 0,
+                explanation: `'${op.name}' ${op.desc}.`,
+                tags: ["relational-algebra"]
+            };
         } else if (subtopicId === "adbms_relational_algebra_calculus") {
             return {
                 question: `What property proves that a database query language can express any query expressible in basic Relational Algebra?`,
@@ -301,6 +416,14 @@ window.QuestionBank = (function () {
                 explanation: "4NF eliminates anomalies resulting from independent Multivalued Dependencies.",
                 tags: ["4nf"]
             };
+        } else if (subtopicId === "adbms_query_cost_eval") {
+            return {
+                question: `Which Join algorithm is optimal when one relation is small enough to fit entirely in main memory RAM?`,
+                options: ["Hash Join", "Sort-Merge Join", "Nested-Loop Join", "Index Scan"],
+                correctAnswer: 0,
+                explanation: "Hash Join builds an in-memory hash table for the smaller relation, scanning the larger relation once.",
+                tags: ["hash-join"]
+            };
         } else if (subtopicId === "adbms_transactions_acid") {
             const acid = [
                 { letter: "A", name: "Atomicity", desc: "All-or-nothing transaction execution" },
@@ -316,6 +439,14 @@ window.QuestionBank = (function () {
                 explanation: `${a.name} guarantees that ${a.desc}.`,
                 tags: ["acid-properties"]
             };
+        } else if (subtopicId === "adbms_concurrency_locking") {
+            return {
+                question: `Which variation of Two-Phase Locking (2PL) requires that ALL exclusive (X) locks held by a transaction MUST be held until the transaction COMMITS?`,
+                options: ["Strict 2PL", "Basic 2PL", "Rigorous 2PL", "Conservative 2PL"],
+                correctAnswer: 0,
+                explanation: "Strict 2PL prevents cascading aborts by holding all X-locks until final commit.",
+                tags: ["strict-2pl"]
+            };
         } else if (subtopicId === "adbms_concurrency_protocols") {
             return {
                 question: `What graph data structure is maintained by DBMS background processes to detect Deadlocks in concurrency control?`,
@@ -323,6 +454,19 @@ window.QuestionBank = (function () {
                 correctAnswer: 0,
                 explanation: "A Wait-For Graph (WFG) indicates deadlock when a directed cycle exists.",
                 tags: ["wait-for-graph"]
+            };
+        } else if (subtopicId === "adbms_recovery_logging") {
+            return {
+                question: `According to the Write-Ahead Logging (WAL) protocol, when MUST a log record for a database modification be written to stable storage?`,
+                options: [
+                    "BEFORE the corresponding database buffer page is written to disk",
+                    "AFTER the database page is written to disk",
+                    "During system restart only",
+                    "At midnight every day"
+                ],
+                correctAnswer: 0,
+                explanation: "WAL protocol dictates log records must reach stable storage prior to database page disk flushes.",
+                tags: ["wal-protocol"]
             };
         } else if (subtopicId === "adbms_recovery_systems") {
             return {
@@ -336,6 +480,35 @@ window.QuestionBank = (function () {
                 correctAnswer: 0,
                 explanation: "ARIES recovery proceeds through Analysis -> Redo (repeating history) -> Undo.",
                 tags: ["aries-recovery"]
+            };
+        } else if (subtopicId === "adbms_indexing_hashing") {
+            return {
+                question: `What is the key advantage of Extendible Hashing over Static Hashing?`,
+                options: [
+                    "It dynamically grows and shrinks directory buckets without full table re-hashing",
+                    "It eliminates memory usage",
+                    "It enforces strict primary keys",
+                    "It sorts data records on disk"
+                ],
+                correctAnswer: 0,
+                explanation: "Extendible hashing handles data growth dynamically using a directory and bucket splitting.",
+                tags: ["extendible-hashing"]
+            };
+        } else if (subtopicId === "adbms_distributed_db") {
+            return {
+                question: `What form of data fragmentation splits a relation schema into subsets of columns with matching primary keys?`,
+                options: ["Vertical Fragmentation", "Horizontal Fragmentation", "Mixed Fragmentation", "Derived Fragmentation"],
+                correctAnswer: 0,
+                explanation: "Vertical Fragmentation divides attributes/columns across sites, joined by Primary Keys.",
+                tags: ["vertical-fragmentation"]
+            };
+        } else if (subtopicId === "adbms_distributed_commit") {
+            return {
+                question: `What is the primary drawback of the Two-Phase Commit (2PC) protocol during coordinator failure?`,
+                options: ["It can cause Participant processes to BLOCK indefinitely", "It loses data integrity", "It causes deadlock cycles", "It corrupts the WAL log"],
+                correctAnswer: 0,
+                explanation: "If the Coordinator crashes during 2PC, participant sites holding locks enter a blocking state.",
+                tags: ["2pc-blocking"]
             };
         } else if (subtopicId === "adbms_parallel_distributed_db") {
             return {
@@ -358,7 +531,15 @@ window.QuestionBank = (function () {
                 explanation: "A Bitemporal Database tracks both Valid Time and Transaction Time dimensions.",
                 tags: ["bitemporal"]
             };
-        } else if (subtopicId === "adbms_xml_databases") {
+        } else if (subtopicId === "adbms_oodb_xml") {
+            return {
+                question: `Which standardized query language is specified by the Object Data Management Group (ODMG) for querying Object Databases?`,
+                options: ["OQL (Object Query Language)", "SQL-92", "XQuery", "GraphQL"],
+                correctAnswer: 0,
+                explanation: "OQL is the Object Query Language standard defined for Object-Oriented Databases.",
+                tags: ["oql"]
+            };
+        } else if (subtopicId === "adbms_xml_json_db") {
             return {
                 question: `Which XML navigation language uses expression paths like \`/bookstore/book[price > 35]/title\` to select nodes?`,
                 options: ["XPath", "XSLT", "XLink", "DTD"],
@@ -366,13 +547,34 @@ window.QuestionBank = (function () {
                 explanation: "XPath provides path expressions for navigating XML document tree structures.",
                 tags: ["xpath"]
             };
-        } else if (subtopicId === "adbms_bigdata_nosql") {
+        } else if (subtopicId === "adbms_xml_databases") {
+            return {
+                question: `Which W3C standard language is used to transform XML documents into HTML or other XML formats?`,
+                options: ["XSLT (Extensible Stylesheet Language Transformations)", "XPath", "XQuery", "JSON-LD"],
+                correctAnswer: 0,
+                explanation: "XSLT transforms XML document structures into HTML, XML, or plain text.",
+                tags: ["xslt"]
+            };
+        } else if (subtopicId === "adbms_nosql_architecture") {
             return {
                 question: `Which NoSQL data model stores data as collections of JSON-like BSON key-value documents (e.g. MongoDB)?`,
                 options: ["Document-Store Database", "Key-Value Store", "Graph Database", "Relational Table"],
                 correctAnswer: 0,
                 explanation: "MongoDB is a Document Store using BSON format.",
                 tags: ["document-store"]
+            };
+        } else if (subtopicId === "adbms_data_warehousing") {
+            const schemas = [
+                { name: "Star Schema", desc: "A central Fact table surrounded by denormalized Dimension tables" },
+                { name: "Snowflake Schema", desc: "A central Fact table surrounded by normalized multi-level Dimension tables" }
+            ];
+            const s = schemas[idx % schemas.length];
+            return {
+                question: `In Data Warehouse dimensional modeling, what characterizes a '${s.name}'?`,
+                options: [`${s.desc}`, "Random unindexed heap tables", "Flat CSV text files", "B-Tree directory blocks"],
+                correctAnswer: 0,
+                explanation: `'${s.name}' consists of ${s.desc}.`,
+                tags: ["data-warehouse-schema"]
             };
         }
         // ADVANCED DATA STRUCTURES GENERATORS

@@ -105,8 +105,25 @@ body {
     transition: max-width 0.3s ease, height 0.3s ease, border-radius 0.3s ease;
 }
 
-/* Fluid Expanded Desktop & Ultra-Wide Monitor Support */
-.app-shell.fluid-mode,
+/* Fluid Class Support */
+.app-shell.fluid-mode {
+    max-width: 1200px !important;
+    height: 94vh !important;
+    max-height: 980px !important;
+    border-radius: 20px !important;
+    border: 1px solid var(--border) !important;
+}
+
+.app-shell.fluid-mode .home-subject-grid,
+.app-shell.fluid-mode #topics-list-container,
+.app-shell.fluid-mode #subtopics-list-container,
+.app-shell.fluid-mode #subjects-full-list {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important;
+    gap: 16px !important;
+}
+
+/* Desktop & Ultra-Wide Monitor Media Queries (>= 900px) */
 @media (min-width: 900px) {
     .app-shell {
         max-width: 1200px;
@@ -121,7 +138,7 @@ body {
     #subtopics-list-container,
     #subjects-full-list {
         display: grid !important;
-        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)) !important;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important;
         gap: 16px !important;
     }
 

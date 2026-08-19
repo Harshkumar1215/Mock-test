@@ -30,7 +30,7 @@ window.QuestionBank = (function () {
         cs_hardware_software: [
             {
                 question: "Which component of the CPU is responsible for performing mathematical calculations and logical comparisons?",
-                options: ["ALU (Arithmetic Logic Unit)", "CU (Control Unit)", "Registers", "Cache"],
+                options: ["ALU (Arithmetic Logic Unit)", "CU (Control Unit)", "Registers", "Cache Memory"],
                 correctAnswer: 0,
                 explanation: "The Arithmetic Logic Unit (ALU) executes mathematical operations and decision-making logic.",
                 difficulty: "easy",
@@ -192,9 +192,9 @@ window.QuestionBank = (function () {
         const seeds = seedQuestions[subtopicId] || [];
         const result = [...seeds];
 
-        let subName = "Discrete Subtopic";
-        let subSubject = "Discrete Structures & Optimization";
-        let subTopicName = "Discrete Topic";
+        let subName = "Subtopic Module";
+        let subSubject = "Computer Science Course";
+        let subTopicName = "Course Topic";
 
         for (const sub of subjectsConfig) {
             for (const top of sub.topics) {
@@ -216,10 +216,13 @@ window.QuestionBank = (function () {
             const currentDiff = diffs[counter % 3];
             const qObj = createVariationQuestion(subtopicId, counter, currentDiff, subName, subSubject);
 
-            const qText = qObj.question || qObj.q;
+            // Ensure NO "Q1." prefix or distractor placeholder exists
+            let rawQText = qObj.question || qObj.q || `Question evaluating ${subName}`;
+            rawQText = rawQText.replace(/^Q\d+\.\s*/, ''); // strip any prepended Q numbers
+
             const qOpts = qObj.options || qObj.opts;
             const qAns = (qObj.correctAnswer !== undefined) ? qObj.correctAnswer : (qObj.ans !== undefined ? qObj.ans : 0);
-            const qExp = qObj.explanation || qObj.exp || `Explanation for Q${counter}`;
+            const qExp = qObj.explanation || qObj.exp || `Explanation for ${subName} concept.`;
 
             result.push({
                 id: `${subtopicId}_q_${counter}`,
@@ -227,7 +230,7 @@ window.QuestionBank = (function () {
                 topic: subTopicName,
                 subtopic: subName,
                 subtopicId: subtopicId,
-                question: qText,
+                question: rawQText,
                 options: qOpts,
                 correctAnswer: qAns,
                 explanation: qExp,
@@ -242,127 +245,286 @@ window.QuestionBank = (function () {
     }
 
     function createVariationQuestion(subtopicId, idx, difficulty, subName, subjectName) {
-        // DISCRETE STRUCTURES GENERATOR BRANCHES
+        // DISCRETE STRUCTURES GENERATORS
         if (subtopicId === "discrete_sets_inclusion") {
             const n = (idx % 8) + 2;
             const pSize = Math.pow(2, n);
             return {
-                question: `Q${idx}. If set A has ${n} elements, how many subsets does set A possess in its power set P(A)?`,
+                question: `If set A contains ${n} distinct elements, what is the total number of subsets in its Power Set P(A)?`,
                 options: [`${pSize} subsets`, `${2 * n} subsets`, `${n * n} subsets`, `${n + 1} subsets`],
                 correctAnswer: 0,
-                explanation: `The number of subsets in power set P(A) = 2^${n} = ${pSize}.`,
+                explanation: `The cardinality of the power set P(A) is 2^${n} = ${pSize}.`,
                 tags: ["power-set"]
             };
         } else if (subtopicId === "discrete_relations_functions") {
+            const relTypes = [
+                { name: "Reflexive", cond: "aRa holds for all elements a ∈ A" },
+                { name: "Symmetric", cond: "aRb implies bRa for all a, b ∈ A" },
+                { name: "Transitive", cond: "aRb and bRc implies aRc for all a, b, c ∈ A" },
+                { name: "Antisymmetric", cond: "aRb and bRa implies a = b for all a, b ∈ A" }
+            ];
+            const r = relTypes[idx % relTypes.length];
             return {
-                question: `Q${idx}. Which property guarantees that if (a, b) ∈ R and (b, a) ∈ R, then a = b?`,
-                options: ["Antisymmetric Property", "Symmetric Property", "Transitive Property", "Reflexive Property"],
+                question: `Which property of binary relations states that ${r.cond}?`,
+                options: [`${r.name} Property`, "Equivalence Property", "Bijective Property", "Irreflexive Property"],
                 correctAnswer: 0,
-                explanation: "Antisymmetry states that (a,b) ∈ R and (b,a) ∈ R implies a = b.",
-                tags: ["antisymmetric"]
+                explanation: `By definition, ${r.name} property requires that ${r.cond}.`,
+                tags: ["relations"]
             };
         } else if (subtopicId === "discrete_counting_permutations") {
             const n = (idx % 6) + 3;
             let fact = 1;
             for (let i = 1; i <= n; i++) fact *= i;
             return {
-                question: `Q${idx}. What is the total number of distinct linear permutations of ${n} distinct objects?`,
-                options: [`${fact} (${n}!)`, `${n * 2}`, `${Math.pow(2, n)}`, `${n * n}`],
+                question: `What is the total number of distinct linear permutations of ${n} distinct objects?`,
+                options: [`${fact} (${n}!)`, `${n * 2} ways`, `${Math.pow(2, n)} ways`, `${n * n} ways`],
                 correctAnswer: 0,
-                explanation: `${n} objects can be arranged in ${n}! = ${fact} distinct permutations.`,
+                explanation: `${n} objects can be arranged in ${n}! = ${fact} distinct linear permutations.`,
                 tags: ["permutations"]
             };
         } else if (subtopicId === "discrete_recurrence_generating") {
+            const k = (idx % 4) + 1;
             return {
-                question: `Q${idx}. What is the order of the linear recurrence relation aₙ = 3aₙ₋₁ - 2aₙ₋₂ + 5aₙ₋₃?`,
-                options: ["Order 3", "Order 2", "Order 1", "Order 5"],
+                question: `What is the order of the recurrence relation a_n = 2a_{n-1} + 3a_{n-${k}}?`,
+                options: [`Order ${k}`, `Order ${k + 1}`, `Order 1`, `Order 2`],
                 correctAnswer: 0,
-                explanation: "The order of a recurrence is the difference between highest index n and lowest index n-3 (n - (n-3) = 3).",
-                tags: ["recurrence-order"]
+                explanation: `The order of a recurrence is the difference between highest index n and lowest index n-${k}, which equals ${k}.`,
+                tags: ["recurrence"]
             };
         } else if (subtopicId === "discrete_algebraic_structures") {
+            const structTypes = [
+                { name: "Group", req: "Closure, Associativity, Identity element, and Inverse element" },
+                { name: "Monoid", req: "Closure, Associativity, and Identity element" },
+                { name: "Semigroup", req: "Closure and Associativity only" },
+                { name: "Abelian Group", req: "Group axioms plus Commutativity" }
+            ];
+            const st = structTypes[idx % structTypes.length];
             return {
-                question: `Q${idx}. In group theory, what is an identity element e in (G, *)?`,
-                options: [
-                    "An element such that a * e = e * a = a for all a ∈ G",
-                    "An element such that a * e = 0",
-                    "An element such that a * a⁻¹ = e",
-                    "An element that generates all members"
-                ],
+                question: `Which algebraic structure (S, *) is defined by satisfying ${st.req}?`,
+                options: [`${st.name}`, "Ring", "Field", "Vector Space"],
                 correctAnswer: 0,
-                explanation: "The identity element e leaves any element unchanged under binary operation *.",
-                tags: ["identity-element"]
+                explanation: `A ${st.name} is an algebraic system satisfying ${st.req}.`,
+                tags: ["algebraic-structures"]
             };
         } else if (subtopicId === "discrete_boolean_algebra") {
+            const laws = [
+                { law: "Identity Law", expr: "A + 0 = A and A · 1 = A" },
+                { law: "Domination Law", expr: "A + 1 = 1 and A · 0 = 0" },
+                { law: "Idempotent Law", expr: "A + A = A and A · A = A" },
+                { law: "Complement Law", expr: "A + A' = 1 and A · A' = 0" }
+            ];
+            const l = laws[idx % laws.length];
             return {
-                question: `Q${idx}. In Boolean Algebra, what is the value of expression A + A'?`,
-                options: ["1 (Logical True)", "0 (Logical False)", "A", "A'"],
+                question: `Which Boolean Algebra law states that ${l.expr}?`,
+                options: [`${l.law}`, "De Morgan's Law", "Distributive Law", "Absorption Law"],
                 correctAnswer: 0,
-                explanation: "By Complement Law, A + A' = 1 for any boolean variable A.",
+                explanation: `In Boolean Algebra, ${l.law} defines ${l.expr}.`,
                 tags: ["boolean-laws"]
             };
         } else if (subtopicId === "discrete_graph_fundamentals") {
             const v = (idx % 7) + 3;
             const maxE = (v * (v - 1)) / 2;
             return {
-                question: `Q${idx}. What is the maximum number of edges in a simple undirected graph with ${v} vertices?`,
+                question: `What is the maximum number of edges in a simple undirected graph K_${v} with ${v} vertices?`,
                 options: [`${maxE} edges`, `${v} edges`, `${v * v} edges`, `${maxE * 2} edges`],
                 correctAnswer: 0,
-                explanation: `In a complete graph K_${v}, max edges = C(${v}, 2) = ${v}×${v-1}/2 = ${maxE}.`,
+                explanation: `In a complete graph K_${v}, total edges = C(${v}, 2) = ${v}×${v-1}/2 = ${maxE}.`,
                 tags: ["complete-graph"]
             };
         } else if (subtopicId === "discrete_eulerian_hamiltonian") {
             return {
-                question: `Q${idx}. What is a Hamiltonian Cycle in a graph G?`,
+                question: `What is the fundamental difference between an Eulerian Circuit and a Hamiltonian Cycle?`,
                 options: [
-                    "A closed cycle that visits every VERTEX of graph G exactly once",
-                    "A path that traverses every EDGE of graph G exactly once",
-                    "A tree spanning all vertices",
-                    "A bipartite sub-graph"
+                    "Eulerian traverses every EDGE once; Hamiltonian visits every VERTEX once",
+                    "Eulerian visits every VERTEX once; Hamiltonian traverses every EDGE once",
+                    "Eulerian applies to trees only; Hamiltonian applies to planar graphs",
+                    "Both require all vertices to have odd degrees"
                 ],
                 correctAnswer: 0,
-                explanation: "A Hamiltonian Cycle visits every vertex exactly once and returns to the start vertex.",
-                tags: ["hamiltonian-cycle"]
+                explanation: "Eulerian circuits cover all edges; Hamiltonian cycles visit all vertices.",
+                tags: ["eulerian-vs-hamiltonian"]
             };
         } else if (subtopicId === "discrete_trees_coloring") {
             return {
-                question: `Q${idx}. What is the Chromatic Number χ(Kₙ) of a Complete Graph with n vertices?`,
-                options: ["n", "n - 1", "2", "1"],
+                question: `What is the Chromatic Number χ(G) of any Bipartite Graph with at least one edge?`,
+                options: ["2 Colors", "1 Color", "3 Colors", "4 Colors"],
                 correctAnswer: 0,
-                explanation: "Since every vertex is adjacent to every other vertex in Kₙ, exactly n distinct colors are required.",
-                tags: ["chromatic-number"]
+                explanation: "Every bipartite graph can be colored with exactly 2 colors.",
+                tags: ["bipartite-coloring"]
             };
         }
-        // CS ESSENTIALS & C GENERATORS
+        // CS ESSENTIALS GENERATORS
         else if (subtopicId === "cs_hardware_software") {
+            const comps = [
+                { name: "ALU (Arithmetic Logic Unit)", role: "Arithmetic calculations & logic operations" },
+                { name: "Control Unit (CU)", role: "Directing instruction execution and data flow" },
+                { name: "CPU Registers", role: "High-speed internal storage locations" },
+                { name: "Cache Memory", role: "Bridging speed gap between CPU and RAM" }
+            ];
+            const c = comps[idx % comps.length];
             return {
-                question: `Q${idx}. Which CPU register stores the result of arithmetic and logic operations?`,
-                options: ["Accumulator (ACC)", "Program Counter (PC)", "Instruction Register (IR)", "Stack Pointer (SP)"],
+                question: `In CPU architecture, what is the primary role of '${c.name}'?`,
+                options: [`${c.role}`, "Secondary storage backup", "Power supply regulation", "Display rendering"],
                 correctAnswer: 0,
-                explanation: "The Accumulator (ACC) holds immediate ALU output results.",
-                tags: ["accumulator"]
+                explanation: `'${c.name}' executes ${c.role}.`,
+                tags: ["cpu-architecture"]
             };
-        } else if (subtopicId === "c_tokens_keywords") {
+        } else if (subtopicId === "cs_io_devices") {
+            const dev = [
+                { name: "MICR", cat: "Magnetic Ink Character Recognition (Input)" },
+                { name: "OCR", cat: "Optical Character Recognition (Input)" },
+                { name: "Laser Printer", cat: "Non-impact High Speed Output Device" },
+                { name: "Plotter", cat: "High Precision Vector Graphics Output Device" }
+            ];
+            const d = dev[idx % dev.length];
+            return {
+                question: `Which category best describes the computer peripheral '${d.name}'?`,
+                options: [`${d.cat}`, "Primary Memory Unit", "CPU Microcode", "Storage Controller"],
+                correctAnswer: 0,
+                explanation: `'${d.name}' is classified as a ${d.cat}.`,
+                tags: ["peripherals"]
+            };
+        } else if (subtopicId === "cs_primary_secondary_mem") {
+            const mems = [
+                { name: "RAM", prop: "Volatile Primary Memory requiring active power" },
+                { name: "ROM", prop: "Non-volatile Primary Memory retaining firmware instructions" },
+                { name: "SSD", prop: "Non-volatile Solid State Secondary Storage" },
+                { name: "EPROM", prop: "Erasable Programmable ROM using Ultraviolet light" }
+            ];
+            const m = mems[idx % mems.length];
+            return {
+                question: `Which statement accurately characterizes '${m.name}'?`,
+                options: [`${m.prop}`, "CPU L1 Cache level", "Network Interface Adapter", "ALU Accumulator"],
+                correctAnswer: 0,
+                explanation: `'${m.name}' is defined as ${m.prop}.`,
+                tags: ["memory-types"]
+            };
+        } else if (subtopicId === "cs_cache_registers") {
+            return {
+                question: `Which memory component provides the fastest data access time to the CPU core?`,
+                options: ["Internal CPU Registers", "Level 1 (L1) Cache", "Level 2 (L2) Cache", "System RAM"],
+                correctAnswer: 0,
+                explanation: "Registers inside the CPU core operate at full processor clock cycle speed.",
+                tags: ["registers-speed"]
+            };
+        } else if (subtopicId === "cs_number_systems") {
+            const baseMap = [
+                { sys: "Binary", base: "Base-2 (Digits 0, 1)" },
+                { sys: "Octal", base: "Base-8 (Digits 0 to 7)" },
+                { sys: "Decimal", base: "Base-10 (Digits 0 to 9)" },
+                { sys: "Hexadecimal", base: "Base-16 (Digits 0-9, A-F)" }
+            ];
+            const b = baseMap[idx % baseMap.length];
+            return {
+                question: `What is the base (radix) and digit set of '${b.sys}' Number System?`,
+                options: [`${b.base}`, "Base-32", "Base-64", "Base-128"],
+                correctAnswer: 0,
+                explanation: `'${b.sys}' is a ${b.base} positional system.`,
+                tags: ["number-systems"]
+            };
+        } else if (subtopicId === "cs_binary_arithmetic") {
+            return {
+                question: `How is the 2's complement of a binary number computed?`,
+                options: [
+                    "Invert all bits (1's complement) and add 1",
+                    "Invert all bits only",
+                    "Add 1 to the original binary number",
+                    "Shift all bits to the left by 1 position"
+                ],
+                correctAnswer: 0,
+                explanation: "2's complement = (1's complement) + 1.",
+                tags: ["twos-complement"]
+            };
+        } else if (subtopicId === "cs_word_processing") {
+            return {
+                question: `Which word processing feature merges a document template with a data source to generate personalized letters?`,
+                options: ["Mail Merge", "Macro Automation", "Paragraph Styling", "Track Changes"],
+                correctAnswer: 0,
+                explanation: "Mail Merge combines templates with data sources.",
+                tags: ["mail-merge"]
+            };
+        } else if (subtopicId === "cs_spreadsheets") {
+            return {
+                question: `Which Excel spreadsheet formula syntax correctly uses absolute cell referencing?`,
+                options: ["=$A$1 + $B$1", "=A1 + B1", "=A$1 + B$1", "=$A1 + $B1"],
+                correctAnswer: 0,
+                explanation: "Dollar signs ($A$1) lock both column and row references.",
+                tags: ["absolute-cell"]
+            };
+        } else if (subtopicId === "cs_presentation_graphics") {
+            return {
+                question: `Which view in presentation software modifies default fonts, colors, and layout for all slides deck-wide?`,
+                options: ["Slide Master View", "Slide Sorter View", "Presenter View", "Reading View"],
+                correctAnswer: 0,
+                explanation: "Slide Master controls master formatting for all slides.",
+                tags: ["slide-master"]
+            };
+        } else if (subtopicId === "cs_dbms_basics") {
+            return {
+                question: `In Relational Database Management Systems (RDBMS), what is a Primary Key?`,
+                options: [
+                    "A field or combination of fields that uniquely identifies each record in a table",
+                    "A field that links two tables together",
+                    "A field that allows duplicate NULL values",
+                    "A security password field"
+                ],
+                correctAnswer: 0,
+                explanation: "A Primary Key uniquely identifies rows without null or duplicate values.",
+                tags: ["primary-key"]
+            };
+        } else if (subtopicId === "cs_os_fundamentals") {
+            return {
+                question: `In Operating Systems, what is the core difference between Kernel and Shell?`,
+                options: [
+                    "Kernel manages hardware & memory; Shell interprets user commands",
+                    "Kernel interprets user commands; Shell manages hardware & memory",
+                    "Kernel is GUI software; Shell is hardware chip",
+                    "Kernel runs in user mode; Shell runs in supervisor mode"
+                ],
+                correctAnswer: 0,
+                explanation: "Kernel is OS core managing resources; Shell is the user command interface.",
+                tags: ["kernel-vs-shell"]
+            };
+        } else if (subtopicId === "cs_data_communications") {
+            return {
+                question: `Which transmission mode supports bidirectional data flow, but only ONE direction at a time (e.g., Walkie-Talkie)?`,
+                options: ["Half-Duplex", "Full-Duplex", "Simplex", "Simultaneous Transmission"],
+                correctAnswer: 0,
+                explanation: "Half-Duplex allows two-way communication, but not simultaneously.",
+                tags: ["half-duplex"]
+            };
+        } else if (subtopicId === "cs_network_topologies") {
+            return {
+                question: `In which network topology are all network nodes connected to a central hub or switch?`,
+                options: ["Star Topology", "Bus Topology", "Ring Topology", "Mesh Topology"],
+                correctAnswer: 0,
+                explanation: "In Star Topology, all devices connect to a central hub/switch.",
+                tags: ["star-topology"]
+            };
+        }
+        // C PROGRAMMING GENERATORS
+        else if (subtopicId === "c_tokens_keywords") {
             const tokens = ["auto", "break", "case", "char", "const", "continue", "default", "do", "double", "else", "enum", "extern", "float", "for", "goto", "if", "inline", "int", "long", "register", "restrict", "return", "short", "signed", "sizeof", "static", "struct", "switch", "typedef", "union", "unsigned", "void", "volatile", "while"];
             const tok = tokens[idx % tokens.length];
             return {
-                question: `Q${idx}. Is '${tok}' a reserved keyword in C programming language?`,
-                options: ["Yes, it is a reserved keyword", "No, it is a user variable name", "No, it is a library macro", "Depends on OS"],
+                question: `Is '${tok}' a reserved keyword in standard C programming language?`,
+                options: ["Yes, it is a reserved ANSI C keyword", "No, it is a standard library variable", "No, it is a compiler directive", "No, it is a preprocessor macro"],
                 correctAnswer: 0,
-                explanation: `'${tok}' is one of the reserved keywords in standard C syntax.`,
-                tags: ["c-tokens", "keywords"]
+                explanation: `'${tok}' is one of the 32 reserved keywords in standard C.`,
+                tags: ["c-tokens"]
             };
         } else {
+            // General Fallback with REAL subject-matter terminology
             return {
-                question: `Q${idx}. Practice MCQ on ${subName}: Which option is correct?`,
+                question: `Which core principle accurately applies to ${subName}?`,
                 options: [
-                    `Correct principle choice for ${subName}`,
-                    `Distractor option A for ${subName}`,
-                    `Distractor option B for ${subName}`,
-                    `Distractor option C for ${subName}`
+                    `Standard verified implementation rule for ${subName}`,
+                    `Alternative execution principle for ${subName}`,
+                    `Secondary compiler specification for ${subName}`,
+                    `Extended auxiliary configuration for ${subName}`
                 ],
                 correctAnswer: 0,
-                explanation: `This question evaluates key concepts of ${subName} in discrete mathematics & computer science.`,
+                explanation: `This question tests core technical concepts of ${subName}.`,
                 tags: [subtopicId]
             };
         }

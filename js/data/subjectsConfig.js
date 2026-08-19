@@ -215,5 +215,65 @@ const subjectsConfig = [
                 ]
             }
         ]
+    },
+    {
+        "id": "discrete_structures",
+        "name": "Discrete Structures & Optimization",
+        "icon": "fa-diagram-project",
+        "badgeColor": "bg-emerald",
+        "description": "Master syllabus covering Sets, Inclusion-Exclusion, Relations, Functions, Combinatorics, Algebraic Structures, Boolean Algebra & Graph Theory.",
+        "topics": [
+            {
+                "id": "discrete_topic_sets",
+                "name": "Topic 1: Sets, Inclusion-Exclusion & Relations",
+                "icon": "fa-shapes",
+                "subtopics": [
+                    { "id": "discrete_sets_inclusion", "name": "1.1 Sets, Power Sets & Inclusion-Exclusion Principle", "count": 100, "desc": "Set operations (Union, Intersection, Difference), Power sets |P(S)|=2^n, Inclusion-Exclusion principle" },
+                    { "id": "discrete_relations_functions", "name": "1.2 Relations (Posets, Equivalence) & Functions", "count": 100, "desc": "Reflexive, Symmetric, Transitive, Equivalence relations, Posets, Hasse diagrams, Injective/Surjective/Bijective functions" }
+                ]
+            },
+            {
+                "id": "discrete_topic_counting",
+                "name": "Topic 2: Combinatorics, Recurrence & Generating Functions",
+                "icon": "fa-calculator",
+                "subtopics": [
+                    { "id": "discrete_counting_permutations", "name": "2.1 Permutations, Combinations & Pigeonhole Principle", "count": 100, "desc": "nPr, nCr, Pascal's Identity, Pigeonhole Principle applications & Binomial expansion" },
+                    { "id": "discrete_recurrence_generating", "name": "2.2 Recurrence Relations & Generating Functions", "count": 100, "desc": "Solving linear homogeneous/non-homogeneous recurrences, characteristic roots & ordinary generating functions" }
+                ]
+            },
+            {
+                "id": "discrete_topic_algebraic",
+                "name": "Topic 3: Algebraic Structures & Group Theory",
+                "icon": "fa-cubes-stacked",
+                "subtopics": [
+                    { "id": "discrete_algebraic_structures", "name": "3.1 Groups, Monoids, Semigroups, Rings & Fields", "count": 100, "desc": "Group axioms, Abelian groups, Subgroups, Monoids, Semigroups, Rings, Integral Domains & Fields" }
+                ]
+            },
+            {
+                "id": "discrete_topic_boolean",
+                "name": "Topic 4: Boolean Algebra & Lattices",
+                "icon": "fa-toggle-on",
+                "subtopics": [
+                    { "id": "discrete_boolean_algebra", "name": "4.1 Lattices & Boolean Algebra", "count": 100, "desc": "Lattices (Bounded, Complemented, Distributive), Boolean expressions, Duality, K-Map minimization & Sum-of-Products" }
+                ]
+            },
+            {
+                "id": "discrete_topic_graphs",
+                "name": "Topic 5: Graph Theory (Paths, Circuits & Connectivity)",
+                "icon": "fa-circle-nodes",
+                "subtopics": [
+                    { "id": "discrete_graph_fundamentals", "name": "5.1 Directed/Undirected Graphs & Connectivity", "count": 100, "desc": "Handshaking lemma, Adjacency/Incidence matrices, Isomorphism, Connected components & Bipartite graphs" },
+                    { "id": "discrete_eulerian_hamiltonian", "name": "5.2 Eulerian & Hamiltonian Graphs", "count": 100, "desc": "Eulerian paths & circuits (Euler's theorem), Hamiltonian cycles (Dirac & Ore theorems), Traveling Salesperson" }
+                ]
+            },
+            {
+                "id": "discrete_topic_trees",
+                "name": "Topic 6: Trees, Planarity & Graph Coloring",
+                "icon": "fa-tree",
+                "subtopics": [
+                    { "id": "discrete_trees_coloring", "name": "6.1 Trees, Planar Graphs & Graph Coloring", "count": 100, "desc": "Tree properties (V - E = 1), Spanning trees (Kruskal/Prim), Euler's planar formula (V - E + F = 2), Chromatic number χ(G)" }
+                ]
+            }
+        ]
     }
 ];

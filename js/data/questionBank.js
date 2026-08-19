@@ -3,7 +3,8 @@
  * Multi-Subject Master Repository:
  * 1. Computer Programming using C (14 Topics • 47 Subtopics • 4,700 MCQs)
  * 2. Computer Science Essentials (Bridge) (6 Topics • 12 Subtopics • 1,200 MCQs)
- * Total: 20 Topics • 59 Subtopics • 5,900 MCQs (100 MCQs per subtopic)
+ * 3. Discrete Structures & Optimization (6 Topics • 8 Subtopics • 800 MCQs)
+ * Total: 26 Topics • 67 Subtopics • 6,700 MCQs (100 MCQs per subtopic)
  */
 
 window.QuestionBank = (function () {
@@ -11,7 +12,7 @@ window.QuestionBank = (function () {
     const questionCache = {};
 
     // ------------------------------------------------------------------
-    // SEED QUESTIONS DATABASE (Exhaustive C & CS Essentials MCQs)
+    // SEED QUESTIONS DATABASE (Exhaustive C, CS Essentials & Discrete Structures)
     // ------------------------------------------------------------------
     const seedQuestions = {
         // C PROGRAMMING SEEDS
@@ -34,206 +35,152 @@ window.QuestionBank = (function () {
                 explanation: "The Arithmetic Logic Unit (ALU) executes mathematical operations and decision-making logic.",
                 difficulty: "easy",
                 tags: ["cpu", "hardware"]
-            },
-            {
-                question: "An Operating System (OS) is classified under which category of software?",
-                options: ["System Software", "Application Software", "Utility Software", "Firmware"],
-                correctAnswer: 0,
-                explanation: "An Operating System is System Software that manages hardware and provides a platform for applications.",
-                difficulty: "easy",
-                tags: ["system-software"]
             }
         ],
-        cs_io_devices: [
+        // DISCRETE STRUCTURES & OPTIMIZATION SEEDS
+        discrete_sets_inclusion: [
             {
-                question: "Which input technology is specifically used by banks to process paper cheques rapidly?",
-                options: ["MICR (Magnetic Ink Character Recognition)", "OCR", "OMR", "Bar Code Reader"],
+                question: "If a set S contains n distinct elements, how many elements are present in its Power Set P(S)?",
+                options: ["2ⁿ elements", "2n elements", "n² elements", "n! elements"],
                 correctAnswer: 0,
-                explanation: "MICR reads special magnetic ink characters printed at the bottom of bank cheques.",
+                explanation: "The cardinality of the Power Set |P(S)| = 2ⁿ for a set with n elements.",
                 difficulty: "easy",
-                tags: ["micr", "io-devices"]
+                tags: ["power-set", "sets"]
             },
             {
-                question: "Which type of printer uses a laser beam and electro-photographic technology to print pages?",
-                options: ["Laser Printer", "Dot Matrix Printer", "Inkjet Printer", "Thermal Printer"],
+                question: "According to the Principle of Inclusion-Exclusion for two sets A and B, what is |A ∪ B| equal to?",
+                options: ["|A| + |B| - |A ∩ B|", "|A| + |B| + |A ∩ B|", "|A| × |B|", "|A| - |B|"],
                 correctAnswer: 0,
-                explanation: "Laser printers use electro-photographic drums and laser beams for high-speed non-impact printing.",
+                explanation: "|A ∪ B| = |A| + |B| - |A ∩ B| to avoid double counting the intersection elements.",
                 difficulty: "easy",
-                tags: ["printers"]
+                tags: ["inclusion-exclusion"]
             }
         ],
-        cs_primary_secondary_mem: [
+        discrete_relations_functions: [
             {
-                question: "Which type of RAM retains data as long as power is supplied without requiring constant refresh cycles?",
-                options: ["SRAM (Static RAM)", "DRAM (Dynamic RAM)", "SDRAM", "NVRAM"],
+                question: "Which three properties MUST a relation satisfy to be classified as an Equivalence Relation?",
+                options: [
+                    "Reflexive, Symmetric, and Transitive",
+                    "Reflexive, Antisymmetric, and Transitive",
+                    "Irreflexive, Symmetric, and Transitive",
+                    "Reflexive, Symmetric, and Asymmetric"
+                ],
                 correctAnswer: 0,
-                explanation: "SRAM uses flip-flops to hold data without needing periodic refreshing (unlike DRAM which uses capacitors).",
+                explanation: "An Equivalence Relation must be Reflexive (aRa), Symmetric (aRb ⇒ bRa), and Transitive (aRb & bRc ⇒ aRc).",
                 difficulty: "medium",
-                tags: ["sram", "ram"]
+                tags: ["equivalence-relation"]
             },
             {
-                question: "Which type of ROM memory can be erased by exposing it to Ultraviolet (UV) light?",
-                options: ["EPROM (Erasable Programmable ROM)", "PROM", "EEPROM", "Mask ROM"],
+                question: "What is a function f: A → B called if every element in target set B has at least one pre-image in A?",
+                options: ["Surjective (Onto) Function", "Injective (One-to-One) Function", "Bijective Function", "Constant Function"],
                 correctAnswer: 0,
-                explanation: "EPROM chips feature a quartz window through which intense UV light erases stored data.",
+                explanation: "A function is Surjective (Onto) if its Range equals its Codomain B.",
+                difficulty: "easy",
+                tags: ["surjective-function"]
+            }
+        ],
+        discrete_counting_permutations: [
+            {
+                question: "If k + 1 or more objects are placed into k boxes, then at least one box MUST contain 2 or more objects. Which mathematical principle states this?",
+                options: ["Pigeonhole Principle", "Handshaking Lemma", "De Morgan's Law", "Euler's Theorem"],
+                correctAnswer: 0,
+                explanation: "The Pigeonhole Principle guarantees that placing n > k items into k containers yields at least one container with ⌈n/k⌉ items.",
+                difficulty: "easy",
+                tags: ["pigeonhole-principle"]
+            },
+            {
+                question: "How many distinct ways can 5 distinct books be arranged in a line on a bookshelf?",
+                options: ["120 ways (5!)", "25 ways", "60 ways", "10 ways"],
+                correctAnswer: 0,
+                explanation: "5 books can be arranged in 5! = 5 × 4 × 3 × 2 × 1 = 120 ways.",
+                difficulty: "easy",
+                tags: ["permutations"]
+            }
+        ],
+        discrete_recurrence_generating: [
+            {
+                question: "What is the characteristic equation for the Fibonacci recurrence relation Fₙ = Fₙ₋₁ + Fₙ₋₂?",
+                options: ["r² - r - 1 = 0", "r² + r + 1 = 0", "r² - 1 = 0", "r² - 2r + 1 = 0"],
+                correctAnswer: 0,
+                explanation: "Substituting Fₙ = rⁿ gives rⁿ = rⁿ⁻¹ + rⁿ⁻² ⇒ r² - r - 1 = 0.",
                 difficulty: "medium",
-                tags: ["eprom", "rom"]
+                tags: ["recurrence-relations"]
             }
         ],
-        cs_cache_registers: [
+        discrete_algebraic_structures: [
             {
-                question: "Where is Level 1 (L1) Cache Memory physically located for maximum speed?",
-                options: ["Integrated directly inside the CPU Core", "On the Motherboard chipset", "Inside RAM sticks", "On Hard Disk"],
+                question: "An algebraic structure (G, *) is classified as a GROUP if it satisfies which four axioms?",
+                options: [
+                    "Closure, Associativity, Identity element, and Inverse element",
+                    "Closure, Commutativity, Identity, and Distributivity",
+                    "Associativity, Commutativity, Identity, and Inverse",
+                    "Closure, Associativity, and Identity only"
+                ],
                 correctAnswer: 0,
-                explanation: "L1 Cache is built directly inside the CPU core for fastest instruction and data access.",
-                difficulty: "easy",
-                tags: ["cache", "l1-cache"]
-            },
-            {
-                question: "Which Special Purpose Register holds the memory address of the NEXT instruction to be fetched and executed?",
-                options: ["Program Counter (PC)", "Memory Address Register (MAR)", "Instruction Register (IR)", "Accumulator (ACC)"],
-                correctAnswer: 0,
-                explanation: "The Program Counter (PC) stores the address of the next instruction in sequence.",
+                explanation: "A Group requires Closure, Associativity, an Identity element e, and an Inverse a⁻¹ for every element.",
                 difficulty: "medium",
-                tags: ["program-counter", "registers"]
-            }
-        ],
-        cs_number_systems: [
-            {
-                question: "What is the equivalent Decimal value of Binary number (1011)₂?",
-                options: ["11", "9", "13", "7"],
-                correctAnswer: 0,
-                explanation: "(1011)₂ = (1×8) + (0×4) + (1×2) + (1×1) = 8 + 0 + 2 + 1 = 11.",
-                difficulty: "easy",
-                tags: ["binary-to-decimal"]
+                tags: ["group-theory"]
             },
             {
-                question: "What is the Hexadecimal representation of Decimal value 15?",
-                options: ["F", "E", "A", "10"],
+                question: "What is a Group (G, *) called if it also satisfies the Commutative Property (a * b = b * a)?",
+                options: ["Abelian Group", "Monoid", "Cyclic Subgroup", "Ring"],
                 correctAnswer: 0,
-                explanation: "In Hexadecimal (Base 16), digits 10 through 15 are represented by A, B, C, D, E, and F.",
+                explanation: "A commutative group is called an Abelian Group in honor of Niels Henrik Abel.",
                 difficulty: "easy",
-                tags: ["hexadecimal"]
+                tags: ["abelian-group"]
             }
         ],
-        cs_binary_arithmetic: [
+        discrete_boolean_algebra: [
             {
-                question: "How is a negative integer stored in standard 2's Complement representation?",
-                options: ["Invert all bits (1's complement) and add 1", "Invert all bits only", "Set the MSB to 1", "Subtract 1 from value"],
+                question: "According to De Morgan's Law in Boolean Algebra, what is the complement of (A · B)?",
+                options: ["A' + B'", "A' · B'", "(A + B)'", "A · B'"],
                 correctAnswer: 0,
-                explanation: "2's complement is formed by flipping all 0s to 1s and 1s to 0s, then adding 1.",
+                explanation: "De Morgan's theorem states (A · B)' = A' + B' and (A + B)' = A' · B'.",
+                difficulty: "easy",
+                tags: ["de-morgan"]
+            }
+        ],
+        discrete_graph_fundamentals: [
+            {
+                question: "According to the Handshaking Lemma for undirected graphs, what is the sum of degrees of all vertices equal to?",
+                options: ["2 × (Number of Edges)", "Number of Edges", "Vertices × Edges", "Edges / 2"],
+                correctAnswer: 0,
+                explanation: "The Handshaking Lemma states ∑ deg(v) = 2|E|, since every edge contributes 2 to the degree sum.",
+                difficulty: "easy",
+                tags: ["handshaking-lemma"]
+            }
+        ],
+        discrete_eulerian_hamiltonian: [
+            {
+                question: "What condition guarantees that a connected undirected graph contains an Eulerian Circuit?",
+                options: [
+                    "Every vertex has an EVEN degree",
+                    "Every vertex has an ODD degree",
+                    "The graph is a tree",
+                    "The graph has exactly 2 vertices of odd degree"
+                ],
+                correctAnswer: 0,
+                explanation: "Euler's Theorem states a connected graph has an Eulerian Circuit if and only if every vertex has an even degree.",
                 difficulty: "medium",
-                tags: ["twos-complement"]
-            },
-            {
-                question: "How many bits are used in standard ASCII character encoding?",
-                options: ["7 Bits", "8 Bits", "16 Bits", "32 Bits"],
-                correctAnswer: 0,
-                explanation: "Standard original ASCII uses 7 bits to encode 128 distinct characters (0 to 127).",
-                difficulty: "easy",
-                tags: ["ascii"]
+                tags: ["eulerian-circuit"]
             }
         ],
-        cs_word_processing: [
+        discrete_trees_coloring: [
             {
-                question: "Which feature in word processing software is used to send personalized form letters to multiple recipients?",
-                options: ["Mail Merge", "Macro Recording", "Spell Check", "Track Changes"],
+                question: "If a connected tree graph T has n vertices, how many edges does T contain?",
+                options: ["n - 1 edges", "n edges", "n + 1 edges", "n(n-1)/2 edges"],
                 correctAnswer: 0,
-                explanation: "Mail Merge merges a template document with a data source list to generate personalized documents.",
+                explanation: "A tree with n vertices always contains exactly |E| = n - 1 edges.",
                 difficulty: "easy",
-                tags: ["mail-merge"]
-            }
-        ],
-        cs_spreadsheets: [
-            {
-                question: "In spreadsheet software (Excel), which symbol MUST precede every formula?",
-                options: ["= (Equals sign)", "@ (At symbol)", "+ (Plus)", "# (Hash)"],
-                correctAnswer: 0,
-                explanation: "Formulas in spreadsheets must begin with an equals sign (=).",
-                difficulty: "easy",
-                tags: ["spreadsheet-formula"]
+                tags: ["tree-properties"]
             },
             {
-                question: "Which cell reference format keeps the row and column fixed when copied to another cell?",
-                options: ["$A$1 (Absolute Reference)", "A1 (Relative Reference)", "A$1 (Mixed Reference)", "$A1"],
+                question: "According to Euler's Planar Graph Formula, for any connected planar graph with V vertices, E edges, and F faces, what is V - E + F equal to?",
+                options: ["2", "1", "0", "4"],
                 correctAnswer: 0,
-                explanation: "Dollar signs ($A$1) lock both column and row references for absolute evaluation.",
+                explanation: "Euler's formula for connected planar graphs states V - E + F = 2.",
                 difficulty: "medium",
-                tags: ["absolute-reference"]
-            }
-        ],
-        cs_presentation_graphics: [
-            {
-                question: "Which view/tool in presentation software controls the default layout, fonts, and theme for all slides in a deck?",
-                options: ["Slide Master", "Slide Sorter", "Outline View", "Presenter View"],
-                correctAnswer: 0,
-                explanation: "The Slide Master defines consistent styling, formatting, and placeholders across all slides.",
-                difficulty: "easy",
-                tags: ["slide-master"]
-            }
-        ],
-        cs_dbms_basics: [
-            {
-                question: "Which key uniquely identifies each record/row in a relational database table?",
-                options: ["Primary Key", "Foreign Key", "Candidate Key", "Super Key"],
-                correctAnswer: 0,
-                explanation: "A Primary Key uniquely identifies each row in a database table without duplicate or NULL values.",
-                difficulty: "easy",
-                tags: ["primary-key"]
-            },
-            {
-                question: "Which SQL command is used to retrieve data from one or more database tables?",
-                options: ["SELECT", "INSERT", "UPDATE", "DELETE"],
-                correctAnswer: 0,
-                explanation: "The SELECT statement queries database tables and returns result sets.",
-                difficulty: "easy",
-                tags: ["sql-select"]
-            }
-        ],
-        cs_os_fundamentals: [
-            {
-                question: "Which core component of an Operating System directly interacts with hardware resources and manages system memory/processes?",
-                options: ["Kernel", "Shell", "GUI", "Compiler"],
-                correctAnswer: 0,
-                explanation: "The Kernel is the central core of an OS managing system hardware, RAM, and process schedules.",
-                difficulty: "easy",
-                tags: ["kernel"]
-            },
-            {
-                question: "Which part of an Operating System acts as the user interface command line or graphical interpreter?",
-                options: ["Shell", "Kernel", "BIOS", "Device Driver"],
-                correctAnswer: 0,
-                explanation: "The Shell interprets user commands and sends them to the Kernel for execution.",
-                difficulty: "easy",
-                tags: ["shell"]
-            }
-        ],
-        cs_data_communications: [
-            {
-                question: "Which transmission mode allows data communication in BOTH directions, but only ONE direction at a time (e.g. Walkie-Talkie)?",
-                options: ["Half-Duplex", "Full-Duplex", "Simplex", "Multiplex"],
-                correctAnswer: 0,
-                explanation: "Half-Duplex mode supports bidirectional communication, but only one party can transmit at a given moment.",
-                difficulty: "easy",
-                tags: ["half-duplex"]
-            }
-        ],
-        cs_network_topologies: [
-            {
-                question: "In which network topology are all devices connected to a central hub or switch?",
-                options: ["Star Topology", "Bus Topology", "Ring Topology", "Mesh Topology"],
-                correctAnswer: 0,
-                explanation: "In a Star Topology, nodes communicate through a central switch or hub.",
-                difficulty: "easy",
-                tags: ["star-topology"]
-            },
-            {
-                question: "How many layers are defined in the ISO/OSI Reference Model for computer networking?",
-                options: ["7 Layers", "4 Layers", "5 Layers", "6 Layers"],
-                correctAnswer: 0,
-                explanation: "The OSI model consists of 7 layers (Physical, Data Link, Network, Transport, Session, Presentation, Application).",
-                difficulty: "easy",
-                tags: ["osi-model"]
+                tags: ["planar-graphs"]
             }
         ]
     };
@@ -245,9 +192,9 @@ window.QuestionBank = (function () {
         const seeds = seedQuestions[subtopicId] || [];
         const result = [...seeds];
 
-        let subName = "CS Subtopic";
-        let subSubject = "Computer Science Essentials (Bridge)";
-        let subTopicName = "CS Essentials Topic";
+        let subName = "Discrete Subtopic";
+        let subSubject = "Discrete Structures & Optimization";
+        let subTopicName = "Discrete Topic";
 
         for (const sub of subjectsConfig) {
             for (const top of sub.topics) {
@@ -295,146 +242,107 @@ window.QuestionBank = (function () {
     }
 
     function createVariationQuestion(subtopicId, idx, difficulty, subName, subjectName) {
-        // CS ESSENTIALS GENERATOR BRANCHES
-        if (subtopicId === "cs_hardware_software") {
-            const comps = [
-                { name: "System Software", ex: "Operating System & Device Drivers" },
-                { name: "Application Software", ex: "Word Processors & Web Browsers" },
-                { name: "ALU", ex: "Arithmetic and Logic Operations" },
-                { name: "Control Unit", ex: "Fetching and decoding instructions" }
-            ];
-            const c = comps[idx % comps.length];
+        // DISCRETE STRUCTURES GENERATOR BRANCHES
+        if (subtopicId === "discrete_sets_inclusion") {
+            const n = (idx % 8) + 2;
+            const pSize = Math.pow(2, n);
             return {
-                question: `Q${idx}. In computer system architecture, what is the primary role of '${c.name}'?`,
-                options: [`${c.ex}`, "Secondary Storage", "Optical Disc Burning", "Graphic Rendering"],
+                question: `Q${idx}. If set A has ${n} elements, how many subsets does set A possess in its power set P(A)?`,
+                options: [`${pSize} subsets`, `${2 * n} subsets`, `${n * n} subsets`, `${n + 1} subsets`],
                 correctAnswer: 0,
-                explanation: `'${c.name}' is responsible for ${c.ex}.`,
-                tags: ["hardware-software"]
+                explanation: `The number of subsets in power set P(A) = 2^${n} = ${pSize}.`,
+                tags: ["power-set"]
             };
-        } else if (subtopicId === "cs_io_devices") {
-            const devMap = [
-                { dev: "Bar Code Reader", cat: "Input Device" },
-                { dev: "Laser Printer", cat: "Output Device" },
-                { dev: "OCR (Optical Character Reader)", cat: "Input Device" },
-                { dev: "Plotter", cat: "Vector Output Device" }
-            ];
-            const d = devMap[idx % devMap.length];
+        } else if (subtopicId === "discrete_relations_functions") {
             return {
-                question: `Q${idx}. Which category does the hardware device '${d.dev}' belong to?`,
-                options: [`${d.cat}`, "Storage Device", "CPU Register", "System Memory"],
+                question: `Q${idx}. Which property guarantees that if (a, b) ∈ R and (b, a) ∈ R, then a = b?`,
+                options: ["Antisymmetric Property", "Symmetric Property", "Transitive Property", "Reflexive Property"],
                 correctAnswer: 0,
-                explanation: `'${d.dev}' is classified as a ${d.cat}.`,
-                tags: ["io-devices"]
+                explanation: "Antisymmetry states that (a,b) ∈ R and (b,a) ∈ R implies a = b.",
+                tags: ["antisymmetric"]
             };
-        } else if (subtopicId === "cs_primary_secondary_mem") {
-            const mems = [
-                { name: "RAM", type: "Volatile Primary Memory" },
-                { name: "ROM", type: "Non-volatile Primary Memory" },
-                { name: "SSD", type: "Non-volatile Secondary Storage" },
-                { name: "EPROM", type: "UV Erasable Programmable ROM" }
-            ];
-            const m = mems[idx % mems.length];
+        } else if (subtopicId === "discrete_counting_permutations") {
+            const n = (idx % 6) + 3;
+            let fact = 1;
+            for (let i = 1; i <= n; i++) fact *= i;
             return {
-                question: `Q${idx}. What is the memory classification of '${m.name}'?`,
-                options: [`${m.type}`, "Cache Level 1", "Virtual Memory Page", "Register"],
+                question: `Q${idx}. What is the total number of distinct linear permutations of ${n} distinct objects?`,
+                options: [`${fact} (${n}!)`, `${n * 2}`, `${Math.pow(2, n)}`, `${n * n}`],
                 correctAnswer: 0,
-                explanation: `'${m.name}' is classified as ${m.type}.`,
-                tags: ["memory-system"]
+                explanation: `${n} objects can be arranged in ${n}! = ${fact} distinct permutations.`,
+                tags: ["permutations"]
             };
-        } else if (subtopicId === "cs_cache_registers") {
+        } else if (subtopicId === "discrete_recurrence_generating") {
             return {
-                question: `Q${idx}. Which memory level offers the FASTEST access speed to the processor?`,
-                options: ["CPU Registers", "L1 Cache", "RAM", "Secondary SSD"],
+                question: `Q${idx}. What is the order of the linear recurrence relation aₙ = 3aₙ₋₁ - 2aₙ₋₂ + 5aₙ₋₃?`,
+                options: ["Order 3", "Order 2", "Order 1", "Order 5"],
                 correctAnswer: 0,
-                explanation: "Internal CPU registers operate at CPU clock speeds, making them the fastest memory elements.",
-                tags: ["registers"]
+                explanation: "The order of a recurrence is the difference between highest index n and lowest index n-3 (n - (n-3) = 3).",
+                tags: ["recurrence-order"]
             };
-        } else if (subtopicId === "cs_number_systems") {
-            const b = (idx * 2) % 15 + 1;
+        } else if (subtopicId === "discrete_algebraic_structures") {
             return {
-                question: `Q${idx}. In positional number systems, what is the base (radix) of Hexadecimal number system?`,
-                options: ["16", "2", "8", "10"],
-                correctAnswer: 0,
-                explanation: "Hexadecimal is Base-16, using digits 0-9 and letters A-F.",
-                tags: ["hexadecimal"]
-            };
-        } else if (subtopicId === "cs_binary_arithmetic") {
-            return {
-                question: `Q${idx}. What is the 1's complement of binary number (101010)₂?`,
-                options: ["(010101)₂", "(101011)₂", "(111111)₂", "(000000)₂"],
-                correctAnswer: 0,
-                explanation: "1's complement is obtained by flipping all 1s to 0s and 0s to 1s.",
-                tags: ["ones-complement"]
-            };
-        } else if (subtopicId === "cs_word_processing") {
-            return {
-                question: `Q${idx}. Which shortcut key combination is universally used to Select All text in a word processing document?`,
-                options: ["Ctrl + A", "Ctrl + S", "Ctrl + C", "Ctrl + V"],
-                correctAnswer: 0,
-                explanation: "Ctrl + A selects all content in the active document.",
-                tags: ["word-processing"]
-            };
-        } else if (subtopicId === "cs_spreadsheets") {
-            return {
-                question: `Q${idx}. In Excel spreadsheets, which function calculates the mathematical average of a cell range?`,
-                options: ["AVERAGE()", "SUM()", "COUNT()", "MEAN()"],
-                correctAnswer: 0,
-                explanation: "AVERAGE(range) calculates arithmetic mean of cell values.",
-                tags: ["spreadsheet-functions"]
-            };
-        } else if (subtopicId === "cs_presentation_graphics") {
-            return {
-                question: `Q${idx}. Which key on the keyboard starts a slide show presentation from the first slide in PowerPoint?`,
-                options: ["F5", "F1", "Esc", "Spacebar"],
-                correctAnswer: 0,
-                explanation: "F5 launches the slide show presentation from slide 1.",
-                tags: ["presentation"]
-            };
-        } else if (subtopicId === "cs_dbms_basics") {
-            return {
-                question: `Q${idx}. In relational databases, what is a Foreign Key used for?`,
+                question: `Q${idx}. In group theory, what is an identity element e in (G, *)?`,
                 options: [
-                    "To establish a relationship between two tables by referencing a primary key",
-                    "To encrypt database passwords",
-                    "To calculate table averages",
-                    "To delete database records"
+                    "An element such that a * e = e * a = a for all a ∈ G",
+                    "An element such that a * e = 0",
+                    "An element such that a * a⁻¹ = e",
+                    "An element that generates all members"
                 ],
                 correctAnswer: 0,
-                explanation: "A Foreign Key links a column in one table to the Primary Key of another table.",
-                tags: ["foreign-key"]
+                explanation: "The identity element e leaves any element unchanged under binary operation *.",
+                tags: ["identity-element"]
             };
-        } else if (subtopicId === "cs_os_fundamentals") {
+        } else if (subtopicId === "discrete_boolean_algebra") {
             return {
-                question: `Q${idx}. What is process scheduling in an Operating System?`,
+                question: `Q${idx}. In Boolean Algebra, what is the value of expression A + A'?`,
+                options: ["1 (Logical True)", "0 (Logical False)", "A", "A'"],
+                correctAnswer: 0,
+                explanation: "By Complement Law, A + A' = 1 for any boolean variable A.",
+                tags: ["boolean-laws"]
+            };
+        } else if (subtopicId === "discrete_graph_fundamentals") {
+            const v = (idx % 7) + 3;
+            const maxE = (v * (v - 1)) / 2;
+            return {
+                question: `Q${idx}. What is the maximum number of edges in a simple undirected graph with ${v} vertices?`,
+                options: [`${maxE} edges`, `${v} edges`, `${v * v} edges`, `${maxE * 2} edges`],
+                correctAnswer: 0,
+                explanation: `In a complete graph K_${v}, max edges = C(${v}, 2) = ${v}×${v-1}/2 = ${maxE}.`,
+                tags: ["complete-graph"]
+            };
+        } else if (subtopicId === "discrete_eulerian_hamiltonian") {
+            return {
+                question: `Q${idx}. What is a Hamiltonian Cycle in a graph G?`,
                 options: [
-                    "Allocating CPU time to executing processes efficiently",
-                    "Deleting old files from hard disk",
-                    "Formatting storage drives",
-                    "Scanning for viruses"
+                    "A closed cycle that visits every VERTEX of graph G exactly once",
+                    "A path that traverses every EDGE of graph G exactly once",
+                    "A tree spanning all vertices",
+                    "A bipartite sub-graph"
                 ],
                 correctAnswer: 0,
-                explanation: "Process scheduling controls the execution order and CPU allocation for active processes.",
-                tags: ["process-scheduling"]
+                explanation: "A Hamiltonian Cycle visits every vertex exactly once and returns to the start vertex.",
+                tags: ["hamiltonian-cycle"]
             };
-        } else if (subtopicId === "cs_data_communications") {
+        } else if (subtopicId === "discrete_trees_coloring") {
             return {
-                question: `Q${idx}. Which transmission mode allows data flow in BOTH directions simultaneously (e.g. Telephone call)?`,
-                options: ["Full-Duplex", "Half-Duplex", "Simplex", "Uniplex"],
+                question: `Q${idx}. What is the Chromatic Number χ(Kₙ) of a Complete Graph with n vertices?`,
+                options: ["n", "n - 1", "2", "1"],
                 correctAnswer: 0,
-                explanation: "Full-Duplex supports simultaneous bidirectional data transmission.",
-                tags: ["full-duplex"]
-            };
-        } else if (subtopicId === "cs_network_topologies") {
-            return {
-                question: `Q${idx}. Which computer network type spans across an entire city or metropolitan area?`,
-                options: ["MAN (Metropolitan Area Network)", "LAN (Local Area Network)", "WAN (Wide Area Network)", "PAN"],
-                correctAnswer: 0,
-                explanation: "MAN connects nodes across a city region (e.g. cable TV networks).",
-                tags: ["man-network"]
+                explanation: "Since every vertex is adjacent to every other vertex in Kₙ, exactly n distinct colors are required.",
+                tags: ["chromatic-number"]
             };
         }
-        // C PROGRAMMING GENERATOR FALLBACKS
-        else if (subtopicId === "c_tokens_keywords") {
+        // CS ESSENTIALS & C GENERATORS
+        else if (subtopicId === "cs_hardware_software") {
+            return {
+                question: `Q${idx}. Which CPU register stores the result of arithmetic and logic operations?`,
+                options: ["Accumulator (ACC)", "Program Counter (PC)", "Instruction Register (IR)", "Stack Pointer (SP)"],
+                correctAnswer: 0,
+                explanation: "The Accumulator (ACC) holds immediate ALU output results.",
+                tags: ["accumulator"]
+            };
+        } else if (subtopicId === "c_tokens_keywords") {
             const tokens = ["auto", "break", "case", "char", "const", "continue", "default", "do", "double", "else", "enum", "extern", "float", "for", "goto", "if", "inline", "int", "long", "register", "restrict", "return", "short", "signed", "sizeof", "static", "struct", "switch", "typedef", "union", "unsigned", "void", "volatile", "while"];
             const tok = tokens[idx % tokens.length];
             return {
@@ -454,7 +362,7 @@ window.QuestionBank = (function () {
                     `Distractor option C for ${subName}`
                 ],
                 correctAnswer: 0,
-                explanation: `This question evaluates key concepts of ${subName} in computer science.`,
+                explanation: `This question evaluates key concepts of ${subName} in discrete mathematics & computer science.`,
                 tags: [subtopicId]
             };
         }

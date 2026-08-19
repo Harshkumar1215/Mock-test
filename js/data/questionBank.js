@@ -4,10 +4,10 @@
  * 1. Computer Programming using C (14 Topics • 47 Subtopics • 4,700 MCQs)
  * 2. Programming in Python (12 Topics • 30 Subtopics • 3,000 MCQs)
  * 3. Advanced Data Structures (7 Topics • 14 Subtopics • 1,400 MCQs)
- * 4. Advanced Database Management System (6 Topics • 12 Subtopics • 1,200 MCQs)
+ * 4. Advanced Database Management System (8 Topics • 13 Subtopics • 1,300 MCQs)
  * 5. Computer Science Essentials (Bridge) (6 Topics • 12 Subtopics • 1,200 MCQs)
  * 6. Discrete Structures & Optimization (6 Topics • 8 Subtopics • 800 MCQs)
- * Total: 51 Topics • 123 Subtopics • 12,300 MCQs (100 MCQs per subtopic)
+ * Total: 53 Topics • 124 Subtopics • 12,400 MCQs (100 MCQs per subtopic)
  */
 
 window.QuestionBank = (function () {
@@ -30,24 +30,62 @@ window.QuestionBank = (function () {
             }
         ],
         // ADVANCED DATABASE MANAGEMENT SYSTEM SEEDS
-        adbms_relational_query: [
+        adbms_architecture_models: [
             {
-                question: "Which component of the DBMS Query Processing Engine translates high-level SQL queries into Relational Algebra expressions?",
-                options: ["Query Parser and Translator", "Query Optimizer", "Execution Engine", "Buffer Manager"],
+                question: "According to the ANSI-SPARC 3-Schema Architecture, which level describes the physical storage structures and access paths of the database?",
+                options: ["Internal / Physical Level", "Conceptual Level", "External / View Level", "Logical Level"],
                 correctAnswer: 0,
-                explanation: "The Query Parser and Translator parses SQL syntax and builds equivalent Relational Algebra trees.",
+                explanation: "The Internal/Physical Schema defines low-level storage data structures and index organization.",
                 difficulty: "easy",
-                tags: ["query-processing"]
+                tags: ["ansi-sparc"]
             }
         ],
-        adbms_query_cost_eval: [
+        adbms_er_model: [
             {
-                question: "Which Join algorithm operates in O(M + N) I/O cost when both input relations M and N are already sorted on the join attribute?",
-                options: ["Sort-Merge Join", "Block Nested-Loop Join", "Hash Join", "Nested-Loop Join"],
+                question: "In Enhanced ER (EER) modeling, what is the process of defining a set of subclasses from an entity type based on distinguishing characteristics called?",
+                options: ["Specialization", "Generalization", "Aggregation", "Categorization"],
                 correctAnswer: 0,
-                explanation: "Sort-Merge Join scans pre-sorted relations M and N in a single linear pass.",
+                explanation: "Specialization is a top-down process of creating specialized sub-entities from a super-entity.",
+                difficulty: "easy",
+                tags: ["eer-specialization"]
+            }
+        ],
+        adbms_relational_algebra_calculus: [
+            {
+                question: "Which relational calculus variant expresses queries using variables that range over individual tuples in a relation?",
+                options: ["Tuple Relational Calculus (TRC)", "Domain Relational Calculus (DRC)", "Relational Algebra", "SQL DDL"],
+                correctAnswer: 0,
+                explanation: "Tuple Relational Calculus (TRC) uses tuple variables {t | P(t)}.",
+                difficulty: "easy",
+                tags: ["trc"]
+            }
+        ],
+        adbms_normalization_fds: [
+            {
+                question: "Which normal form requires a relation to be in 3NF and mandates that for every non-trivial functional dependency X → Y, X MUST be a Super Key?",
+                options: ["Boyce-Codd Normal Form (BCNF)", "3NF", "2NF", "4NF"],
+                correctAnswer: 0,
+                explanation: "BCNF strictly requires X to be a super key for all non-trivial dependencies X → Y.",
                 difficulty: "medium",
-                tags: ["sort-merge-join"]
+                tags: ["bcnf"]
+            }
+        ],
+        adbms_advanced_normalization: [
+            {
+                question: "A relation schema R is in Fourth Normal Form (4NF) if and only if for every non-trivial Multivalued Dependency (MVD) X ↠ Y, what condition holds?",
+                options: ["X is a Super Key for R", "Y is a prime attribute", "X is a foreign key", "Y is a single-valued scalar"],
+                correctAnswer: 0,
+                explanation: "4NF eliminates multi-valued dependency anomalies by requiring X to be a super key for X ↠ Y.",
+                difficulty: "hard",
+                tags: ["4nf-mvd"]
+            },
+            {
+                question: "Which normal form guarantees protection against all possible join dependency anomalies, also known as Project-Join Normal Form (PJNF)?",
+                options: ["Fifth Normal Form (5NF)", "Fourth Normal Form (4NF)", "BCNF", "Domain-Key Normal Form (DKNF)"],
+                correctAnswer: 0,
+                explanation: "5NF (PJNF) addresses join dependencies where a relation cannot be losslessly decomposed further.",
+                difficulty: "hard",
+                tags: ["5nf-pjnf"]
             }
         ],
         adbms_transactions_acid: [
@@ -58,27 +96,19 @@ window.QuestionBank = (function () {
                 explanation: "Atomicity enforces the 'all-or-nothing' execution guarantee.",
                 difficulty: "easy",
                 tags: ["atomicity", "acid"]
-            },
-            {
-                question: "If a schedule S can be transformed into a serial schedule by a series of non-conflicting operation swaps, what is S called?",
-                options: ["Conflict Serialisable Schedule", "View Serialisable Schedule", "Strict Schedule", "Cascadeless Schedule"],
-                correctAnswer: 0,
-                explanation: "Swapping non-conflicting operations to match a serial schedule defines Conflict Serialisability.",
-                difficulty: "medium",
-                tags: ["serializability"]
             }
         ],
-        adbms_concurrency_locking: [
+        adbms_concurrency_protocols: [
             {
-                question: "Which variation of Two-Phase Locking (2PL) requires that ALL exclusive (X) locks held by a transaction MUST be held until the transaction COMMITS?",
-                options: ["Strict 2PL", "Basic 2PL", "Rigorous 2PL", "Conservative 2PL"],
+                question: "Which concurrency control protocol enforces serialisability without locking by assigning read and write timestamps to transactions?",
+                options: ["Timestamp Ordering Protocol", "Strict 2PL", "Multiversion 2PL", "Tree-Based Locking"],
                 correctAnswer: 0,
-                explanation: "Strict 2PL prevents cascading aborts by holding all X-locks until final commit.",
+                explanation: "Timestamp Ordering ensures conflict serialisability using transaction start timestamps TS(T).",
                 difficulty: "medium",
-                tags: ["strict-2pl"]
+                tags: ["timestamp-ordering"]
             }
         ],
-        adbms_recovery_logging: [
+        adbms_recovery_systems: [
             {
                 question: "According to the Write-Ahead Logging (WAL) protocol, when MUST a log record for a database modification be written to stable storage?",
                 options: [
@@ -93,62 +123,45 @@ window.QuestionBank = (function () {
                 tags: ["wal-protocol"]
             }
         ],
-        adbms_indexing_hashing: [
+        adbms_parallel_distributed_db: [
             {
-                question: "In B+ Trees, where are the actual data pointers or record data entries stored?",
-                options: [
-                    "EXCLUSIVELY in the Leaf Nodes",
-                    "In Internal Nodes only",
-                    "Equally across Root and Internal Nodes",
-                    "In the Header page only"
-                ],
+                question: "Which parallel database architecture offers maximum scalability by giving each processor its own independent memory and disk array?",
+                options: ["Shared-Nothing Architecture", "Shared-Memory Architecture", "Shared-Disk Architecture", "NUMA Architecture"],
                 correctAnswer: 0,
-                explanation: "B+ Trees store data records exclusively in leaf nodes linked sequentially for range queries.",
-                difficulty: "easy",
-                tags: ["bplus-tree-leaves"]
-            }
-        ],
-        adbms_distributed_db: [
-            {
-                question: "What form of data fragmentation splits a relation schema into subsets of columns with matching primary keys?",
-                options: ["Vertical Fragmentation", "Horizontal Fragmentation", "Mixed Fragmentation", "Derived Fragmentation"],
-                correctAnswer: 0,
-                explanation: "Vertical Fragmentation divides attributes/columns across sites, joined by Primary Keys.",
+                explanation: "Shared-Nothing architecture scales to hundreds of nodes without memory or disk bus contention.",
                 difficulty: "medium",
-                tags: ["vertical-fragmentation"]
+                tags: ["shared-nothing"]
             }
         ],
-        adbms_distributed_commit: [
+        adbms_temporal_spatial_db: [
             {
-                question: "What is the primary drawback of the Two-Phase Commit (2PC) protocol during coordinator failure?",
-                options: ["It can cause Participant processes to BLOCK indefinitely", "It loses data integrity", "It causes deadlock cycles", "It corrupts the WAL log"],
+                question: "Which temporal database dimension captures the time interval during which a fact was true in the real world?",
+                options: ["Valid Time", "Transaction Time", "System Time", "Log Time"],
                 correctAnswer: 0,
-                explanation: "If the Coordinator crashes during 2PC, participant sites holding locks enter a blocking state.",
+                explanation: "Valid Time measures real-world truth, whereas Transaction Time records when data was committed to DB.",
                 difficulty: "medium",
-                tags: ["2pc-blocking"]
-            }
-        ],
-        adbms_oodb_xml: [
+                tags: ["valid-time"]
+            },
             {
-                question: "Which standardized query language is specified by the Object Data Management Group (ODMG) for querying Object Databases?",
-                options: ["OQL (Object Query Language)", "SQL-92", "XQuery", "GraphQL"],
+                question: "Which tree index structure is specialized for indexing multi-dimensional spatial data (e.g. bounding boxes in GIS)?",
+                options: ["R-Tree", "B+ Tree", "AVL Tree", "Splay Tree"],
                 correctAnswer: 0,
-                explanation: "OQL is the Object Query Language standard defined for Object-Oriented Databases.",
-                difficulty: "easy",
-                tags: ["oql"]
+                explanation: "R-Trees group spatial objects using Minimum Bounding Rectangles (MBRs).",
+                difficulty: "medium",
+                tags: ["r-tree-spatial"]
             }
         ],
-        adbms_xml_json_db: [
+        adbms_xml_databases: [
             {
-                question: "Which XML navigation language uses expression paths like `/bookstore/book[price > 35]/title` to select nodes?",
+                question: "Which XML query language uses path expressions to navigate XML document node trees and extract elements?",
                 options: ["XPath", "XSLT", "XLink", "DTD"],
                 correctAnswer: 0,
-                explanation: "XPath provides path expressions for navigating XML document tree structures.",
+                explanation: "XPath provides syntax for selecting nodes or node-sets in an XML document.",
                 difficulty: "easy",
                 tags: ["xpath"]
             }
         ],
-        adbms_nosql_architecture: [
+        adbms_bigdata_nosql: [
             {
                 question: "Which NoSQL database category is Apache Cassandra classified under?",
                 options: ["Wide-Column Store (Column-Family)", "Document Store", "Key-Value Store", "Graph Database"],
@@ -156,16 +169,6 @@ window.QuestionBank = (function () {
                 explanation: "Cassandra is a distributed wide-column store designed for high scalability.",
                 difficulty: "easy",
                 tags: ["cassandra-nosql"]
-            }
-        ],
-        adbms_data_warehousing: [
-            {
-                question: "In Data Warehousing OLAP operations, what operation changes the dimensional orientation of a report or cube view (e.g. swapping rows and columns)?",
-                options: ["Pivot (Rotate)", "Roll-up", "Drill-down", "Slice and Dice"],
-                correctAnswer: 0,
-                explanation: "Pivot (or Rotate) rotates the data axes to provide an alternative presentation of data.",
-                difficulty: "easy",
-                tags: ["olap-pivot"]
             }
         ]
     };
@@ -239,45 +242,81 @@ window.QuestionBank = (function () {
 
     function createVariationQuestion(subtopicId, idx, difficulty, subName, subjectName) {
         // ADVANCED DBMS GENERATORS
-        if (subtopicId === "adbms_relational_query") {
-            const ops = [
-                { name: "Selection (σ)", desc: "Filters rows matching a boolean predicate" },
-                { name: "Projection (π)", desc: "Selects specified column attributes" },
-                { name: "Natural Join (⋈)", desc: "Combines tuples with matching common attributes" },
-                { name: "Cartesian Product (×)", desc: "Combines every row of table A with every row of table B" }
+        if (subtopicId === "adbms_architecture_models") {
+            const models = [
+                { name: "Relational Model", desc: "Data stored in 2D tables with rows and columns" },
+                { name: "Hierarchical Model", desc: "Tree structure with parent-child 1:N relationships" },
+                { name: "Network Model", desc: "Graph structure supporting M:N record relationships" },
+                { name: "Object-Oriented Model", desc: "Encapsulates data and methods into object classes" }
             ];
-            const op = ops[idx % ops.length];
+            const m = models[idx % models.length];
             return {
-                question: `In Relational Algebra, what is the exact function of operator '${op.name}'?`,
-                options: [`${op.desc}`, "Sorts records in descending order", "Creates an index page", "Deletes foreign key constraints"],
+                question: `Which Data Model representation is characterized by '${m.name}'?`,
+                options: [`${m.desc}`, "Binary file streams", "Raw disk sectors", "Stack frames"],
                 correctAnswer: 0,
-                explanation: `'${op.name}' ${op.desc}.`,
-                tags: ["relational-algebra"]
+                explanation: `'${m.name}' features ${m.desc}.`,
+                tags: ["data-models"]
             };
-        } else if (subtopicId === "adbms_query_cost_eval") {
+        } else if (subtopicId === "adbms_er_model") {
             return {
-                question: `Which Join algorithm is optimal when one relation is small enough to fit entirely in main memory RAM?`,
-                options: ["Hash Join", "Sort-Merge Join", "Nested-Loop Join", "Index Scan"],
+                question: `In Entity-Relationship (ER) modeling, how is a Weak Entity set uniquely identified?`,
+                options: [
+                    "By combining its Partial Key (Discriminator) with the Primary Key of its Identifying Owner Entity",
+                    "By its own composite primary key alone",
+                    "By a random UUID number",
+                    "It cannot be uniquely identified"
+                ],
                 correctAnswer: 0,
-                explanation: "Hash Join builds an in-memory hash table for the smaller relation, scanning the larger relation once.",
-                tags: ["hash-join"]
+                explanation: "A weak entity requires its identifying owner's primary key plus its own partial key.",
+                tags: ["weak-entity"]
+            };
+        } else if (subtopicId === "adbms_relational_algebra_calculus") {
+            return {
+                question: `What property proves that a database query language can express any query expressible in basic Relational Algebra?`,
+                options: ["Relational Completeness", "Turing Completeness", "ACID Compliance", "Normal Form Integrity"],
+                correctAnswer: 0,
+                explanation: "A language is Relational Complete if it is at least as powerful as relational algebra.",
+                tags: ["relational-completeness"]
+            };
+        } else if (subtopicId === "adbms_normalization_fds") {
+            const nfs = [
+                { nf: "1NF", rule: "Eliminates repeating groups and non-atomic multivalued attributes" },
+                { nf: "2NF", rule: "In 1NF and eliminates Partial Functional Dependencies" },
+                { nf: "3NF", rule: "In 2NF and eliminates Transitive Functional Dependencies" },
+                { nf: "BCNF", rule: "In 3NF and requires X to be a Super Key for all X → Y" }
+            ];
+            const n = nfs[idx % nfs.length];
+            return {
+                question: `Which database Normal Form rule states that a relation MUST satisfy '${n.rule}'?`,
+                options: [`${n.nf}`, "4NF", "5NF", "DKNF"],
+                correctAnswer: 0,
+                explanation: `${n.nf} mandates that ${n.rule}.`,
+                tags: ["normal-forms"]
+            };
+        } else if (subtopicId === "adbms_advanced_normalization") {
+            return {
+                question: `Multivalued Dependencies (MVDs) of the form X ↠ Y are addressed by which Normal Form?`,
+                options: ["Fourth Normal Form (4NF)", "Third Normal Form (3NF)", "BCNF", "Second Normal Form (2NF)"],
+                correctAnswer: 0,
+                explanation: "4NF eliminates anomalies resulting from independent Multivalued Dependencies.",
+                tags: ["4nf"]
             };
         } else if (subtopicId === "adbms_transactions_acid") {
             const acid = [
-                { letter: "A", name: "Atomicity", desc: "All-or-nothing execution" },
-                { letter: "C", name: "Consistency", desc: "Database transitions from one valid state to another" },
+                { letter: "A", name: "Atomicity", desc: "All-or-nothing transaction execution" },
+                { letter: "C", name: "Consistency", desc: "Preserves database structural integrity invariants" },
                 { letter: "I", name: "Isolation", desc: "Concurrent transactions execute without mutual interference" },
-                { letter: "D", name: "Durability", desc: "Committed changes persist even after system crashes" }
+                { letter: "D", name: "Durability", desc: "Committed updates survive future system failures" }
             ];
             const a = acid[idx % acid.length];
             return {
-                question: `Which ACID property '${a.name}' guarantees that ${a.desc}?`,
+                question: `Which transaction property '${a.name}' guarantees that ${a.desc}?`,
                 options: [`${a.name}`, "Serializability", "Recoverability", "Strictness"],
                 correctAnswer: 0,
-                explanation: `${a.name} enforces that ${a.desc}.`,
+                explanation: `${a.name} guarantees that ${a.desc}.`,
                 tags: ["acid-properties"]
             };
-        } else if (subtopicId === "adbms_concurrency_locking") {
+        } else if (subtopicId === "adbms_concurrency_protocols") {
             return {
                 question: `What graph data structure is maintained by DBMS background processes to detect Deadlocks in concurrency control?`,
                 options: ["Wait-For Graph (WFG)", "B+ Tree", "Precedence Graph", "Dependency Matrix"],
@@ -285,7 +324,7 @@ window.QuestionBank = (function () {
                 explanation: "A Wait-For Graph (WFG) indicates deadlock when a directed cycle exists.",
                 tags: ["wait-for-graph"]
             };
-        } else if (subtopicId === "adbms_recovery_logging") {
+        } else if (subtopicId === "adbms_recovery_systems") {
             return {
                 question: `What are the three distinct phases of the ARIES Log-Based Database Recovery Algorithm?`,
                 options: [
@@ -298,33 +337,7 @@ window.QuestionBank = (function () {
                 explanation: "ARIES recovery proceeds through Analysis -> Redo (repeating history) -> Undo.",
                 tags: ["aries-recovery"]
             };
-        } else if (subtopicId === "adbms_indexing_hashing") {
-            return {
-                question: `What is the key advantage of Extendible Hashing over Static Hashing?`,
-                options: [
-                    "It dynamically grows and shrinks directory buckets without full table re-hashing",
-                    "It eliminates memory usage",
-                    "It enforces strict primary keys",
-                    "It sorts data records on disk"
-                ],
-                correctAnswer: 0,
-                explanation: "Extendible hashing handles data growth dynamically using a directory and bucket splitting.",
-                tags: ["extendible-hashing"]
-            };
-        } else if (subtopicId === "adbms_distributed_db") {
-            return {
-                question: `What is Fragmentation Transparency in Distributed Database Systems?`,
-                options: [
-                    "Users can query relations without knowing how or where data is fragmented across sites",
-                    "Fragments are stored in plaintext without encryption",
-                    "All fragments reside on a single server",
-                    "Queries require manual server IP inputs"
-                ],
-                correctAnswer: 0,
-                explanation: "Fragmentation transparency hides data partitioning details from the end-user SQL query.",
-                tags: ["fragmentation-transparency"]
-            };
-        } else if (subtopicId === "adbms_distributed_commit") {
+        } else if (subtopicId === "adbms_parallel_distributed_db") {
             return {
                 question: `According to the CAP Theorem for Distributed Systems, what three properties CANNOT be guaranteed simultaneously?`,
                 options: [
@@ -337,47 +350,29 @@ window.QuestionBank = (function () {
                 explanation: "CAP theorem proves a distributed store can provide at most 2 of Consistency, Availability, Partition Tolerance.",
                 tags: ["cap-theorem"]
             };
-        } else if (subtopicId === "adbms_oodb_xml") {
+        } else if (subtopicId === "adbms_temporal_spatial_db") {
             return {
-                question: `What feature distinguishes Object-Relational DBMS (ORDBMS) from traditional RDBMS?`,
-                options: [
-                    "Support for User-Defined Types (UDTs), inheritance, and complex object methods",
-                    "Removal of SQL support",
-                    "Single-user file access",
-                    "In-memory storage only"
-                ],
+                question: `Which database type manages both Valid Time (when a fact was true in reality) and Transaction Time (when logged in DB)?`,
+                options: ["Bitemporal Database", "Spatial Database", "Document Store", "Object-Oriented DB"],
                 correctAnswer: 0,
-                explanation: "ORDBMS extends RDBMS with object features like UDTs, composite structures, and inheritance.",
-                tags: ["ordbms"]
+                explanation: "A Bitemporal Database tracks both Valid Time and Transaction Time dimensions.",
+                tags: ["bitemporal"]
             };
-        } else if (subtopicId === "adbms_xml_json_db") {
+        } else if (subtopicId === "adbms_xml_databases") {
             return {
-                question: `Which W3C standard language is used to transform XML documents into HTML or other XML formats?`,
-                options: ["XSLT (Extensible Stylesheet Language Transformations)", "XPath", "XQuery", "JSON-LD"],
+                question: `Which XML navigation language uses expression paths like \`/bookstore/book[price > 35]/title\` to select nodes?`,
+                options: ["XPath", "XSLT", "XLink", "DTD"],
                 correctAnswer: 0,
-                explanation: "XSLT transforms XML document structures into HTML, XML, or plain text.",
-                tags: ["xslt"]
+                explanation: "XPath provides path expressions for navigating XML document tree structures.",
+                tags: ["xpath"]
             };
-        } else if (subtopicId === "adbms_nosql_architecture") {
+        } else if (subtopicId === "adbms_bigdata_nosql") {
             return {
                 question: `Which NoSQL data model stores data as collections of JSON-like BSON key-value documents (e.g. MongoDB)?`,
                 options: ["Document-Store Database", "Key-Value Store", "Graph Database", "Relational Table"],
                 correctAnswer: 0,
                 explanation: "MongoDB is a Document Store using BSON format.",
                 tags: ["document-store"]
-            };
-        } else if (subtopicId === "adbms_data_warehousing") {
-            const schemas = [
-                { name: "Star Schema", desc: "A central Fact table surrounded by denormalized Dimension tables" },
-                { name: "Snowflake Schema", desc: "A central Fact table surrounded by normalized multi-level Dimension tables" }
-            ];
-            const s = schemas[idx % schemas.length];
-            return {
-                question: `In Data Warehouse dimensional modeling, what characterizes a '${s.name}'?`,
-                options: [`${s.desc}`, "Random unindexed heap tables", "Flat CSV text files", "B-Tree directory blocks"],
-                correctAnswer: 0,
-                explanation: `'${s.name}' consists of ${s.desc}.`,
-                tags: ["data-warehouse-schema"]
             };
         }
         // ADVANCED DATA STRUCTURES GENERATORS

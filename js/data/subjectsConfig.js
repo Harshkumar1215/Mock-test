@@ -352,60 +352,74 @@ const subjectsConfig = [
         "name": "Advanced Database Management System",
         "icon": "fa-database",
         "badgeColor": "bg-blue",
-        "description": "Master syllabus covering Relational Query Processing, Transactions, Concurrency, Recovery, Distributed/NoSQL & Data Warehousing.",
+        "description": "Master syllabus covering Architecture, Data/ER Models, Normalization (FDs, MVDs, JDs), Relational Algebra/Calculus, Transactions, Concurrency, Recovery, Distributed/Temporal/Spatial DB, Big Data & NoSQL.",
         "topics": [
             {
-                "id": "adbms_topic_query_processing",
-                "name": "Topic 1: Relational Architecture & Query Optimization",
+                "id": "adbms_topic_arch_models",
+                "name": "Topic 1: DBMS Architecture, Data Models & ER Diagramming",
+                "icon": "fa-sitemap",
+                "subtopics": [
+                    { "id": "adbms_architecture_models", "name": "1.1 DBMS Architecture (3-Schema) & Data Models", "count": 100, "desc": "ANSI-SPARC 3-schema architecture, logical/physical data independence, Relational, Hierarchical, Network & Object Data Models" },
+                    { "id": "adbms_er_model", "name": "1.2 Entity-Relationship (ER) & Enhanced ER (EER) Modeling", "count": 100, "desc": "Entities, Attributes, Cardinalities, Weak Entities, EER Specialization, Generalization, Categorization & Aggregation" }
+                ]
+            },
+            {
+                "id": "adbms_topic_relational_normalization",
+                "name": "Topic 2: Relational Algebra, Calculus & Normalization (FDs, MVDs, JDs)",
                 "icon": "fa-filter",
                 "subtopics": [
-                    { "id": "adbms_relational_query", "name": "1.1 Relational Algebra, Calculus & Query Pipeline", "count": 100, "desc": "Relational algebra operators, tuple/domain calculus, query parser, translation & optimization pipeline" },
-                    { "id": "adbms_query_cost_eval", "name": "1.2 Query Cost Evaluation & Join Algorithms", "count": 100, "desc": "Cost estimation formulas, equivalence rules, Nested-Loop, Block-Nested, Sort-Merge & Hash Join algorithms" }
+                    { "id": "adbms_relational_algebra_calculus", "name": "2.1 Relational Algebra & Relational Calculus", "count": 100, "desc": "Select, Project, Join, Set operations, Tuple Relational Calculus (TRC), Domain Relational Calculus (DRC), Safety & Completeness" },
+                    { "id": "adbms_normalization_fds", "name": "2.2 Functional Dependencies (FDs) & Normal Forms (1NF, 2NF, 3NF, BCNF)", "count": 100, "desc": "FD closures, Armstrong's axioms, minimal cover, lossless join & dependency preservation, 1NF, 2NF, 3NF, BCNF" },
+                    { "id": "adbms_advanced_normalization", "name": "2.3 Advanced Normalization (MVDs, 4NF, Join Dependencies & 5NF/PJNF)", "count": 100, "desc": "Multivalued Dependencies (MVDs), 4NF, Join Dependencies (JDs), 5NF / Project-Join Normal Form (PJNF), DKNF" }
                 ]
             },
             {
                 "id": "adbms_topic_concurrency",
-                "name": "Topic 2: Transaction Management & Concurrency Control",
+                "name": "Topic 3: Transaction Management & Concurrency Control",
                 "icon": "fa-lock",
                 "subtopics": [
-                    { "id": "adbms_transactions_acid", "name": "2.1 ACID Properties, Transaction States & Serializability", "count": 100, "desc": "Atomicity, Consistency, Isolation, Durability, transaction lifecycle, Conflict & View serializability testing" },
-                    { "id": "adbms_concurrency_locking", "name": "2.2 Concurrency Protocols (2PL, Timestamp, MVCC & Deadlocks)", "count": 100, "desc": "2PL, Strict 2PL, Timestamp Ordering, Multiversion MVCC, Deadlock detection, prevention & wait-for graphs" }
+                    { "id": "adbms_transactions_acid", "name": "3.1 Transaction Processing & ACID Properties", "count": 100, "desc": "Atomicity, Consistency, Isolation, Durability, transaction states, Conflict & View serializability testing" },
+                    { "id": "adbms_concurrency_protocols", "name": "3.2 Concurrency Control Protocols (2PL, Timestamp, MVCC & Deadlocks)", "count": 100, "desc": "2PL, Strict/Rigorous 2PL, Timestamp Ordering, Multiversion MVCC, Deadlock prevention, detection & Wait-For graphs" }
                 ]
             },
             {
-                "id": "adbms_topic_recovery_storage",
-                "name": "Topic 3: Database Recovery Systems & Physical Indexing",
+                "id": "adbms_topic_recovery",
+                "name": "Topic 4: Database Recovery Systems & WAL Logging",
                 "icon": "fa-hard-drive",
                 "subtopics": [
-                    { "id": "adbms_recovery_logging", "name": "3.1 Log-Based Recovery (WAL, Checkpoints & ARIES)", "count": 100, "desc": "Write-Ahead Logging (WAL), deferred vs immediate update, checkpointing, ARIES algorithm (Analysis, Redo, Undo)" },
-                    { "id": "adbms_indexing_hashing", "name": "3.2 Physical Storage, B+ Trees & Extendible Hashing", "count": 100, "desc": "B+ Tree index node splitting/merging, Extendible & Dynamic Hashing, Bitmap indexes for OLAP" }
+                    { "id": "adbms_recovery_systems", "name": "4.1 Database Recovery Systems (WAL, Checkpoints & ARIES)", "count": 100, "desc": "Write-Ahead Logging (WAL), deferred/immediate updates, checkpointing, ARIES algorithm (Analysis, Redo, Undo phases)" }
                 ]
             },
             {
                 "id": "adbms_topic_distributed",
-                "name": "Topic 4: Distributed Databases & Commit Protocols",
+                "name": "Topic 5: Parallel & Distributed Databases",
                 "icon": "fa-network-wired",
                 "subtopics": [
-                    { "id": "adbms_distributed_db", "name": "4.1 Distributed Architecture & Data Fragmentation", "count": 100, "desc": "Horizontal, vertical & mixed fragmentation, data replication, distribution transparency (location, fragmentation)" },
-                    { "id": "adbms_distributed_commit", "name": "4.2 Distributed Commit Protocols (2PC, 3PC & CAP Theorem)", "count": 100, "desc": "Two-Phase Commit (2PC), Three-Phase Commit (3PC), distributed deadlocks, CAP Theorem (Consistency, Availability, Partition)" }
+                    { "id": "adbms_parallel_distributed_db", "name": "5.1 Parallel & Distributed Databases (2PC, 3PC & CAP Theorem)", "count": 100, "desc": "Shared-Memory/Disk/Nothing parallel architectures, Horizontal/Vertical fragmentation, 2PC, 3PC commit protocols, CAP Theorem" }
                 ]
             },
             {
-                "id": "adbms_topic_oodb_xml",
-                "name": "Topic 5: Object-Oriented, XML & Semi-Structured Databases",
+                "id": "adbms_topic_temporal_spatial",
+                "name": "Topic 6: Temporal & Spatial Databases",
+                "icon": "fa-clock",
+                "subtopics": [
+                    { "id": "adbms_temporal_spatial_db", "name": "6.1 Temporal & Spatial Databases (R-Trees & GIS)", "count": 100, "desc": "Valid time, Transaction time, Bitemporal DBs, Spatial indexing (R-Trees, Quadtrees), GIS spatial queries" }
+                ]
+            },
+            {
+                "id": "adbms_topic_xml",
+                "name": "Topic 7: XML Databases & Semi-Structured Data",
                 "icon": "fa-code",
                 "subtopics": [
-                    { "id": "adbms_oodb_xml", "name": "5.1 Object-Oriented & Object-Relational Databases (OODBMS)", "count": 100, "desc": "OODBMS vs RDBMS, Object Definition Language (ODL), Object Query Language (OQL), User-Defined Types (UDTs)" },
-                    { "id": "adbms_xml_json_db", "name": "5.2 Semi-Structured Databases (XML, XPath, XQuery & JSON)", "count": 100, "desc": "XML DTD/Schema, XPath expressions, XQuery, JSON document storage & indexing" }
+                    { "id": "adbms_xml_databases", "name": "7.1 XML & Semi-Structured Databases (XPath & XQuery)", "count": 100, "desc": "Semi-structured data models, XML DTD/Schema, XPath node navigation, XQuery expressions, Native XML stores" }
                 ]
             },
             {
-                "id": "adbms_topic_nosql_dw",
-                "name": "Topic 6: NoSQL Paradigms, Data Warehousing & OLAP",
+                "id": "adbms_topic_bigdata_nosql",
+                "name": "Topic 8: Big Data & NoSQL Paradigms",
                 "icon": "fa-cubes",
                 "subtopics": [
-                    { "id": "adbms_nosql_architecture", "name": "6.1 NoSQL Data Models (Key-Value, Document, Column, Graph)", "count": 100, "desc": "Key-Value (Redis), Document (MongoDB), Column-Family (Cassandra), Graph DB (Neo4j), eventual consistency" },
-                    { "id": "adbms_data_warehousing", "name": "6.2 Data Warehousing, ETL Pipelines & OLAP Operations", "count": 100, "desc": "ETL pipeline, Star schema, Snowflake schema, OLAP cubes, Slice, Dice, Roll-up, Drill-down operations" }
+                    { "id": "adbms_bigdata_nosql", "name": "8.1 Big Data & NoSQL Paradigms (MongoDB, Cassandra, Neo4j)", "count": 100, "desc": "Key-Value, Document-Store (MongoDB), Column-Family (Cassandra), Graph DB (Neo4j), MapReduce & Eventual Consistency" }
                 ]
             }
         ]

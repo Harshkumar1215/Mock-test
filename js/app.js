@@ -15,13 +15,11 @@ const App = {
         timerInterval: null,
         reviewFilter: "all",
         screenHistory: ["screen-home"],
-        theme: localStorage.getItem("app_theme") || "light",
-        layoutMode: localStorage.getItem("app_layout") || "fluid"
+        theme: localStorage.getItem("app_theme") || "light"
     },
 
     init() {
         this.applyTheme(this.state.theme);
-        this.applyLayoutMode(this.state.layoutMode);
         this.bindEvents();
         this.renderHome();
         this.checkAndRestoreDraft();
@@ -43,32 +41,9 @@ const App = {
         this.applyTheme(nextTheme);
     },
 
-    applyLayoutMode(mode) {
-        this.state.layoutMode = mode;
-        localStorage.setItem("app_layout", mode);
-        const appShell = document.getElementById("main-app-shell");
-        const btnExpand = document.getElementById("btn-top-expand");
-
-        if (appShell) {
-            if (mode === "fluid") {
-                appShell.classList.add("fluid-mode");
-                if (btnExpand) btnExpand.innerHTML = `<i class="fa-solid fa-compress"></i>`;
-            } else {
-                appShell.classList.remove("fluid-mode");
-                if (btnExpand) btnExpand.innerHTML = `<i class="fa-solid fa-expand"></i>`;
-            }
-        }
-    },
-
-    toggleLayoutMode() {
-        const nextMode = this.state.layoutMode === "fluid" ? "frame" : "fluid";
-        this.applyLayoutMode(nextMode);
-    },
-
     bindEvents() {
-        // Theme & Layout Toggle Buttons
+        // Theme Toggle Button
         document.getElementById("btn-top-theme")?.addEventListener("click", () => this.toggleTheme());
-        document.getElementById("btn-top-expand")?.addEventListener("click", () => this.toggleLayoutMode());
 
         // Bottom Navigation Bar Items
         document.querySelectorAll(".nav-item").forEach(item => {

@@ -1116,56 +1116,6 @@ const App = {
 
         // Render Subject Level Progress
         this.renderDashboardSubjectProgress();
-
-        // Render History List
-        const historyContainer = document.getElementById("dash-history-list");
-        if (!historyContainer) return;
-
-        if (attempts.length === 0) {
-            historyContainer.innerHTML = `
-                <div style="text-align:center; padding:30px 15px; color:var(--text-muted); background:var(--surface); border-radius:var(--radius-md);">
-                    <i class="fa-solid fa-history" style="font-size:2rem; margin-bottom:8px;"></i>
-                    <p style="font-weight:700;">No test attempts yet.</p>
-                    <p style="font-size:0.8rem; margin-top:4px;">Select a topic and start your first practice test!</p>
-                </div>
-            `;
-            return;
-        }
-
-        historyContainer.innerHTML = attempts.map((a, idx) => {
-            const meta = findSubtopicGlobal(a.subtopicId);
-            const title = meta ? meta.subtopic.name : a.subtopicId;
-            const subTitle = meta ? `${meta.subject.name} • ${meta.topic.name}` : "Practice Test Attempt";
-
-            return `
-                <div class="card-item" style="flex-direction:column; align-items:stretch;">
-                    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
-                        <div style="font-weight:800; font-size:0.9rem; color:var(--text-primary);">${this.escapeHTML(title)}</div>
-                        <span class="badge ${a.percentage >= 70 ? 'badge-good' : 'badge-poor'}">${a.percentage}% Score</span>
-                    </div>
-
-                    <div style="font-size:0.78rem; color:var(--text-muted); margin-bottom:8px;">
-                        ${subTitle} • ${a.date}
-                    </div>
-
-                    <div style="display:flex; justify-content:space-between; background:var(--bg-main); padding:6px 10px; border-radius:6px; font-size:0.78rem; color:var(--text-secondary); margin-bottom:10px;">
-                        <div>Score: <strong>${a.score}/${a.total}</strong></div>
-                        <div>Accuracy: <strong>${a.accuracy}%</strong></div>
-                        <div>Time: <strong>${Math.floor(a.timeTakenSeconds / 60)}m ${a.timeTakenSeconds % 60}s</strong></div>
-                    </div>
-
-                    <div style="display:flex; gap:8px;">
-                        <button class="btn-secondary" onclick="App.viewHistoricalResult(${idx})" style="flex:1; min-height:34px; font-size:0.78rem;">
-                            View Result
-                        </button>
-                        <button class="btn-cta" onclick="App.startTest('${a.subtopicId}')" style="flex:1; min-height:34px; font-size:0.78rem; padding:4px 8px;">
-                            <span>Retry Test</span>
-                            <i class="fa-solid fa-rotate-right"></i>
-                        </button>
-                    </div>
-                </div>
-            `;
-        }).join("");
     },
 
     renderDashboardStrongWeak() {

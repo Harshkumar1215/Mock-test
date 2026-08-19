@@ -259,7 +259,7 @@ const subjectsConfig = [
                 "name": "Topic 11: Exception Handling & File I/O",
                 "icon": "fa-triangle-exclamation",
                 "subtopics": [
-                    { "id": "python_exceptions_try_except", "name": "11.1 Try, Except, Else, Finally & Custom Exceptions", "count": 100, "desc": "try-except-else-finally blocks, raise statement, built-in exception types, custom exceptions" },
+                    { "id": "python_exceptions_try_except", "name": "11.1 Try, Except, Else, Finally & Custom Exceptions", "count": 100, "desc": "try-except blocks, handling built-in exceptions (ValueError, TypeError, KeyError), raise, finally" },
                     { "id": "python_file_io_context", "name": "11.2 File I/O Modes & with open() Context Managers", "count": 100, "desc": "Modes ('r', 'w', 'a', 'b'), with open() context manager, read(), readline(), csv module" }
                 ]
             },
@@ -271,6 +271,78 @@ const subjectsConfig = [
                     { "id": "python_iterators_generators", "name": "12.1 Iterators (__iter__, __next__) & Generator Functions (yield)", "count": 100, "desc": "Iterator protocol (__iter__, __next__), generator functions (yield), generator expressions" },
                     { "id": "python_decorators_closures", "name": "12.2 Closures & Decorator Functions (@decorator)", "count": 100, "desc": "Nested functions, closures, decorator wrapper functions (@decorator), functools.wraps" },
                     { "id": "python_standard_library", "name": "12.3 Standard Library Modules (math, os, sys, random, json, re)", "count": 100, "desc": "os.path, sys.argv, random choices, json.dumps/loads, re regex operations" }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "advanced_data_structures",
+        "name": "Advanced Data Structures",
+        "icon": "fa-network-wired",
+        "badgeColor": "bg-purple",
+        "description": "Master syllabus covering Sorting, Hashing, AVL & Red-Black Trees, Heaps, Graph Algorithms & String Matching.",
+        "topics": [
+            {
+                "id": "ads_topic_basics_sorting",
+                "name": "Topic 1: Data Structure Basics & Advanced Sorting",
+                "icon": "fa-arrow-down-short-wide",
+                "subtopics": [
+                    { "id": "ads_ds_basics", "name": "1.1 Data Structure Basics & ADT Complexity", "count": 100, "desc": "Linear vs non-linear structures, Abstract Data Types (ADT), Big-O asymptotic analysis, space-time tradeoffs" },
+                    { "id": "ads_sorting_algos", "name": "1.2 Advanced Sorting (Quick, Heap, Counting, Bucket, Multi-way Merge)", "count": 100, "desc": "Quick Sort partitioning, Heap Sort, Counting Sort O(n+k), Bucket Sort, Radix Sort, Multi-way Merge Sort" }
+                ]
+            },
+            {
+                "id": "ads_topic_hashing",
+                "name": "Topic 2: Hashing, Direct Address & Open Addressing",
+                "icon": "fa-hashtag",
+                "subtopics": [
+                    { "id": "ads_hashing_basics", "name": "2.1 Direct Address Tables & Hash Functions", "count": 100, "desc": "Direct address tables, hash function design (Division, Multiplication, Universal Hashing), load factor α" },
+                    { "id": "ads_open_addressing", "name": "2.2 Collision Resolution (Chaining, Linear/Quadratic Probing & Double Hashing)", "count": 100, "desc": "Separate chaining, open addressing, linear probing, quadratic probing, double hashing" }
+                ]
+            },
+            {
+                "id": "ads_topic_trees",
+                "name": "Topic 3: Balanced Search Trees (AVL, Red-Black, Splay, B-Trees)",
+                "icon": "fa-tree",
+                "subtopics": [
+                    { "id": "ads_avl_redblack", "name": "3.1 AVL Trees & Red-Black Trees", "count": 100, "desc": "AVL balance factor (-1,0,1), single/double rotations (LL, RR, LR, RL), Red-Black tree invariants & recoloring" },
+                    { "id": "ads_splay_btrees", "name": "3.2 Splay Trees, B-Trees & B+ Trees", "count": 100, "desc": "Splay tree zig-zig/zig-zag splaying, B-Tree order m, node splitting/merging, B+ Tree indexing for disk I/O" }
+                ]
+            },
+            {
+                "id": "ads_topic_heaps",
+                "name": "Topic 4: Advanced Heaps (Binomial & Fibonacci Heaps)",
+                "icon": "fa-cubes",
+                "subtopics": [
+                    { "id": "ads_binomial_heaps", "name": "4.1 Binomial Trees & Binomial Heaps", "count": 100, "desc": "Binomial tree B_k structure, binomial heap representation, Union operation in O(log n) time" },
+                    { "id": "ads_fibonacci_heaps", "name": "4.2 Fibonacci Heaps & Amortized Analysis", "count": 100, "desc": "Fibonacci heap structure, O(1) amortized insertion/decrease-key, cascading cuts, extract-min" }
+                ]
+            },
+            {
+                "id": "ads_topic_mst",
+                "name": "Topic 5: Disjoint Sets & Minimum Spanning Trees (MST)",
+                "icon": "fa-diagram-project",
+                "subtopics": [
+                    { "id": "ads_disjoint_sets", "name": "5.1 Disjoint-Set Data Structure (Union-Find)", "count": 100, "desc": "Disjoint sets, Make-Set, Find-Set, Union by rank, Path compression optimization O(α(n))" },
+                    { "id": "ads_mst_algorithms", "name": "5.2 Minimum Spanning Trees (Kruskal's & Prim's Algorithms)", "count": 100, "desc": "Greedy choice property, Kruskal's edge-based MST algorithm, Prim's vertex-based MST algorithm" }
+                ]
+            },
+            {
+                "id": "ads_topic_shortest_flow",
+                "name": "Topic 6: Graph Algorithms (Shortest Paths & Max Flow)",
+                "icon": "fa-route",
+                "subtopics": [
+                    { "id": "ads_shortest_paths", "name": "6.1 Shortest Path Algorithms (Dijkstra, Bellman-Ford, Floyd-Warshall)", "count": 100, "desc": "Dijkstra greedy shortest path, Bellman-Ford negative edge detection, Floyd-Warshall all-pairs shortest paths" },
+                    { "id": "ads_max_flow", "name": "6.2 Network Flow & Maximum Flow Algorithms", "count": 100, "desc": "Flow networks, residual capacity, Ford-Fulkerson method, Edmonds-Karp BFS, Max-Flow Min-Cut Theorem" }
+                ]
+            },
+            {
+                "id": "ads_topic_string_matching",
+                "name": "Topic 7: String Matching Algorithms",
+                "icon": "fa-magnifying-glass",
+                "subtopics": [
+                    { "id": "ads_string_brute_rabinkarp", "name": "7.1 Naive String Matching & Rabin-Karp Algorithm", "count": 100, "desc": "Brute force pattern matching O((n-m+1)m), Rabin-Karp rolling hash function & spurious hits" },
+                    { "id": "ads_string_kmp_boyermoore", "name": "7.2 Knuth-Morris-Pratt (KMP) & Boyer-Moore Algorithms", "count": 100, "desc": "KMP prefix function π (LPS array) O(n+m), Boyer-Moore bad character rule & good suffix heuristic" }
                 ]
             }
         ]

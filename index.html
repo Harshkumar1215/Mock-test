@@ -391,8 +391,37 @@
                     </div>
                 </div>
 
+                <!-- Overall Analytics Charts Container -->
+                <div style="display:grid; grid-template-columns: 1fr; gap:12px; margin-bottom:16px;">
+                    <div style="background:var(--surface); padding:14px; border-radius:var(--radius-md); border:1px solid var(--border);">
+                        <div style="font-size:0.85rem; font-weight:800; color:var(--text-primary); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
+                            <i class="fa-solid fa-chart-pie" style="color:var(--primary);"></i> Overall Question Breakdown
+                        </div>
+                        <div style="position:relative; height:180px;">
+                            <canvas id="chart-dash-accuracy-doughnut"></canvas>
+                        </div>
+                    </div>
+
+                    <div style="background:var(--surface); padding:14px; border-radius:var(--radius-md); border:1px solid var(--border);">
+                        <div style="font-size:0.85rem; font-weight:800; color:var(--text-primary); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
+                            <i class="fa-solid fa-chart-column" style="color:var(--accent);"></i> Subject Accuracy Comparison
+                        </div>
+                        <div style="position:relative; height:180px;">
+                            <canvas id="chart-dash-subject-bar"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Strong & Weak Topics Breakdown -->
+                <div style="background:var(--surface); padding:14px; border-radius:var(--radius-md); border:1px solid var(--border); margin-bottom:16px;">
+                    <div style="font-size:0.85rem; font-weight:800; color:var(--text-primary); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+                        <i class="fa-solid fa-bullseye" style="color:var(--warning);"></i> Topic Mastery Analysis
+                    </div>
+                    <div id="dash-strong-weak-container"></div>
+                </div>
+
                 <!-- Subject Progress List -->
-                <div class="section-title" style="margin-bottom:10px; font-weight:800; font-size:0.9rem;">Course Progress</div>
+                <div class="section-title" style="margin-bottom:10px; font-weight:800; font-size:0.9rem;">Course Progress Breakdown</div>
                 <div id="dash-subject-progress-container" style="margin-bottom:16px;"></div>
 
                 <!-- Historical Attempts List -->

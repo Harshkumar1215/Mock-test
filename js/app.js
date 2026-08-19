@@ -1103,6 +1103,17 @@ const App = {
         document.getElementById("dash-avg-acc").innerText = `${avgAcc}%`;
         document.getElementById("dash-best-score").innerText = `${bestScore}`;
 
+        // Render Analytics Charts
+        setTimeout(() => {
+            if (typeof AnalyticsEngine !== "undefined") {
+                AnalyticsEngine.renderDashboardOverviewChart("chart-dash-accuracy-doughnut");
+                AnalyticsEngine.renderDashboardSubjectBarChart("chart-dash-subject-bar");
+            }
+        }, 100);
+
+        // Render Dashboard Strong vs Weak Topics Summary
+        this.renderDashboardStrongWeak();
+
         // Render Subject Level Progress
         this.renderDashboardSubjectProgress();
 
@@ -1155,6 +1166,40 @@ const App = {
                 </div>
             `;
         }).join("");
+    },
+
+    renderDashboardStrongWeak() {
+        const container = document.getElementById("dash-strong-weak-container");
+        if (!container) return;
+
+        if (typeof AnalyticsEngine === "undefined") return;
+        const { strong, weak } = AnalyticsEngine.getTopicPerformanceSummary();
+
+        if (strong.length === 0 && weak.length === 0) {
+            container.innerHTML = `<p style="font-size:0.8rem; color:var(--text-muted);">Attempt more subtopics to see your strong & weak topics breakdown.</p>`;
+            return;
+        }
+
+        let html = "";
+        if (strong.length > 0) {
+            html += `<div style="font-size:0.8rem; font-weight:700; color:var(--success); margin-bottom:4px;"><i class="fa-solid fa-circle-check"></i> Strong Topics (≥75% Accuracy):</div>`;
+            html += `<div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px;">`;
+            strong.forEach(s => {
+                html += `<span class="badge badge-good" style="font-size:0.72rem; cursor:pointer;" onclick="App.openInstructions('${s.subtopicId}')">${this.escapeHTML(s.name)} (${s.accuracy}%)</span>`;
+            });
+            html += `</div>`;
+        }
+
+        if (weak.length > 0) {
+            html += `<div style="font-size:0.8rem; font-weight:700; color:var(--danger); margin-bottom:4px;"><i class="fa-solid fa-triangle-exclamation"></i> Weak Topics (<65% Accuracy - Practice Needed):</div>`;
+            html += `<div style="display:flex; flex-wrap:wrap; gap:6px;">`;
+            weak.forEach(w => {
+                html += `<span class="badge badge-poor" style="font-size:0.72rem; cursor:pointer;" onclick="App.openInstructions('${w.subtopicId}')">${this.escapeHTML(w.name)} (${w.accuracy}%) <i class="fa-solid fa-play" style="font-size:0.6rem; margin-left:4px;"></i></span>`;
+            });
+            html += `</div>`;
+        }
+
+        container.innerHTML = html;
     },
 
     renderDashboardSubjectProgress() {

@@ -399,3 +399,17 @@ const subjectsConfig = [
         ]
     }
 ];
+
+function findSubtopicGlobal(subtopicId) {
+    if (typeof subjectsConfig === "undefined") return null;
+    for (const subject of subjectsConfig) {
+        for (const topic of subject.topics) {
+            for (const subtopic of topic.subtopics) {
+                if (subtopic.id === subtopicId) {
+                    return { subject, topic, subtopic };
+                }
+            }
+        }
+    }
+    return null;
+}

@@ -3,9 +3,11 @@
  * Multi-Subject Master Repository:
  * 1. Computer Programming using C (14 Topics • 47 Subtopics • 4,700 MCQs)
  * 2. Programming in Python (12 Topics • 30 Subtopics • 3,000 MCQs)
- * 3. Computer Science Essentials (Bridge) (6 Topics • 12 Subtopics • 1,200 MCQs)
- * 4. Discrete Structures & Optimization (6 Topics • 8 Subtopics • 800 MCQs)
- * Total: 38 Topics • 97 Subtopics • 9,700 MCQs (100 MCQs per subtopic)
+ * 3. Advanced Data Structures (7 Topics • 14 Subtopics • 1,400 MCQs)
+ * 4. Advanced Database Management System (6 Topics • 12 Subtopics • 1,200 MCQs)
+ * 5. Computer Science Essentials (Bridge) (6 Topics • 12 Subtopics • 1,200 MCQs)
+ * 6. Discrete Structures & Optimization (6 Topics • 8 Subtopics • 800 MCQs)
+ * Total: 51 Topics • 123 Subtopics • 12,300 MCQs (100 MCQs per subtopic)
  */
 
 window.QuestionBank = (function () {
@@ -13,7 +15,7 @@ window.QuestionBank = (function () {
     const questionCache = {};
 
     // ------------------------------------------------------------------
-    // SEED QUESTIONS DATABASE (Exhaustive C, Python, CS Essentials & Discrete)
+    // SEED QUESTIONS DATABASE (Exhaustive C, Python, ADS, ADBMS, CS Essentials & Discrete)
     // ------------------------------------------------------------------
     const seedQuestions = {
         // C PROGRAMMING SEEDS
@@ -27,170 +29,143 @@ window.QuestionBank = (function () {
                 tags: ["c-tokens", "keywords"]
             }
         ],
-        // PYTHON SEEDS
-        python_intro_pep8: [
+        // ADVANCED DATABASE MANAGEMENT SYSTEM SEEDS
+        adbms_relational_query: [
             {
-                question: "Which official style guide defines coding standards and conventions for Python code layout?",
-                options: ["PEP 8", "PEP 20", "PEP 484", "PEP 257"],
+                question: "Which component of the DBMS Query Processing Engine translates high-level SQL queries into Relational Algebra expressions?",
+                options: ["Query Parser and Translator", "Query Optimizer", "Execution Engine", "Buffer Manager"],
                 correctAnswer: 0,
-                explanation: "PEP 8 is Python's official Style Guide for Python Code.",
+                explanation: "The Query Parser and Translator parses SQL syntax and builds equivalent Relational Algebra trees.",
                 difficulty: "easy",
-                tags: ["pep8", "python-syntax"]
+                tags: ["query-processing"]
             }
         ],
-        python_indentation_comments: [
+        adbms_query_cost_eval: [
             {
-                question: "How does Python delineate block structure in control statements and function definitions?",
-                options: ["By whitespace Indentation", "By curly braces {}", "By begin...end keywords", "By semicolons ;"],
+                question: "Which Join algorithm operates in O(M + N) I/O cost when both input relations M and N are already sorted on the join attribute?",
+                options: ["Sort-Merge Join", "Block Nested-Loop Join", "Hash Join", "Nested-Loop Join"],
                 correctAnswer: 0,
-                explanation: "Python uses mandatory whitespace indentation to define code block scope.",
-                difficulty: "easy",
-                tags: ["indentation"]
+                explanation: "Sort-Merge Join scans pre-sorted relations M and N in a single linear pass.",
+                difficulty: "medium",
+                tags: ["sort-merge-join"]
             }
         ],
-        python_numeric_types: [
+        adbms_transactions_acid: [
             {
-                question: "Which built-in Python numeric type provides arbitrary precision integers limited only by available RAM?",
-                options: ["int (Integer)", "float", "complex", "long"],
+                question: "In database transaction management, which ACID property guarantees that all operations in a transaction either complete fully or roll back completely?",
+                options: ["Atomicity", "Consistency", "Isolation", "Durability"],
                 correctAnswer: 0,
-                explanation: "In Python 3, integers (`int`) have arbitrary precision and expand dynamically.",
+                explanation: "Atomicity enforces the 'all-or-nothing' execution guarantee.",
                 difficulty: "easy",
-                tags: ["arbitrary-precision"]
+                tags: ["atomicity", "acid"]
+            },
+            {
+                question: "If a schedule S can be transformed into a serial schedule by a series of non-conflicting operation swaps, what is S called?",
+                options: ["Conflict Serialisable Schedule", "View Serialisable Schedule", "Strict Schedule", "Cascadeless Schedule"],
+                correctAnswer: 0,
+                explanation: "Swapping non-conflicting operations to match a serial schedule defines Conflict Serialisability.",
+                difficulty: "medium",
+                tags: ["serializability"]
             }
         ],
-        python_strings_basics: [
+        adbms_concurrency_locking: [
             {
-                question: "Which string prefix disables escape sequence processing, treating backslashes `\\` as literal characters?",
-                options: ["r\"...\" (Raw String)", "f\"...\" (Formated String)", "b\"...\" (Byte String)", "u\"...\""],
+                question: "Which variation of Two-Phase Locking (2PL) requires that ALL exclusive (X) locks held by a transaction MUST be held until the transaction COMMITS?",
+                options: ["Strict 2PL", "Basic 2PL", "Rigorous 2PL", "Conservative 2PL"],
                 correctAnswer: 0,
-                explanation: "Prefixing a string with `r` or `R` creates a Raw String.",
-                difficulty: "easy",
-                tags: ["raw-strings"]
+                explanation: "Strict 2PL prevents cascading aborts by holding all X-locks until final commit.",
+                difficulty: "medium",
+                tags: ["strict-2pl"]
             }
         ],
-        python_arithmetic_relational: [
+        adbms_recovery_logging: [
             {
-                question: "What is the output of floor division operator `17 // 5` in Python 3?",
-                options: ["3", "3.4", "2", "3.0"],
-                correctAnswer: 0,
-                explanation: "`//` is the floor division operator which returns the integer floor (17 // 5 = 3).",
-                difficulty: "easy",
-                tags: ["floor-division"]
-            }
-        ],
-        python_identity_membership: [
-            {
-                question: "What is the fundamental difference between identity operator `is` and equality operator `==` in Python?",
+                question: "According to the Write-Ahead Logging (WAL) protocol, when MUST a log record for a database modification be written to stable storage?",
                 options: [
-                    "`is` tests object memory identity (id); `==` checks value equality",
-                    "`==` tests object memory identity; `is` checks value equality",
-                    "Both test value equality identically",
-                    "`is` is used for numbers; `==` for strings"
+                    "BEFORE the corresponding database buffer page is written to disk",
+                    "AFTER the database page is written to disk",
+                    "During system restart only",
+                    "At midnight every day"
                 ],
                 correctAnswer: 0,
-                explanation: "`is` checks `id(a) == id(b)` (same memory address), whereas `==` checks value equivalence.",
-                difficulty: "medium",
-                tags: ["identity-vs-equality"]
-            }
-        ],
-        python_ternary_pass: [
-            {
-                question: "Which keyword in Python serves as a no-operation placeholder inside empty function or class blocks?",
-                options: ["pass", "continue", "break", "skip"],
-                correctAnswer: 0,
-                explanation: "The `pass` statement is a null statement used as a syntactic placeholder.",
+                explanation: "WAL protocol dictates log records must reach stable storage prior to database page disk flushes.",
                 difficulty: "easy",
-                tags: ["pass-statement"]
+                tags: ["wal-protocol"]
             }
         ],
-        python_loop_helpers: [
+        adbms_indexing_hashing: [
             {
-                question: "What does the `range(2, 10, 2)` function call produce when iterated in a for loop?",
-                options: ["[2, 4, 6, 8]", "[2, 4, 6, 8, 10]", "[2, 3, 4, 5, 6, 7, 8, 9]", "[0, 2, 4, 6, 8]"],
-                correctAnswer: 0,
-                explanation: "`range(start, stop, step)` generates values from start up to (stop - 1) incremented by step.",
-                difficulty: "easy",
-                tags: ["range"]
-            }
-        ],
-        python_comprehensions: [
-            {
-                question: "What is the correct syntax for generating a list of even squares `[0, 4, 16, 36]` for x from 0 to 6?",
+                question: "In B+ Trees, where are the actual data pointers or record data entries stored?",
                 options: [
-                    "[x**2 for x in range(7) if x % 2 == 0]",
-                    "[x*2 for x in range(7) if x % 2 == 0]",
-                    "{x**2 for x in range(7)}",
-                    "[x^2 for x in range(7)]"
+                    "EXCLUSIVELY in the Leaf Nodes",
+                    "In Internal Nodes only",
+                    "Equally across Root and Internal Nodes",
+                    "In the Header page only"
                 ],
                 correctAnswer: 0,
-                explanation: "`[x**2 for x in range(7) if x % 2 == 0]` evaluates even squares in list comprehension.",
+                explanation: "B+ Trees store data records exclusively in leaf nodes linked sequentially for range queries.",
+                difficulty: "easy",
+                tags: ["bplus-tree-leaves"]
+            }
+        ],
+        adbms_distributed_db: [
+            {
+                question: "What form of data fragmentation splits a relation schema into subsets of columns with matching primary keys?",
+                options: ["Vertical Fragmentation", "Horizontal Fragmentation", "Mixed Fragmentation", "Derived Fragmentation"],
+                correctAnswer: 0,
+                explanation: "Vertical Fragmentation divides attributes/columns across sites, joined by Primary Keys.",
                 difficulty: "medium",
-                tags: ["list-comprehensions"]
+                tags: ["vertical-fragmentation"]
             }
         ],
-        python_args_kwargs: [
+        adbms_distributed_commit: [
             {
-                question: "Which special parameter syntax in function definitions collects an arbitrary number of positional arguments into a tuple?",
-                options: ["*args", "**kwargs", "*kwargs", "&args"],
+                question: "What is the primary drawback of the Two-Phase Commit (2PC) protocol during coordinator failure?",
+                options: ["It can cause Participant processes to BLOCK indefinitely", "It loses data integrity", "It causes deadlock cycles", "It corrupts the WAL log"],
                 correctAnswer: 0,
-                explanation: "`*args` collects additional positional arguments into a tuple, while `**kwargs` collects keyword arguments into a dict.",
+                explanation: "If the Coordinator crashes during 2PC, participant sites holding locks enter a blocking state.",
                 difficulty: "medium",
-                tags: ["args-kwargs"]
+                tags: ["2pc-blocking"]
             }
         ],
-        python_classes_objects: [
+        adbms_oodb_xml: [
             {
-                question: "What is the mandatory first parameter passed to instance methods inside a Python class definition?",
-                options: ["self", "this", "cls", "base"],
+                question: "Which standardized query language is specified by the Object Data Management Group (ODMG) for querying Object Databases?",
+                options: ["OQL (Object Query Language)", "SQL-92", "XQuery", "GraphQL"],
                 correctAnswer: 0,
-                explanation: "By convention, `self` represents the instance of the class being operated upon.",
+                explanation: "OQL is the Object Query Language standard defined for Object-Oriented Databases.",
                 difficulty: "easy",
-                tags: ["self"]
+                tags: ["oql"]
             }
         ],
-        python_inheritance_dunder: [
+        adbms_xml_json_db: [
             {
-                question: "Which built-in function is used to invoke a method from a parent/superclass in derived Python classes?",
-                options: ["super()", "parent()", "base()", "ancestor()"],
+                question: "Which XML navigation language uses expression paths like `/bookstore/book[price > 35]/title` to select nodes?",
+                options: ["XPath", "XSLT", "XLink", "DTD"],
                 correctAnswer: 0,
-                explanation: "`super()` delegates method calls to a parent or sibling class in the Method Resolution Order (MRO).",
+                explanation: "XPath provides path expressions for navigating XML document tree structures.",
                 difficulty: "easy",
-                tags: ["super"]
+                tags: ["xpath"]
             }
         ],
-        python_exceptions_try_except: [
+        adbms_nosql_architecture: [
             {
-                question: "Which block in Python's exception handling construct executes ONLY if NO exceptions were raised in the try block?",
-                options: ["else", "finally", "except", "catch"],
+                question: "Which NoSQL database category is Apache Cassandra classified under?",
+                options: ["Wide-Column Store (Column-Family)", "Document Store", "Key-Value Store", "Graph Database"],
                 correctAnswer: 0,
-                explanation: "The `else` block runs when the `try` block succeeds without throwing an exception.",
-                difficulty: "medium",
-                tags: ["try-except-else"]
-            }
-        ],
-        python_file_io_context: [
-            {
-                question: "Why is using `with open(filename) as f:` recommended for file operations in Python?",
-                options: [
-                    "It automatically closes the file even if exceptions occur inside the block",
-                    "It speeds up file reading speed by 10x",
-                    "It encrypts the text content",
-                    "It locks the file from being edited by OS"
-                ],
-                correctAnswer: 0,
-                explanation: "`with` acts as a context manager that guarantees proper resource cleanup (closing the file).",
+                explanation: "Cassandra is a distributed wide-column store designed for high scalability.",
                 difficulty: "easy",
-                tags: ["with-open"]
+                tags: ["cassandra-nosql"]
             }
         ],
-        python_iterators_generators: [
+        adbms_data_warehousing: [
             {
-                question: "Which keyword converts a standard Python function into a Generator that yields values lazily one at a time?",
-                options: ["yield", "return", "generate", "emit"],
+                question: "In Data Warehousing OLAP operations, what operation changes the dimensional orientation of a report or cube view (e.g. swapping rows and columns)?",
+                options: ["Pivot (Rotate)", "Roll-up", "Drill-down", "Slice and Dice"],
                 correctAnswer: 0,
-                explanation: "Functions containing the `yield` keyword produce a generator iterator when called.",
+                explanation: "Pivot (or Rotate) rotates the data axes to provide an alternative presentation of data.",
                 difficulty: "easy",
-                tags: ["yield-generator"]
+                tags: ["olap-pivot"]
             }
         ]
     };
@@ -263,8 +238,165 @@ window.QuestionBank = (function () {
     }
 
     function createVariationQuestion(subtopicId, idx, difficulty, subName, subjectName) {
-        // PYTHON GENERATORS FOR ALL 30 SUBTOPICS
-        if (subtopicId === "python_intro_pep8" || subtopicId === "python_tokens_syntax") {
+        // ADVANCED DBMS GENERATORS
+        if (subtopicId === "adbms_relational_query") {
+            const ops = [
+                { name: "Selection (σ)", desc: "Filters rows matching a boolean predicate" },
+                { name: "Projection (π)", desc: "Selects specified column attributes" },
+                { name: "Natural Join (⋈)", desc: "Combines tuples with matching common attributes" },
+                { name: "Cartesian Product (×)", desc: "Combines every row of table A with every row of table B" }
+            ];
+            const op = ops[idx % ops.length];
+            return {
+                question: `In Relational Algebra, what is the exact function of operator '${op.name}'?`,
+                options: [`${op.desc}`, "Sorts records in descending order", "Creates an index page", "Deletes foreign key constraints"],
+                correctAnswer: 0,
+                explanation: `'${op.name}' ${op.desc}.`,
+                tags: ["relational-algebra"]
+            };
+        } else if (subtopicId === "adbms_query_cost_eval") {
+            return {
+                question: `Which Join algorithm is optimal when one relation is small enough to fit entirely in main memory RAM?`,
+                options: ["Hash Join", "Sort-Merge Join", "Nested-Loop Join", "Index Scan"],
+                correctAnswer: 0,
+                explanation: "Hash Join builds an in-memory hash table for the smaller relation, scanning the larger relation once.",
+                tags: ["hash-join"]
+            };
+        } else if (subtopicId === "adbms_transactions_acid") {
+            const acid = [
+                { letter: "A", name: "Atomicity", desc: "All-or-nothing execution" },
+                { letter: "C", name: "Consistency", desc: "Database transitions from one valid state to another" },
+                { letter: "I", name: "Isolation", desc: "Concurrent transactions execute without mutual interference" },
+                { letter: "D", name: "Durability", desc: "Committed changes persist even after system crashes" }
+            ];
+            const a = acid[idx % acid.length];
+            return {
+                question: `Which ACID property '${a.name}' guarantees that ${a.desc}?`,
+                options: [`${a.name}`, "Serializability", "Recoverability", "Strictness"],
+                correctAnswer: 0,
+                explanation: `${a.name} enforces that ${a.desc}.`,
+                tags: ["acid-properties"]
+            };
+        } else if (subtopicId === "adbms_concurrency_locking") {
+            return {
+                question: `What graph data structure is maintained by DBMS background processes to detect Deadlocks in concurrency control?`,
+                options: ["Wait-For Graph (WFG)", "B+ Tree", "Precedence Graph", "Dependency Matrix"],
+                correctAnswer: 0,
+                explanation: "A Wait-For Graph (WFG) indicates deadlock when a directed cycle exists.",
+                tags: ["wait-for-graph"]
+            };
+        } else if (subtopicId === "adbms_recovery_logging") {
+            return {
+                question: `What are the three distinct phases of the ARIES Log-Based Database Recovery Algorithm?`,
+                options: [
+                    "Analysis Phase, Redo Phase, and Undo Phase",
+                    "Parse Phase, Optimize Phase, Execute Phase",
+                    "Lock Phase, Growth Phase, Shrink Phase",
+                    "Scan Phase, Sort Phase, Merge Phase"
+                ],
+                correctAnswer: 0,
+                explanation: "ARIES recovery proceeds through Analysis -> Redo (repeating history) -> Undo.",
+                tags: ["aries-recovery"]
+            };
+        } else if (subtopicId === "adbms_indexing_hashing") {
+            return {
+                question: `What is the key advantage of Extendible Hashing over Static Hashing?`,
+                options: [
+                    "It dynamically grows and shrinks directory buckets without full table re-hashing",
+                    "It eliminates memory usage",
+                    "It enforces strict primary keys",
+                    "It sorts data records on disk"
+                ],
+                correctAnswer: 0,
+                explanation: "Extendible hashing handles data growth dynamically using a directory and bucket splitting.",
+                tags: ["extendible-hashing"]
+            };
+        } else if (subtopicId === "adbms_distributed_db") {
+            return {
+                question: `What is Fragmentation Transparency in Distributed Database Systems?`,
+                options: [
+                    "Users can query relations without knowing how or where data is fragmented across sites",
+                    "Fragments are stored in plaintext without encryption",
+                    "All fragments reside on a single server",
+                    "Queries require manual server IP inputs"
+                ],
+                correctAnswer: 0,
+                explanation: "Fragmentation transparency hides data partitioning details from the end-user SQL query.",
+                tags: ["fragmentation-transparency"]
+            };
+        } else if (subtopicId === "adbms_distributed_commit") {
+            return {
+                question: `According to the CAP Theorem for Distributed Systems, what three properties CANNOT be guaranteed simultaneously?`,
+                options: [
+                    "Consistency, Availability, and Partition Tolerance",
+                    "Concurrency, Atomicity, and Performance",
+                    "Compression, Alignment, and Parsing",
+                    "Checkpoints, Allocation, and Persistence"
+                ],
+                correctAnswer: 0,
+                explanation: "CAP theorem proves a distributed store can provide at most 2 of Consistency, Availability, Partition Tolerance.",
+                tags: ["cap-theorem"]
+            };
+        } else if (subtopicId === "adbms_oodb_xml") {
+            return {
+                question: `What feature distinguishes Object-Relational DBMS (ORDBMS) from traditional RDBMS?`,
+                options: [
+                    "Support for User-Defined Types (UDTs), inheritance, and complex object methods",
+                    "Removal of SQL support",
+                    "Single-user file access",
+                    "In-memory storage only"
+                ],
+                correctAnswer: 0,
+                explanation: "ORDBMS extends RDBMS with object features like UDTs, composite structures, and inheritance.",
+                tags: ["ordbms"]
+            };
+        } else if (subtopicId === "adbms_xml_json_db") {
+            return {
+                question: `Which W3C standard language is used to transform XML documents into HTML or other XML formats?`,
+                options: ["XSLT (Extensible Stylesheet Language Transformations)", "XPath", "XQuery", "JSON-LD"],
+                correctAnswer: 0,
+                explanation: "XSLT transforms XML document structures into HTML, XML, or plain text.",
+                tags: ["xslt"]
+            };
+        } else if (subtopicId === "adbms_nosql_architecture") {
+            return {
+                question: `Which NoSQL data model stores data as collections of JSON-like BSON key-value documents (e.g. MongoDB)?`,
+                options: ["Document-Store Database", "Key-Value Store", "Graph Database", "Relational Table"],
+                correctAnswer: 0,
+                explanation: "MongoDB is a Document Store using BSON format.",
+                tags: ["document-store"]
+            };
+        } else if (subtopicId === "adbms_data_warehousing") {
+            const schemas = [
+                { name: "Star Schema", desc: "A central Fact table surrounded by denormalized Dimension tables" },
+                { name: "Snowflake Schema", desc: "A central Fact table surrounded by normalized multi-level Dimension tables" }
+            ];
+            const s = schemas[idx % schemas.length];
+            return {
+                question: `In Data Warehouse dimensional modeling, what characterizes a '${s.name}'?`,
+                options: [`${s.desc}`, "Random unindexed heap tables", "Flat CSV text files", "B-Tree directory blocks"],
+                correctAnswer: 0,
+                explanation: `'${s.name}' consists of ${s.desc}.`,
+                tags: ["data-warehouse-schema"]
+            };
+        }
+        // ADVANCED DATA STRUCTURES GENERATORS
+        else if (subtopicId === "ads_ds_basics") {
+            const structures = [
+                { name: "Array", type: "Contiguous Memory Linear Structure" },
+                { name: "Singly Linked List", type: "Node-based Pointer-Chained Linear Structure" },
+                { name: "Binary Tree", type: "Hierarchical Non-Linear Structure" },
+                { name: "Graph", type: "Network Set of Vertices and Edges" }
+            ];
+            const s = structures[idx % structures.length];
+            return {
+                question: `Which classification accurately describes the '${s.name}' Data Structure?`,
+                options: [`${s.type}`, "Primary Hash Bucket", "CPU Instruction Pointer", "Secondary File Format"],
+                correctAnswer: 0,
+                explanation: `'${s.name}' is classified as a ${s.type}.`,
+                tags: ["ds-classification"]
+            };
+        } else if (subtopicId === "python_intro_pep8" || subtopicId === "python_tokens_syntax") {
             const kw = ["False", "None", "True", "and", "as", "assert", "async", "await", "break", "class", "continue", "def", "del", "elif", "else", "except", "finally", "for", "from", "global", "if", "import", "in", "is", "lambda", "nonlocal", "not", "or", "pass", "raise", "return", "try", "while", "with", "yield"];
             const item = kw[idx % kw.length];
             return {
@@ -273,274 +405,6 @@ window.QuestionBank = (function () {
                 correctAnswer: 0,
                 explanation: `'${item}' is one of the reserved keywords in standard Python 3.`,
                 tags: ["python-keywords"]
-            };
-        } else if (subtopicId === "python_indentation_comments") {
-            return {
-                question: `How are docstrings defined inside Python functions or classes to populate the __doc__ attribute?`,
-                options: ["Using triple-quoted strings (\"\"\"...\"\"\") immediately after the definition header", "Using # comments at the start of file", "Using // comments", "Using /* ... */ comments"],
-                correctAnswer: 0,
-                explanation: "Docstrings are created using triple quotes immediately following `def` or `class`.",
-                tags: ["docstrings"]
-            };
-        } else if (subtopicId === "python_numeric_types" || subtopicId === "python_data_types") {
-            const types = [
-                { val: "42", type: "int (Integer)" },
-                { val: "3.14159", type: "float (Floating Point)" },
-                { val: "'Hello'", type: "str (String)" },
-                { val: "[1, 2, 3]", type: "list (List)" },
-                { val: "(10, 20)", type: "tuple (Tuple)" },
-                { val: "{'a': 1}", type: "dict (Dictionary)" }
-            ];
-            const t = types[idx % types.length];
-            return {
-                question: `What is the type of literal expression \`${t.val}\` in Python?`,
-                options: [`${t.type}`, "complex", "set", "bytes"],
-                correctAnswer: 0,
-                explanation: `Literal \`${t.val}\` evaluates to data type ${t.type}.`,
-                tags: ["python-types"]
-            };
-        } else if (subtopicId === "python_strings_basics") {
-            return {
-                question: `What is the characteristic behavior when attempting to modify a character in a Python string via indexing \`s[0] = 'X'\`?`,
-                options: ["TypeError (Strings are Immutable)", "The character is updated", "IndexError", "ValueError"],
-                correctAnswer: 0,
-                explanation: "Python strings are immutable; item assignment raises a TypeError.",
-                tags: ["string-immutability"]
-            };
-        } else if (subtopicId === "python_type_casting") {
-            return {
-                question: `Which built-in function checks whether an object is an instance of a specified class or subclass tuple?`,
-                options: ["isinstance(object, classinfo)", "type(object)", "checktype(object)", "typeof(object)"],
-                correctAnswer: 0,
-                explanation: "`isinstance()` evaluates subclass and inheritance relationships.",
-                tags: ["isinstance"]
-            };
-        } else if (subtopicId === "python_arithmetic_relational" || subtopicId === "python_operators_expressions") {
-            const a = (idx % 5) + 2;
-            const b = 3;
-            const res = Math.pow(a, b);
-            return {
-                question: `What is the result of exponentiation expression \`${a} ** ${b}\` in Python?`,
-                options: [`${res}`, `${a * b}`, `${a + b}`, `${a / b}`],
-                correctAnswer: 0,
-                explanation: `Operator \`**\` performs exponentiation: ${a}^${b} = ${res}.`,
-                tags: ["python-exponentiation"]
-            };
-        } else if (subtopicId === "python_logical_bitwise") {
-            return {
-                question: `In short-circuit logical expression \`A and B\`, under what condition is expression B evaluated?`,
-                options: ["Only if expression A evaluates to True", "Only if expression A evaluates to False", "Always evaluated regardless of A", "Never evaluated"],
-                correctAnswer: 0,
-                explanation: "Logical `and` short-circuits: if A is False, False is returned immediately without evaluating B.",
-                tags: ["short-circuit"]
-            };
-        } else if (subtopicId === "python_identity_membership") {
-            return {
-                question: `Which operator tests whether a specified element exists inside a container (list, tuple, dict, set, string)?`,
-                options: ["in / not in", "is / is not", "==", "exists"],
-                correctAnswer: 0,
-                explanation: "`in` and `not in` are membership testing operators.",
-                tags: ["membership"]
-            };
-        } else if (subtopicId === "python_if_elif_else" || subtopicId === "python_control_flow") {
-            return {
-                question: `Which Python control keyword is evaluated when all preceding \`if\` and \`elif\` conditions evaluate to False?`,
-                options: ["else", "default", "finally", "otherwise"],
-                correctAnswer: 0,
-                explanation: "The `else` block executes when none of the preceding `if` or `elif` conditions are True.",
-                tags: ["python-else"]
-            };
-        } else if (subtopicId === "python_ternary_pass") {
-            return {
-                question: `What is the correct syntax for a conditional expression (ternary operator) in Python?`,
-                options: ["X if Condition else Y", "Condition ? X : Y", "if Condition then X else Y", "X when Condition else Y"],
-                correctAnswer: 0,
-                explanation: "Python ternary syntax is `X if Condition else Y`.",
-                tags: ["ternary"]
-            };
-        } else if (subtopicId === "python_for_while_loops" || subtopicId === "python_loops_iteration") {
-            return {
-                question: `When does the optional \`else\` block attached to a \`for\` or \`while\` loop execute?`,
-                options: [
-                    "When the loop terminates naturally without encountering a break statement",
-                    "When a break statement is executed",
-                    "When an exception occurs inside the loop",
-                    "At the start of every iteration"
-                ],
-                correctAnswer: 0,
-                explanation: "Loop `else` runs if the loop finishes all iterations naturally without hitting a `break`.",
-                tags: ["loop-else"]
-            };
-        } else if (subtopicId === "python_loop_helpers") {
-            return {
-                question: `What does the \`enumerate(iterable)\` function in Python for loops yield?`,
-                options: [
-                    "Tuples containing (index, element) pairs",
-                    "Sorted items",
-                    "Reversed sequence",
-                    "Length of iterable"
-                ],
-                correctAnswer: 0,
-                explanation: "`enumerate()` returns (index, element) tuples.",
-                tags: ["enumerate"]
-            };
-        } else if (subtopicId === "python_list_operations" || subtopicId === "python_lists_tuples") {
-            return {
-                question: `Which list method removes and returns the element at a specified index (or last item by default)?`,
-                options: ["list.pop()", "list.remove()", "list.delete()", "list.discard()"],
-                correctAnswer: 0,
-                explanation: "`pop([i])` removes and returns item at index i (default last item).",
-                tags: ["list-pop"]
-            };
-        } else if (subtopicId === "python_tuple_operations") {
-            return {
-                question: `How do you define a single-element tuple in Python?`,
-                options: ["(42,)", "(42)", "tuple(42)", "[42]"],
-                correctAnswer: 0,
-                explanation: "A single-element tuple requires a trailing comma: `(42,)`.",
-                tags: ["single-tuple"]
-            };
-        } else if (subtopicId === "python_set_operations") {
-            return {
-                question: `Which set operation operator computes the Union of two sets A and B?`,
-                options: ["A | B", "A & B", "A - B", "A ^ B"],
-                correctAnswer: 0,
-                explanation: "`|` is set union, `&` is intersection, `-` is difference, `^` is symmetric difference.",
-                tags: ["set-union"]
-            };
-        } else if (subtopicId === "python_dict_operations" || subtopicId === "python_sets_dicts") {
-            return {
-                question: `What key property MUST an object possess to be used as a key in a Python dictionary?`,
-                options: ["It must be Hashable (Immutable)", "It must be an integer", "It must be a string", "It must be mutable"],
-                correctAnswer: 0,
-                explanation: "Dictionary keys must be hashable objects (such as strings, numbers, or tuples).",
-                tags: ["dict-keys"]
-            };
-        } else if (subtopicId === "python_comprehensions" || subtopicId === "python_list_comprehensions") {
-            return {
-                question: `What does list comprehension \`[x for x in range(5) if x % 2 != 0]\` evaluate to?`,
-                options: ["[1, 3]", "[0, 2, 4]", "[1, 2, 3, 4, 5]", "[0, 1, 2, 3, 4]"],
-                correctAnswer: 0,
-                explanation: "It filters odd numbers from range(5) (0, 1, 2, 3, 4), producing `[1, 3]`.",
-                tags: ["list-comprehension"]
-            };
-        } else if (subtopicId === "python_lambda_map_filter" || subtopicId === "python_lambda_modules") {
-            return {
-                question: `What is the syntax for defining an anonymous inline function in Python?`,
-                options: ["lambda arguments: expression", "def inline(args): expression", "function(args) => expression", "anonymous(args): expression"],
-                correctAnswer: 0,
-                explanation: "`lambda args: expression` creates single-expression inline anonymous functions.",
-                tags: ["lambda"]
-            };
-        } else if (subtopicId === "python_function_basics") {
-            return {
-                question: `What value does a Python function return by default if it contains no explicit \`return\` statement?`,
-                options: ["None", "0", "False", "Empty string"],
-                correctAnswer: 0,
-                explanation: "Functions without an explicit return statement implicitly return `None`.",
-                tags: ["default-return"]
-            };
-        } else if (subtopicId === "python_args_kwargs") {
-            return {
-                question: `Which parameter syntax collects arbitrary keyword arguments passed to a Python function into a dictionary?`,
-                options: ["**kwargs", "*args", "*kwargs", "&kwargs"],
-                correctAnswer: 0,
-                explanation: "`**kwargs` captures arbitrary keyword arguments as a dictionary.",
-                tags: ["kwargs"]
-            };
-        } else if (subtopicId === "python_legb_scope") {
-            return {
-                question: `According to Python's LEGB scope resolution rule, what does the acronym LEGB stand for?`,
-                options: [
-                    "Local, Enclosing, Global, Built-in",
-                    "Literal, Expression, Global, Block",
-                    "Lexical, Environment, Global, Base",
-                    "List, Element, Group, Binary"
-                ],
-                correctAnswer: 0,
-                explanation: "Python searches namespaces in order: Local -> Enclosing -> Global -> Built-in.",
-                tags: ["legb-scope"]
-            };
-        } else if (subtopicId === "python_classes_objects") {
-            return {
-                question: `Which special method in a Python class serves as the Object Initializer / Constructor?`,
-                options: ["__init__(self)", "__construct__(self)", "__new__(self)", "__create__(self)"],
-                correctAnswer: 0,
-                explanation: "`__init__()` initializes a newly created object instance.",
-                tags: ["init-constructor"]
-            };
-        } else if (subtopicId === "python_methods_decorators") {
-            return {
-                question: `Which decorator converts a class method into a method bound to the class itself (receiving \`cls\` instead of \`self\`)?`,
-                options: ["@classmethod", "@staticmethod", "@property", "@classmethod_self"],
-                correctAnswer: 0,
-                explanation: "`@classmethod` passes the class object `cls` as the first argument.",
-                tags: ["classmethod"]
-            };
-        } else if (subtopicId === "python_inheritance_dunder" || subtopicId === "python_inheritance_polymorphism") {
-            return {
-                question: `What is Method Resolution Order (MRO) in Python object-oriented programming?`,
-                options: [
-                    "The order in which Python searches for attributes and methods in class hierarchies",
-                    "The execution order of for loops inside class methods",
-                    "The order of garbage collection",
-                    "The variable assignment sequence"
-                ],
-                correctAnswer: 0,
-                explanation: "MRO defines the class inheritance search order (accessible via `Class.mro()`).",
-                tags: ["mro"]
-            };
-        } else if (subtopicId === "python_exceptions_try_except" || subtopicId === "python_exception_handling") {
-            return {
-                question: `Which statement is used to manually trigger / raise an exception in Python?`,
-                options: ["raise Exception()", "throw Exception()", "trigger Exception()", "emit Exception()"],
-                correctAnswer: 0,
-                explanation: "The `raise` keyword raises a specified exception.",
-                tags: ["raise-exception"]
-            };
-        } else if (subtopicId === "python_file_io_context" || subtopicId === "python_file_io") {
-            return {
-                question: `Which file mode parameter in \`open(filename, mode)\` appends new data to the end of a file without overwriting?`,
-                options: ["'a' (Append mode)", "'w' (Write mode)", "'r' (Read mode)", "'x' (Exclusive creation)"],
-                correctAnswer: 0,
-                explanation: "Mode `'a'` opens the file for appending data to the end.",
-                tags: ["file-append"]
-            };
-        } else if (subtopicId === "python_iterators_generators") {
-            return {
-                question: `Which keyword converts a standard Python function into a Generator that yields values lazily one at a time?`,
-                options: ["yield", "return", "generate", "emit"],
-                correctAnswer: 0,
-                explanation: "Functions containing the `yield` keyword produce a generator iterator when called.",
-                tags: ["yield-generator"]
-            };
-        } else if (subtopicId === "python_decorators_closures") {
-            return {
-                question: `In Python syntax, what does the \`@\` symbol before a function definition signify?`,
-                options: ["Applying a Decorator function", "Defining an Asynchronous function", "Creating a Lambda expression", "Declaring a Global variable"],
-                correctAnswer: 0,
-                explanation: "The `@decorator` syntax applies wrapper function logic to the decorated function.",
-                tags: ["decorators"]
-            };
-        } else if (subtopicId === "python_standard_library" || subtopicId === "python_std_library") {
-            return {
-                question: `Which standard library module provides function \`json.loads(json_string)\` to parse a JSON string into a Python dictionary?`,
-                options: ["json", "sys", "os", "pickle"],
-                correctAnswer: 0,
-                explanation: "`json.loads()` parses JSON string into Python dict/list data structures.",
-                tags: ["json-module"]
-            };
-        }
-        // DISCRETE & CS ESSENTIALS GENERATORS
-        else if (subtopicId === "discrete_sets_inclusion") {
-            const n = (idx % 8) + 2;
-            const pSize = Math.pow(2, n);
-            return {
-                question: `If set A contains ${n} distinct elements, what is the total number of subsets in its Power Set P(A)?`,
-                options: [`${pSize} subsets`, `${2 * n} subsets`, `${n * n} subsets`, `${n + 1} subsets`],
-                correctAnswer: 0,
-                explanation: `The cardinality of the power set P(A) is 2^${n} = ${pSize}.`,
-                tags: ["power-set"]
             };
         } else if (subtopicId === "cs_hardware_software") {
             const comps = [

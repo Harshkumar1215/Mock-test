@@ -4,7 +4,7 @@ const subjectsConfig = [
         "name": "Computer Programming using C",
         "icon": "fa-code",
         "badgeColor": "bg-teal",
-        "description": "Complete, textbook-level C programming master syllabus covering 14 Topics & 47 Subtopics with 100 MCQs each (4,700 total MCQs).",
+        "description": "Complete C programming master syllabus covering 14 Topics & 47 Subtopics with 100 MCQs each (4,700 total MCQs).",
         "topics": [
             {
                 "id": "topic_1_intro",
@@ -149,6 +149,69 @@ const subjectsConfig = [
                     { "id": "c_macros_define", "name": "14.1 Preprocessor Directives (#define & Macros)", "count": 100, "desc": "#define symbolic constants, macro functions, stringizing # and ## operators" },
                     { "id": "c_conditional_compilation", "name": "14.2 Conditional Compilation & Header Guards", "count": 100, "desc": "#ifdef, #ifndef, #if, #else, #endif, include guards against double inclusion" },
                     { "id": "c_command_line_args", "name": "14.3 Command Line Arguments (argc & argv[])", "count": 100, "desc": "Passing arguments to main(int argc, char *argv[]), argument parsing" }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "cs_essentials",
+        "name": "Computer Science Essentials (Bridge)",
+        "icon": "fa-laptop-code",
+        "badgeColor": "bg-indigo",
+        "description": "Comprehensive foundation covering Hardware/Software, Memory Hierarchy, Number Systems, Office Automation, DBMS, OS & Computer Networks.",
+        "topics": [
+            {
+                "id": "cs_topic_hardware_io",
+                "name": "Topic 1: Hardware, Software & I/O Devices",
+                "icon": "fa-desktop",
+                "subtopics": [
+                    { "id": "cs_hardware_software", "name": "1.1 Computer Architecture, Hardware & Software Basics", "count": 100, "desc": "System architecture, CPU components (ALU, CU, Registers), System vs Application software" },
+                    { "id": "cs_io_devices", "name": "1.2 Input & Output Devices", "count": 100, "desc": "Keyboard, mouse, optical scanner, MICR, OCR, monitors, printers (impact vs non-impact), plotters" }
+                ]
+            },
+            {
+                "id": "cs_topic_memory",
+                "name": "Topic 2: Memory Hierarchy & Storage Systems",
+                "icon": "fa-microchip",
+                "subtopics": [
+                    { "id": "cs_primary_secondary_mem", "name": "2.1 Primary Memory (RAM, ROM) & Secondary Storage", "count": 100, "desc": "SRAM, DRAM, PROM, EPROM, EEPROM, Hard Drives, SSDs, Optical Disks (CD/DVD), Flash drives" },
+                    { "id": "cs_cache_registers", "name": "2.2 Cache Memory & Processor Registers", "count": 100, "desc": "L1/L2/L3 cache memory, memory access speed hierarchy, registers (PC, MAR, MDR, IR)" }
+                ]
+            },
+            {
+                "id": "cs_topic_data_representation",
+                "name": "Topic 3: Data Representation & Number Systems", "icon": "fa-binary",
+                "subtopics": [
+                    { "id": "cs_number_systems", "name": "3.1 Number Systems (Binary, Octal, Decimal, Hex)", "count": 100, "desc": "Base conversions: Binary to Decimal, Octal to Hexadecimal, positional notation" },
+                    { "id": "cs_binary_arithmetic", "name": "3.2 Binary Arithmetic, Complements & Encodings", "count": 100, "desc": "Binary addition/subtraction, 1's & 2's complement, ASCII, EBCDIC, Unicode character encodings" }
+                ]
+            },
+            {
+                "id": "cs_topic_office_automation",
+                "name": "Topic 4: Office Automation & Productivity Tools",
+                "icon": "fa-file-lines",
+                "subtopics": [
+                    { "id": "cs_word_processing", "name": "4.1 Word Processing Concepts & Features", "count": 100, "desc": "Document formatting, paragraph styles, mail merge, headers/footers, spell check" },
+                    { "id": "cs_spreadsheets", "name": "4.2 Spreadsheets (Formulas, Functions & Charts)", "count": 100, "desc": "Cells, rows, columns, relative/absolute referencing, SUM, AVERAGE, IF, VLOOKUP, charts" },
+                    { "id": "cs_presentation_graphics", "name": "4.3 Presentation Graphics & Multimedia", "count": 100, "desc": "Slide masters, templates, slide transitions, custom animations, presenter view" }
+                ]
+            },
+            {
+                "id": "cs_topic_dbms_os",
+                "name": "Topic 5: DBMS Basics & Operating System Fundamentals",
+                "icon": "fa-database",
+                "subtopics": [
+                    { "id": "cs_dbms_basics", "name": "5.1 Database Management System (DBMS) Basics", "count": 100, "desc": "Data vs Information, relational tables, primary key, foreign key, SQL queries (SELECT, INSERT)" },
+                    { "id": "cs_os_fundamentals", "name": "5.2 Operating System Fundamentals (Kernel & Shell)", "count": 100, "desc": "OS functions, Kernel vs Shell, process scheduling, memory allocation, file systems" }
+                ]
+            },
+            {
+                "id": "cs_topic_networks",
+                "name": "Topic 6: Data Communications & Computer Networks",
+                "icon": "fa-network-wired",
+                "subtopics": [
+                    { "id": "cs_data_communications", "name": "6.1 Data Communications & Transmission Modes", "count": 100, "desc": "Simplex, Half-Duplex, Full-Duplex, bandwidth, analog vs digital signals, transmission media" },
+                    { "id": "cs_network_topologies", "name": "6.2 Computer Networks (LAN, MAN, WAN) & Topologies", "count": 100, "desc": "LAN, MAN, WAN, Bus, Star, Ring, Mesh, Tree topologies, OSI 7-layer model, TCP/IP" }
                 ]
             }
         ]

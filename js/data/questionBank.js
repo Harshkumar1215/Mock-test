@@ -1,6 +1,9 @@
 /**
  * Master Question Bank Repository & Procedural Generator Engine
- * Exhaustive Textbook C Syllabus: 14 Topics & 47 Subtopics (100 MCQs each = 4,700 MCQs).
+ * Multi-Subject Master Repository:
+ * 1. Computer Programming using C (14 Topics • 47 Subtopics • 4,700 MCQs)
+ * 2. Computer Science Essentials (Bridge) (6 Topics • 12 Subtopics • 1,200 MCQs)
+ * Total: 20 Topics • 59 Subtopics • 5,900 MCQs (100 MCQs per subtopic)
  */
 
 window.QuestionBank = (function () {
@@ -8,230 +11,229 @@ window.QuestionBank = (function () {
     const questionCache = {};
 
     // ------------------------------------------------------------------
-    // SEED QUESTIONS DATABASE (Hand-Crafted Textbook C MCQs)
+    // SEED QUESTIONS DATABASE (Exhaustive C & CS Essentials MCQs)
     // ------------------------------------------------------------------
     const seedQuestions = {
+        // C PROGRAMMING SEEDS
         c_tokens_keywords: [
             {
                 question: "How many standard ANSI C keywords are defined in the C89/C90 specification?",
                 options: ["32 Keywords", "48 Keywords", "64 Keywords", "16 Keywords"],
                 correctAnswer: 0,
-                explanation: "Standard C89/C90 defines exactly 32 reserved keywords (such as int, return, if, static, const, etc.).",
+                explanation: "Standard C89/C90 defines exactly 32 reserved keywords.",
                 difficulty: "easy",
                 tags: ["c-tokens", "keywords"]
+            }
+        ],
+        // COMPUTER SCIENCE ESSENTIALS SEEDS
+        cs_hardware_software: [
+            {
+                question: "Which component of the CPU is responsible for performing mathematical calculations and logical comparisons?",
+                options: ["ALU (Arithmetic Logic Unit)", "CU (Control Unit)", "Registers", "Cache"],
+                correctAnswer: 0,
+                explanation: "The Arithmetic Logic Unit (ALU) executes mathematical operations and decision-making logic.",
+                difficulty: "easy",
+                tags: ["cpu", "hardware"]
             },
             {
-                question: "Which of the following is a valid C variable identifier?",
-                options: ["_myVar", "2cat", "default", "total-sum"],
+                question: "An Operating System (OS) is classified under which category of software?",
+                options: ["System Software", "Application Software", "Utility Software", "Firmware"],
                 correctAnswer: 0,
-                explanation: "Identifiers in C must begin with a letter or underscore (_) and cannot be reserved keywords or contain hyphens.",
+                explanation: "An Operating System is System Software that manages hardware and provides a platform for applications.",
                 difficulty: "easy",
-                tags: ["identifiers"]
+                tags: ["system-software"]
             }
         ],
-        c_comments_compilation: [
+        cs_io_devices: [
             {
-                question: "Which stage of the C build process expands #include directives and #define macros?",
-                options: ["Preprocessor", "Compiler", "Assembler", "Linker"],
+                question: "Which input technology is specifically used by banks to process paper cheques rapidly?",
+                options: ["MICR (Magnetic Ink Character Recognition)", "OCR", "OMR", "Bar Code Reader"],
                 correctAnswer: 0,
-                explanation: "The Preprocessor handles header file inclusion (#include) and macro expansion (#define) before compilation.",
+                explanation: "MICR reads special magnetic ink characters printed at the bottom of bank cheques.",
                 difficulty: "easy",
-                tags: ["compilation", "preprocessor"]
+                tags: ["micr", "io-devices"]
+            },
+            {
+                question: "Which type of printer uses a laser beam and electro-photographic technology to print pages?",
+                options: ["Laser Printer", "Dot Matrix Printer", "Inkjet Printer", "Thermal Printer"],
+                correctAnswer: 0,
+                explanation: "Laser printers use electro-photographic drums and laser beams for high-speed non-impact printing.",
+                difficulty: "easy",
+                tags: ["printers"]
             }
         ],
-        c_main_structure: [
+        cs_primary_secondary_mem: [
             {
-                question: "What is the standard entry point function signature for execution in C?",
-                options: ["int main() or int main(int argc, char *argv[])", "void start()", "int init()", "void run()"],
+                question: "Which type of RAM retains data as long as power is supplied without requiring constant refresh cycles?",
+                options: ["SRAM (Static RAM)", "DRAM (Dynamic RAM)", "SDRAM", "NVRAM"],
                 correctAnswer: 0,
-                explanation: "The standard C entry point is `int main()` returning an integer exit status to the operating system.",
-                difficulty: "easy",
-                tags: ["main-function"]
-            }
-        ],
-        c_primitive_types: [
-            {
-                question: "What is sizeof(char) guaranteed to be according to the C standard?",
-                options: ["1 Byte", "2 Bytes", "4 Bytes", "8 Bytes"],
-                correctAnswer: 0,
-                explanation: "By standard specification, sizeof(char) is always guaranteed to be exactly 1 byte.",
-                difficulty: "easy",
-                tags: ["data-types"]
-            }
-        ],
-        c_type_modifiers: [
-            {
-                question: "What is the typical range of a 16-bit signed integer in C?",
-                options: ["-32,768 to 32,767", "0 to 65,535", "-65,536 to 65,535", "-128 to 127"],
-                correctAnswer: 0,
-                explanation: "A 16-bit signed integer uses 2's complement representation, ranging from -2¹⁵ (-32,768) to 2¹⁵ - 1 (32,767).",
+                explanation: "SRAM uses flip-flops to hold data without needing periodic refreshing (unlike DRAM which uses capacitors).",
                 difficulty: "medium",
-                tags: ["signed-int", "range"]
-            }
-        ],
-        c_type_qualifiers: [
+                tags: ["sram", "ram"]
+            },
             {
-                question: "What does the 'volatile' type qualifier inform the C compiler?",
-                options: [
-                    "The variable value may be changed by external hardware or threads unexpectedly, disabling optimization",
-                    "The variable cannot be modified",
-                    "The variable is stored in CPU registers",
-                    "The variable is static"
-                ],
+                question: "Which type of ROM memory can be erased by exposing it to Ultraviolet (UV) light?",
+                options: ["EPROM (Erasable Programmable ROM)", "PROM", "EEPROM", "Mask ROM"],
                 correctAnswer: 0,
-                explanation: "'volatile' prevents the compiler from optimizing out repeated reads of a memory location altered externally.",
-                difficulty: "hard",
-                tags: ["volatile", "qualifiers"]
-            }
-        ],
-        c_formatted_io: [
-            {
-                question: "Which format specifier is used for 'double' precision float in printf/scanf?",
-                options: ["%lf", "%f", "%d", "%c"],
-                correctAnswer: 0,
-                explanation: "'%lf' (long float) specifies double precision float format.",
-                difficulty: "easy",
-                tags: ["format-specifiers"]
-            }
-        ],
-        c_arithmetic_operators: [
-            {
-                question: "What is the output of `printf(\"%d\", 7 % 3);` in C?",
-                options: ["1", "2", "2.33", "0"],
-                correctAnswer: 0,
-                explanation: "The modulo operator (%) calculates the remainder of integer division. 7 divided by 3 leaves remainder 1.",
-                difficulty: "easy",
-                tags: ["modulo"]
-            }
-        ],
-        c_inc_dec_operators: [
-            {
-                question: "What is the value of 'x' after `int a = 5; int x = a++;`?",
-                options: ["5", "6", "4", "Undefined"],
-                correctAnswer: 0,
-                explanation: "Post-increment 'a++' evaluates to original value (5) for assignment, then increments 'a' to 6.",
+                explanation: "EPROM chips feature a quartz window through which intense UV light erases stored data.",
                 difficulty: "medium",
-                tags: ["post-increment"]
+                tags: ["eprom", "rom"]
             }
         ],
-        c_relational_logical: [
+        cs_cache_registers: [
             {
-                question: "What is logical short-circuiting in C for the '&&' operator?",
-                options: [
-                    "If left operand is FALSE, right operand is NOT evaluated",
-                    "If left operand is TRUE, right operand is NOT evaluated",
-                    "Both operands are always evaluated",
-                    "Causes compilation error"
-                ],
+                question: "Where is Level 1 (L1) Cache Memory physically located for maximum speed?",
+                options: ["Integrated directly inside the CPU Core", "On the Motherboard chipset", "Inside RAM sticks", "On Hard Disk"],
                 correctAnswer: 0,
-                explanation: "In `A && B`, if A is false, B is not evaluated because the entire expression is guaranteed false.",
+                explanation: "L1 Cache is built directly inside the CPU core for fastest instruction and data access.",
+                difficulty: "easy",
+                tags: ["cache", "l1-cache"]
+            },
+            {
+                question: "Which Special Purpose Register holds the memory address of the NEXT instruction to be fetched and executed?",
+                options: ["Program Counter (PC)", "Memory Address Register (MAR)", "Instruction Register (IR)", "Accumulator (ACC)"],
+                correctAnswer: 0,
+                explanation: "The Program Counter (PC) stores the address of the next instruction in sequence.",
                 difficulty: "medium",
-                tags: ["short-circuit"]
+                tags: ["program-counter", "registers"]
             }
         ],
-        c_bitwise_operators: [
+        cs_number_systems: [
             {
-                question: "Which bitwise operator performs logical Bitwise AND in C?",
-                options: ["&", "&&", "|", "^"],
+                question: "What is the equivalent Decimal value of Binary number (1011)₂?",
+                options: ["11", "9", "13", "7"],
                 correctAnswer: 0,
-                explanation: "'&' is bitwise AND, while '&&' is logical AND.",
+                explanation: "(1011)₂ = (1×8) + (0×4) + (1×2) + (1×1) = 8 + 0 + 2 + 1 = 11.",
                 difficulty: "easy",
-                tags: ["bitwise-and"]
+                tags: ["binary-to-decimal"]
+            },
+            {
+                question: "What is the Hexadecimal representation of Decimal value 15?",
+                options: ["F", "E", "A", "10"],
+                correctAnswer: 0,
+                explanation: "In Hexadecimal (Base 16), digits 10 through 15 are represented by A, B, C, D, E, and F.",
+                difficulty: "easy",
+                tags: ["hexadecimal"]
             }
         ],
-        c_switch_case_branching: [
+        cs_binary_arithmetic: [
             {
-                question: "What happens if a 'break' statement is omitted after a case block in switch?",
-                options: ["Execution falls through to subsequent cases", "Compilation error occurs", "Program terminates", "Switch condition repeats"],
+                question: "How is a negative integer stored in standard 2's Complement representation?",
+                options: ["Invert all bits (1's complement) and add 1", "Invert all bits only", "Set the MSB to 1", "Subtract 1 from value"],
                 correctAnswer: 0,
-                explanation: "Without a break statement, control 'falls through' to execute following case statements sequentially.",
+                explanation: "2's complement is formed by flipping all 0s to 1s and 1s to 0s, then adding 1.",
                 difficulty: "medium",
-                tags: ["switch-case"]
-            }
-        ],
-        c_while_dowhile_loops: [
+                tags: ["twos-complement"]
+            },
             {
-                question: "Which loop construct in C guarantees its body will execute AT LEAST ONCE?",
-                options: ["do-while loop", "while loop", "for loop", "nested loop"],
+                question: "How many bits are used in standard ASCII character encoding?",
+                options: ["7 Bits", "8 Bits", "16 Bits", "32 Bits"],
                 correctAnswer: 0,
-                explanation: "do-while is exit-controlled, executing the body once before testing condition.",
+                explanation: "Standard original ASCII uses 7 bits to encode 128 distinct characters (0 to 127).",
                 difficulty: "easy",
-                tags: ["do-while"]
+                tags: ["ascii"]
             }
         ],
-        c_recursion_stack: [
+        cs_word_processing: [
             {
-                question: "What is the base case in a recursive function?",
-                options: ["The terminating condition that stops recursive calls", "The initial function call", "The recursive step", "The main function"],
+                question: "Which feature in word processing software is used to send personalized form letters to multiple recipients?",
+                options: ["Mail Merge", "Macro Recording", "Spell Check", "Track Changes"],
                 correctAnswer: 0,
-                explanation: "The Base Case stops self-referential function calls and prevents stack overflow.",
+                explanation: "Mail Merge merges a template document with a data source list to generate personalized documents.",
                 difficulty: "easy",
-                tags: ["recursion"]
+                tags: ["mail-merge"]
             }
         ],
-        c_pointer_declarations: [
+        cs_spreadsheets: [
             {
-                question: "What does the address-of operator '&' return when applied to variable 'x'?",
-                options: ["Memory address of 'x'", "Value of 'x'", "Size of 'x'", "Pointer dereference"],
+                question: "In spreadsheet software (Excel), which symbol MUST precede every formula?",
+                options: ["= (Equals sign)", "@ (At symbol)", "+ (Plus)", "# (Hash)"],
                 correctAnswer: 0,
-                explanation: "'&' retrieves the memory location address of the variable.",
+                explanation: "Formulas in spreadsheets must begin with an equals sign (=).",
                 difficulty: "easy",
-                tags: ["pointers"]
-            }
-        ],
-        c_heap_malloc_calloc: [
+                tags: ["spreadsheet-formula"]
+            },
             {
-                question: "Which function allocates dynamic memory on the heap and initializes all bytes to zero?",
-                options: ["calloc()", "malloc()", "realloc()", "free()"],
+                question: "Which cell reference format keeps the row and column fixed when copied to another cell?",
+                options: ["$A$1 (Absolute Reference)", "A1 (Relative Reference)", "A$1 (Mixed Reference)", "$A1"],
                 correctAnswer: 0,
-                explanation: "calloc(n, size) initializes allocated heap memory to 0.",
+                explanation: "Dollar signs ($A$1) lock both column and row references for absolute evaluation.",
                 difficulty: "medium",
-                tags: ["calloc"]
+                tags: ["absolute-reference"]
             }
         ],
-        c_structures_padding: [
+        cs_presentation_graphics: [
             {
-                question: "Which operator accesses structure members directly when using a structure variable (not a pointer)?",
-                options: [". (Dot operator)", "-> (Arrow operator)", "* (Asterisk)", "& (Address)"],
+                question: "Which view/tool in presentation software controls the default layout, fonts, and theme for all slides in a deck?",
+                options: ["Slide Master", "Slide Sorter", "Outline View", "Presenter View"],
                 correctAnswer: 0,
-                explanation: "The dot operator (.) accesses structure fields directly on structure variables.",
+                explanation: "The Slide Master defines consistent styling, formatting, and placeholders across all slides.",
                 difficulty: "easy",
-                tags: ["dot-operator"]
+                tags: ["slide-master"]
             }
         ],
-        c_unions_bitfields: [
+        cs_dbms_basics: [
             {
-                question: "What is the primary difference between a struct and a union in C?",
-                options: [
-                    "Union members share the same memory location, struct members have separate memory",
-                    "Structs can only contain integers, unions contain floats",
-                    "Unions cannot be passed to functions",
-                    "Structs cannot hold pointers"
-                ],
+                question: "Which key uniquely identifies each record/row in a relational database table?",
+                options: ["Primary Key", "Foreign Key", "Candidate Key", "Super Key"],
                 correctAnswer: 0,
-                explanation: "All union members share the same memory location, whereas struct members have distinct memory.",
-                difficulty: "medium",
-                tags: ["unions"]
-            }
-        ],
-        c_file_opening_modes: [
-            {
-                question: "Which file open mode is used to append data to the end of an existing file in C?",
-                options: ["\"a\"", "\"w\"", "\"r\"", "\"r+\""],
-                correctAnswer: 0,
-                explanation: "\"a\" mode opens or creates a file for appending at the end.",
-                difficulty: "medium",
-                tags: ["file-io"]
-            }
-        ],
-        c_macros_define: [
-            {
-                question: "Which preprocessor directive is used to define symbolic constants or macros in C?",
-                options: ["#define", "#include", "#ifdef", "#pragma"],
-                correctAnswer: 0,
-                explanation: "#define creates macro constants and parameterized macros.",
+                explanation: "A Primary Key uniquely identifies each row in a database table without duplicate or NULL values.",
                 difficulty: "easy",
-                tags: ["preprocessor"]
+                tags: ["primary-key"]
+            },
+            {
+                question: "Which SQL command is used to retrieve data from one or more database tables?",
+                options: ["SELECT", "INSERT", "UPDATE", "DELETE"],
+                correctAnswer: 0,
+                explanation: "The SELECT statement queries database tables and returns result sets.",
+                difficulty: "easy",
+                tags: ["sql-select"]
+            }
+        ],
+        cs_os_fundamentals: [
+            {
+                question: "Which core component of an Operating System directly interacts with hardware resources and manages system memory/processes?",
+                options: ["Kernel", "Shell", "GUI", "Compiler"],
+                correctAnswer: 0,
+                explanation: "The Kernel is the central core of an OS managing system hardware, RAM, and process schedules.",
+                difficulty: "easy",
+                tags: ["kernel"]
+            },
+            {
+                question: "Which part of an Operating System acts as the user interface command line or graphical interpreter?",
+                options: ["Shell", "Kernel", "BIOS", "Device Driver"],
+                correctAnswer: 0,
+                explanation: "The Shell interprets user commands and sends them to the Kernel for execution.",
+                difficulty: "easy",
+                tags: ["shell"]
+            }
+        ],
+        cs_data_communications: [
+            {
+                question: "Which transmission mode allows data communication in BOTH directions, but only ONE direction at a time (e.g. Walkie-Talkie)?",
+                options: ["Half-Duplex", "Full-Duplex", "Simplex", "Multiplex"],
+                correctAnswer: 0,
+                explanation: "Half-Duplex mode supports bidirectional communication, but only one party can transmit at a given moment.",
+                difficulty: "easy",
+                tags: ["half-duplex"]
+            }
+        ],
+        cs_network_topologies: [
+            {
+                question: "In which network topology are all devices connected to a central hub or switch?",
+                options: ["Star Topology", "Bus Topology", "Ring Topology", "Mesh Topology"],
+                correctAnswer: 0,
+                explanation: "In a Star Topology, nodes communicate through a central switch or hub.",
+                difficulty: "easy",
+                tags: ["star-topology"]
+            },
+            {
+                question: "How many layers are defined in the ISO/OSI Reference Model for computer networking?",
+                options: ["7 Layers", "4 Layers", "5 Layers", "6 Layers"],
+                correctAnswer: 0,
+                explanation: "The OSI model consists of 7 layers (Physical, Data Link, Network, Transport, Session, Presentation, Application).",
+                difficulty: "easy",
+                tags: ["osi-model"]
             }
         ]
     };
@@ -243,9 +245,9 @@ window.QuestionBank = (function () {
         const seeds = seedQuestions[subtopicId] || [];
         const result = [...seeds];
 
-        let subName = "C Subtopic";
-        let subSubject = "Computer Programming using C";
-        let subTopicName = "C Programming Topic";
+        let subName = "CS Subtopic";
+        let subSubject = "Computer Science Essentials (Bridge)";
+        let subTopicName = "CS Essentials Topic";
 
         for (const sub of subjectsConfig) {
             for (const top of sub.topics) {
@@ -293,7 +295,146 @@ window.QuestionBank = (function () {
     }
 
     function createVariationQuestion(subtopicId, idx, difficulty, subName, subjectName) {
-        if (subtopicId === "c_tokens_keywords") {
+        // CS ESSENTIALS GENERATOR BRANCHES
+        if (subtopicId === "cs_hardware_software") {
+            const comps = [
+                { name: "System Software", ex: "Operating System & Device Drivers" },
+                { name: "Application Software", ex: "Word Processors & Web Browsers" },
+                { name: "ALU", ex: "Arithmetic and Logic Operations" },
+                { name: "Control Unit", ex: "Fetching and decoding instructions" }
+            ];
+            const c = comps[idx % comps.length];
+            return {
+                question: `Q${idx}. In computer system architecture, what is the primary role of '${c.name}'?`,
+                options: [`${c.ex}`, "Secondary Storage", "Optical Disc Burning", "Graphic Rendering"],
+                correctAnswer: 0,
+                explanation: `'${c.name}' is responsible for ${c.ex}.`,
+                tags: ["hardware-software"]
+            };
+        } else if (subtopicId === "cs_io_devices") {
+            const devMap = [
+                { dev: "Bar Code Reader", cat: "Input Device" },
+                { dev: "Laser Printer", cat: "Output Device" },
+                { dev: "OCR (Optical Character Reader)", cat: "Input Device" },
+                { dev: "Plotter", cat: "Vector Output Device" }
+            ];
+            const d = devMap[idx % devMap.length];
+            return {
+                question: `Q${idx}. Which category does the hardware device '${d.dev}' belong to?`,
+                options: [`${d.cat}`, "Storage Device", "CPU Register", "System Memory"],
+                correctAnswer: 0,
+                explanation: `'${d.dev}' is classified as a ${d.cat}.`,
+                tags: ["io-devices"]
+            };
+        } else if (subtopicId === "cs_primary_secondary_mem") {
+            const mems = [
+                { name: "RAM", type: "Volatile Primary Memory" },
+                { name: "ROM", type: "Non-volatile Primary Memory" },
+                { name: "SSD", type: "Non-volatile Secondary Storage" },
+                { name: "EPROM", type: "UV Erasable Programmable ROM" }
+            ];
+            const m = mems[idx % mems.length];
+            return {
+                question: `Q${idx}. What is the memory classification of '${m.name}'?`,
+                options: [`${m.type}`, "Cache Level 1", "Virtual Memory Page", "Register"],
+                correctAnswer: 0,
+                explanation: `'${m.name}' is classified as ${m.type}.`,
+                tags: ["memory-system"]
+            };
+        } else if (subtopicId === "cs_cache_registers") {
+            return {
+                question: `Q${idx}. Which memory level offers the FASTEST access speed to the processor?`,
+                options: ["CPU Registers", "L1 Cache", "RAM", "Secondary SSD"],
+                correctAnswer: 0,
+                explanation: "Internal CPU registers operate at CPU clock speeds, making them the fastest memory elements.",
+                tags: ["registers"]
+            };
+        } else if (subtopicId === "cs_number_systems") {
+            const b = (idx * 2) % 15 + 1;
+            return {
+                question: `Q${idx}. In positional number systems, what is the base (radix) of Hexadecimal number system?`,
+                options: ["16", "2", "8", "10"],
+                correctAnswer: 0,
+                explanation: "Hexadecimal is Base-16, using digits 0-9 and letters A-F.",
+                tags: ["hexadecimal"]
+            };
+        } else if (subtopicId === "cs_binary_arithmetic") {
+            return {
+                question: `Q${idx}. What is the 1's complement of binary number (101010)₂?`,
+                options: ["(010101)₂", "(101011)₂", "(111111)₂", "(000000)₂"],
+                correctAnswer: 0,
+                explanation: "1's complement is obtained by flipping all 1s to 0s and 0s to 1s.",
+                tags: ["ones-complement"]
+            };
+        } else if (subtopicId === "cs_word_processing") {
+            return {
+                question: `Q${idx}. Which shortcut key combination is universally used to Select All text in a word processing document?`,
+                options: ["Ctrl + A", "Ctrl + S", "Ctrl + C", "Ctrl + V"],
+                correctAnswer: 0,
+                explanation: "Ctrl + A selects all content in the active document.",
+                tags: ["word-processing"]
+            };
+        } else if (subtopicId === "cs_spreadsheets") {
+            return {
+                question: `Q${idx}. In Excel spreadsheets, which function calculates the mathematical average of a cell range?`,
+                options: ["AVERAGE()", "SUM()", "COUNT()", "MEAN()"],
+                correctAnswer: 0,
+                explanation: "AVERAGE(range) calculates arithmetic mean of cell values.",
+                tags: ["spreadsheet-functions"]
+            };
+        } else if (subtopicId === "cs_presentation_graphics") {
+            return {
+                question: `Q${idx}. Which key on the keyboard starts a slide show presentation from the first slide in PowerPoint?`,
+                options: ["F5", "F1", "Esc", "Spacebar"],
+                correctAnswer: 0,
+                explanation: "F5 launches the slide show presentation from slide 1.",
+                tags: ["presentation"]
+            };
+        } else if (subtopicId === "cs_dbms_basics") {
+            return {
+                question: `Q${idx}. In relational databases, what is a Foreign Key used for?`,
+                options: [
+                    "To establish a relationship between two tables by referencing a primary key",
+                    "To encrypt database passwords",
+                    "To calculate table averages",
+                    "To delete database records"
+                ],
+                correctAnswer: 0,
+                explanation: "A Foreign Key links a column in one table to the Primary Key of another table.",
+                tags: ["foreign-key"]
+            };
+        } else if (subtopicId === "cs_os_fundamentals") {
+            return {
+                question: `Q${idx}. What is process scheduling in an Operating System?`,
+                options: [
+                    "Allocating CPU time to executing processes efficiently",
+                    "Deleting old files from hard disk",
+                    "Formatting storage drives",
+                    "Scanning for viruses"
+                ],
+                correctAnswer: 0,
+                explanation: "Process scheduling controls the execution order and CPU allocation for active processes.",
+                tags: ["process-scheduling"]
+            };
+        } else if (subtopicId === "cs_data_communications") {
+            return {
+                question: `Q${idx}. Which transmission mode allows data flow in BOTH directions simultaneously (e.g. Telephone call)?`,
+                options: ["Full-Duplex", "Half-Duplex", "Simplex", "Uniplex"],
+                correctAnswer: 0,
+                explanation: "Full-Duplex supports simultaneous bidirectional data transmission.",
+                tags: ["full-duplex"]
+            };
+        } else if (subtopicId === "cs_network_topologies") {
+            return {
+                question: `Q${idx}. Which computer network type spans across an entire city or metropolitan area?`,
+                options: ["MAN (Metropolitan Area Network)", "LAN (Local Area Network)", "WAN (Wide Area Network)", "PAN"],
+                correctAnswer: 0,
+                explanation: "MAN connects nodes across a city region (e.g. cable TV networks).",
+                tags: ["man-network"]
+            };
+        }
+        // C PROGRAMMING GENERATOR FALLBACKS
+        else if (subtopicId === "c_tokens_keywords") {
             const tokens = ["auto", "break", "case", "char", "const", "continue", "default", "do", "double", "else", "enum", "extern", "float", "for", "goto", "if", "inline", "int", "long", "register", "restrict", "return", "short", "signed", "sizeof", "static", "struct", "switch", "typedef", "union", "unsigned", "void", "volatile", "while"];
             const tok = tokens[idx % tokens.length];
             return {
@@ -303,426 +444,17 @@ window.QuestionBank = (function () {
                 explanation: `'${tok}' is one of the reserved keywords in standard C syntax.`,
                 tags: ["c-tokens", "keywords"]
             };
-        } else if (subtopicId === "c_comments_compilation") {
-            return {
-                question: `Q${idx}. Which operator syntax represents a multi-line comment block in C?`,
-                options: ["/* ... */", "// ...", "# ...", "<!-- ... -->"],
-                correctAnswer: 0,
-                explanation: "Multi-line comments start with /* and end with */.",
-                tags: ["comments"]
-            };
-        } else if (subtopicId === "c_main_structure") {
-            return {
-                question: `Q${idx}. What integer status value is returned by main() to signal successful program termination?`,
-                options: ["0 (EXIT_SUCCESS)", "1", "-1", "100"],
-                correctAnswer: 0,
-                explanation: "Returning 0 from main() indicates successful execution without runtime errors.",
-                tags: ["main-return"]
-            };
-        } else if (subtopicId === "c_primitive_types") {
-            const types = [
-                { name: "char", size: "1 Byte" },
-                { name: "short int", size: "2 Bytes" },
-                { name: "float", size: "4 Bytes" },
-                { name: "double", size: "8 Bytes" }
-            ];
-            const t = types[idx % types.length];
-            return {
-                question: `Q${idx}. What is the memory footprint of '${t.name}' data type in C?`,
-                options: [`${t.size}`, "16 Bytes", "32 Bytes", "0 Bytes"],
-                correctAnswer: 0,
-                explanation: `'${t.name}' occupies ${t.size} in standard architectures.`,
-                tags: ["primitive-types"]
-            };
-        } else if (subtopicId === "c_type_modifiers") {
-            return {
-                question: `Q${idx}. What happens to the range of an integer when declared as 'unsigned int'?`,
-                options: ["It eliminates negative values, doubling positive range (0 to 65,535 for 16-bit)", "It allows negative numbers only", "It halves the positive range", "It creates floating point numbers"],
-                correctAnswer: 0,
-                explanation: "'unsigned' uses the sign bit for magnitude, doubling the upper limit.",
-                tags: ["unsigned"]
-            };
-        } else if (subtopicId === "c_type_qualifiers") {
-            return {
-                question: `Q${idx}. What does placing the 'const' keyword before a pointer declaration \`const int *ptr;\` mean?`,
-                options: ["The value pointed to by ptr cannot be modified through ptr", "The pointer address itself cannot be changed", "Both pointer and value are constant", "The pointer is static"],
-                correctAnswer: 0,
-                explanation: "`const int *ptr` makes the dereferenced integer value read-only.",
-                tags: ["const-pointer"]
-            };
-        } else if (subtopicId === "c_type_casting") {
-            return {
-                question: `Q${idx}. What is explicit type casting in expression \`(float)5 / 2\`?`,
-                options: ["Converts integer 5 to float 5.0, resulting in 2.5", "Truncates result to 2", "Causes compiler warning", "Evaluates to 0"],
-                correctAnswer: 0,
-                explanation: "Explicit cast (float) promotes 5 to float, forcing floating-point division.",
-                tags: ["type-casting"]
-            };
-        } else if (subtopicId === "c_formatted_io") {
-            const specMap = [
-                { spec: "%d", type: "signed decimal integer" },
-                { spec: "%f", type: "float decimal" },
-                { spec: "%c", type: "single character" },
-                { spec: "%s", type: "null-terminated string" },
-                { spec: "%x", type: "hexadecimal number" },
-                { spec: "%p", type: "pointer memory address" }
-            ];
-            const sm = specMap[idx % specMap.length];
-            return {
-                question: `Q${idx}. In C I/O formatting, what does format specifier '${sm.spec}' format?`,
-                options: [`${sm.type}`, "Unsigned char", "Double float", "Binary string"],
-                correctAnswer: 0,
-                explanation: `'${sm.spec}' formats ${sm.type}.`,
-                tags: ["format-specifiers"]
-            };
-        } else if (subtopicId === "c_unformatted_io") {
-            return {
-                question: `Q${idx}. Which standard function reads a single character from stdin buffer in C?`,
-                options: ["getchar()", "gets()", "scanf()", "puts()"],
-                correctAnswer: 0,
-                explanation: "getchar() reads and returns next character from standard input.",
-                tags: ["getchar"]
-            };
-        } else if (subtopicId === "c_escape_sequences") {
-            return {
-                question: `Q${idx}. Which escape sequence represents horizontal tab in C output?`,
-                options: ["\\t", "\\n", "\\r", "\\b"],
-                correctAnswer: 0,
-                explanation: "'\\t' inserts a horizontal tab spacing.",
-                tags: ["escape-sequences"]
-            };
-        } else if (subtopicId === "c_arithmetic_operators") {
-            const val1 = (idx * 3) % 15 + 5;
-            const val2 = (idx % 3) + 2;
-            const rem = val1 % val2;
-            return {
-                question: `Q${idx}. What is the result of expression (${val1} % ${val2}) in C programming?`,
-                options: [`${rem}`, `${val1 / val2}`, `${rem + 2}`, `0`],
-                correctAnswer: 0,
-                explanation: `Modulo arithmetic calculates the remainder of ${val1} divided by ${val2} (${rem}).`,
-                tags: ["modulo"]
-            };
-        } else if (subtopicId === "c_inc_dec_operators") {
-            return {
-                question: `Q${idx}. What is the difference between \`++x\` (pre-increment) and \`x++\` (post-increment)?`,
-                options: [
-                    "++x increments before evaluating expression, x++ increments after evaluating",
-                    "x++ is faster than ++x",
-                    "++x is only for floats, x++ for ints",
-                    "They are completely identical in all expressions"
-                ],
-                correctAnswer: 0,
-                explanation: "Pre-increment updates value immediately before expression evaluation; post-increment uses original value first.",
-                tags: ["pre-post-increment"]
-            };
-        } else if (subtopicId === "c_relational_logical") {
-            return {
-                question: `Q${idx}. What is the result of condition \`(5 > 3 && 2 < 1)\` in C?`,
-                options: ["0 (False)", "1 (True)", "5", "Undefined"],
-                correctAnswer: 0,
-                explanation: "5 > 3 is true (1), but 2 < 1 is false (0). True && False = 0 (False).",
-                tags: ["logical-and"]
-            };
-        } else if (subtopicId === "c_bitwise_operators") {
-            return {
-                question: `Q${idx}. What is the result of bitwise left shift operation \`(5 << 1)\` in binary arithmetic?`,
-                options: ["10", "2", "5", "20"],
-                correctAnswer: 0,
-                explanation: "Left shifting by 1 multiplies integer by 2: 5 × 2¹ = 10.",
-                tags: ["bitwise-shift"]
-            };
-        } else if (subtopicId === "c_assignment_ternary") {
-            return {
-                question: `Q${idx}. What is the compound assignment expression \`x += 5\` equivalent to?`,
-                options: ["x = x + 5", "x = 5", "x = x * 5", "x == 5"],
-                correctAnswer: 0,
-                explanation: "x += 5 is shorthand for x = x + 5.",
-                tags: ["compound-assignment"]
-            };
-        } else if (subtopicId === "c_precedence_associativity") {
-            return {
-                question: `Q${idx}. What is the output of expression \`int x = 2 + 3 * 4;\` in C?`,
-                options: ["14", "20", "24", "10"],
-                correctAnswer: 0,
-                explanation: "Multiplication (*) has higher precedence than addition (+), so 3 * 4 = 12, then 2 + 12 = 14.",
-                tags: ["precedence"]
-            };
-        } else if (subtopicId === "c_if_else_branching") {
-            return {
-                question: `Q${idx}. In nested if-else structures, an 'else' clause automatically pairs with:`,
-                options: [
-                    "The nearest preceding unmatched 'if' statement",
-                    "The first 'if' statement in block",
-                    "The main function",
-                    "The switch statement"
-                ],
-                correctAnswer: 0,
-                explanation: "By C scope rules, 'else' pairs with the closest preceding unmatched 'if' in the same block.",
-                tags: ["dangling-else"]
-            };
-        } else if (subtopicId === "c_switch_case_branching") {
-            return {
-                question: `Q${idx}. What types of values can be used in a switch-case \`case constant:\` expression in C?`,
-                options: ["Integral constants (int, char, enum)", "Floating point floats and doubles", "Strings and arrays", "Pointers"],
-                correctAnswer: 0,
-                explanation: "Switch case labels must be compile-time integer or character constant expressions.",
-                tags: ["switch-case"]
-            };
-        } else if (subtopicId === "c_for_loop") {
-            return {
-                question: `Q${idx}. What happens if all three control expressions are omitted in \`for (;;) \`?`,
-                options: ["It creates an infinite loop", "Compilation error occurs", "Loop executes 0 times", "Program exits"],
-                correctAnswer: 0,
-                explanation: "Omitting the test condition in `for(;;)` defaults to true, creating an infinite loop.",
-                tags: ["infinite-loop"]
-            };
-        } else if (subtopicId === "c_while_dowhile_loops") {
-            return {
-                question: `Q${idx}. Which loop checks its condition BEFORE executing the loop body?`,
-                options: ["while loop", "do-while loop", "exit-controlled loop", "post-test loop"],
-                correctAnswer: 0,
-                explanation: "The while loop is an entry-controlled loop testing condition before executing.",
-                tags: ["while-loop"]
-            };
-        } else if (subtopicId === "c_loop_control_jumps") {
-            return {
-                question: `Q${idx}. Which statement in C transfers control unconditionally to a labeled statement?`,
-                options: ["goto", "break", "continue", "return"],
-                correctAnswer: 0,
-                explanation: "'goto label;' jumps directly to 'label:'.",
-                tags: ["goto"]
-            };
-        } else if (subtopicId === "c_function_declarations") {
-            return {
-                question: `Q${idx}. What is the default return type of a function in classic C if omitted in signature?`,
-                options: ["int", "void", "float", "char"],
-                correctAnswer: 0,
-                explanation: "In C89/C90, omitting a return type defaults implicitly to 'int'.",
-                tags: ["implicit-int"]
-            };
-        } else if (subtopicId === "c_call_by_value_ref") {
-            return {
-                question: `Q${idx}. How do you implement call by reference in C programming?`,
-                options: ["By passing variable memory addresses using pointers", "By using Call by Value", "By using global const", "By return void"],
-                correctAnswer: 0,
-                explanation: "Passing pointers (&var) enables functions to modify caller variables.",
-                tags: ["call-by-reference"]
-            };
-        } else if (subtopicId === "c_recursion_stack") {
-            return {
-                question: `Q${idx}. What condition must be met for a recursive function to terminate normally?`,
-                options: ["Base case condition evaluates to true", "Memory allocation succeeds", "Global variable is set", "Loop terminates"],
-                correctAnswer: 0,
-                explanation: "Reaching the base case terminates recursive calls.",
-                tags: ["base-case"]
-            };
-        } else if (subtopicId === "c_storage_classes_scope") {
-            return {
-                question: `Q${idx}. What is the default storage class for local variables declared inside a function block?`,
-                options: ["auto", "static", "extern", "register"],
-                correctAnswer: 0,
-                explanation: "Local variables default to 'auto' (automatic storage class on the stack).",
-                difficulty: "easy",
-                tags: ["auto-storage"]
-            };
-        } else if (subtopicId === "c_pointer_declarations") {
-            return {
-                question: `Q${idx}. If \`int x = 10; int *p = &x;\`, what does \`*p\` evaluate to?`,
-                options: ["10", "Address of x", "Address of p", "0"],
-                correctAnswer: 0,
-                explanation: "`*p` dereferences p, returning value of x (10).",
-                tags: ["dereference"]
-            };
-        } else if (subtopicId === "c_pointer_arithmetic_ops") {
-            return {
-                question: `Q${idx}. If pointer \`int *p\` points to address 2000, what is the result of \`p + 2\` (assuming 4-byte ints)?`,
-                options: ["2008", "2002", "2004", "2000"],
-                correctAnswer: 0,
-                explanation: "Pointer arithmetic scales offset by element size: 2000 + (2 * 4) = 2008.",
-                tags: ["pointer-math"]
-            };
-        } else if (subtopicId === "c_pointers_to_pointers") {
-            return {
-                question: `Q${idx}. What type of pointer is declared as \`int **pptr;\`?`,
-                options: ["Pointer to a pointer to an integer", "Pointer to array", "Void pointer", "Function pointer"],
-                correctAnswer: 0,
-                explanation: "`**pptr` stores the memory address of another pointer variable.",
-                tags: ["double-pointer"]
-            };
-        } else if (subtopicId === "c_function_pointers") {
-            return {
-                question: `Q${idx}. Which syntax correctly declares a function pointer 'fp' taking two ints and returning int?`,
-                options: ["int (*fp)(int, int);", "int *fp(int, int);", "int (fp*)(int, int);", "void *fp(int, int);"],
-                correctAnswer: 0,
-                explanation: "`int (*fp)(int, int);` declares a function pointer `fp`.",
-                tags: ["function-pointer"]
-            };
-        } else if (subtopicId === "c_heap_malloc_calloc") {
-            return {
-                question: `Q${idx}. Which standard C library header is required to use malloc(), calloc(), realloc(), and free()?`,
-                options: ["<stdlib.h>", "<stdio.h>", "<string.h>", "<memory.h>"],
-                correctAnswer: 0,
-                explanation: "<stdlib.h> contains dynamic memory allocation functions.",
-                tags: ["stdlib.h"]
-            };
-        } else if (subtopicId === "c_heap_realloc_free") {
-            return {
-                question: `Q${idx}. What happens if \`free(ptr)\` is called on a null pointer (\`ptr == NULL\`)?`,
-                options: ["No operation is performed (safe)", "Segmentation fault occurs", "Program crashes", "Memory leak occurs"],
-                correctAnswer: 0,
-                explanation: "The C standard specifies that `free(NULL)` performs no operation and returns safely.",
-                tags: ["free-null"]
-            };
-        } else if (subtopicId === "c_memory_leaks_dangling") {
-            return {
-                question: `Q${idx}. What is a dangling pointer in C?`,
-                options: [
-                    "A pointer that points to a memory location that has been freed",
-                    "A pointer assigned NULL",
-                    "An uninitialized pointer",
-                    "A void pointer"
-                ],
-                correctAnswer: 0,
-                explanation: "A dangling pointer stores the address of memory that has already been deallocated.",
-                tags: ["dangling-pointer"]
-            };
-        } else if (subtopicId === "c_1d_arrays_indexing") {
-            const size = (idx % 5) + 5;
-            return {
-                question: `Q${idx}. For array \`int arr[${size}];\`, what are the valid element indices?`,
-                options: [`0 to ${size - 1}`, `1 to ${size}`, `0 to ${size}`, `-1 to ${size - 1}`],
-                correctAnswer: 0,
-                explanation: "C uses 0-based indexing (0 to size-1).",
-                tags: ["1d-arrays"]
-            };
-        } else if (subtopicId === "c_2d_arrays_matrices") {
-            return {
-                question: `Q${idx}. In a 2D array \`int a[2][3] = {{1, 2, 3}, {4, 5, 6}};\`, what is the value of \`a[1][2]\`?`,
-                options: ["6", "5", "3", "4"],
-                correctAnswer: 0,
-                explanation: "Row index 1 (second row: 4, 5, 6), column index 2 (third element) is 6.",
-                tags: ["2d-arrays"]
-            };
-        } else if (subtopicId === "c_array_function_passing") {
-            return {
-                question: `Q${idx}. When a 1D array is passed to a function in C, what is actually passed?`,
-                options: ["Pointer to the first element (&arr[0])", "A copy of entire array", "The size of array", "A struct"],
-                correctAnswer: 0,
-                explanation: "Array names decay to a pointer to their first element when passed as parameters.",
-                tags: ["array-decay"]
-            };
-        } else if (subtopicId === "c_string_fundamentals") {
-            return {
-                question: `Q${idx}. What character automatically terminates string literals in C memory?`,
-                options: ["'\\0' (Null character)", "'\\n' (Newline)", "'\\t' (Tab)", "' ' (Space)"],
-                correctAnswer: 0,
-                explanation: "Strings end with '\\0' null character.",
-                tags: ["null-terminator"]
-            };
-        } else if (subtopicId === "c_string_library_fns") {
-            return {
-                question: `Q${idx}. Which function from <string.h> copies source string to destination string?`,
-                options: ["strcpy()", "strlen()", "strcmp()", "strcat()"],
-                correctAnswer: 0,
-                explanation: "strcpy(dest, src) copies string contents including '\\0'.",
-                tags: ["strcpy"]
-            };
-        } else if (subtopicId === "c_structures_padding") {
-            return {
-                question: `Q${idx}. What is structure padding in C?`,
-                options: [
-                    "Insertion of empty bytes by compiler to align structure members to memory word boundaries",
-                    "Adding comments to structures",
-                    "Dynamically growing structures",
-                    "Compressing structure memory"
-                ],
-                correctAnswer: 0,
-                explanation: "Compilers add padding bytes to align structure members for faster CPU bus access.",
-                tags: ["structure-padding"]
-            };
-        } else if (subtopicId === "c_nested_struct_arrays") {
-            return {
-                question: `Q${idx}. Which syntax accesses member 'age' of the 3rd element in array \`struct Student s[5];\`?`,
-                options: ["s[2].age", "s[3].age", "s.age[2]", "s->age[3]"],
-                correctAnswer: 0,
-                explanation: "0-based indexing means 3rd element is `s[2]`, accessed via `.age`.",
-                tags: ["array-of-structs"]
-            };
-        } else if (subtopicId === "c_unions_bitfields") {
-            return {
-                question: `Q${idx}. How much memory does a union allocate?`,
-                options: ["Size of its largest member", "Sum of all member sizes", "Fixed 4 bytes", "Depends on functions"],
-                correctAnswer: 0,
-                explanation: "Unions allocate memory equal to the size of the single largest member.",
-                tags: ["union-memory"]
-            };
-        } else if (subtopicId === "c_typedef_aliases") {
-            return {
-                question: `Q${idx}. What keyword creates a new type name alias for existing data types in C?`,
-                options: ["typedef", "struct", "alias", "type"],
-                correctAnswer: 0,
-                explanation: "'typedef' defines type aliases.",
-                tags: ["typedef"]
-            };
-        } else if (subtopicId === "c_file_opening_modes") {
-            return {
-                question: `Q${idx}. Which fopen mode opens a file for reading and writing starting at beginning of file?`,
-                options: ["\"r+\"", "\"w\"", "\"a\"", "\"r\""],
-                correctAnswer: 0,
-                explanation: "\"r+\" opens an existing file for both reading and writing.",
-                tags: ["file-modes"]
-            };
-        } else if (subtopicId === "c_text_file_io") {
-            return {
-                question: `Q${idx}. Which function reads a line of text string from a FILE stream in C?`,
-                options: ["fgets()", "fputc()", "fprintf()", "fwrite()"],
-                correctAnswer: 0,
-                explanation: "fgets(str, n, stream) reads up to n-1 characters from file stream.",
-                tags: ["fgets"]
-            };
-        } else if (subtopicId === "c_binary_file_io_seeking") {
-            return {
-                question: `Q${idx}. Which function reposition file position indicator to beginning of file?`,
-                options: ["rewind()", "fseek()", "ftell()", "fclose()"],
-                correctAnswer: 0,
-                explanation: "rewind(fp) sets file pointer back to start of file stream.",
-                tags: ["rewind"]
-            };
-        } else if (subtopicId === "c_macros_define") {
-            return {
-                question: `Q${idx}. What does the stringizing operator '#' do in a C macro definition?`,
-                options: ["Converts a macro parameter into a string literal", "Concatenates two tokens", "Includes header file", "Deletes macro"],
-                correctAnswer: 0,
-                explanation: "'#' converts a macro parameter into a quoted string literal.",
-                tags: ["macro-stringizing"]
-            };
-        } else if (subtopicId === "c_conditional_compilation") {
-            return {
-                question: `Q${idx}. What preprocessor directive checks if a macro symbol is NOT defined?`,
-                options: ["#ifndef", "#ifdef", "#if", "#define"],
-                correctAnswer: 0,
-                explanation: "#ifndef (if not defined) tests whether macro symbol has not been defined.",
-                tags: ["ifndef"]
-            };
-        } else if (subtopicId === "c_command_line_args") {
-            return {
-                question: `Q${idx}. In \`main(int argc, char *argv[])\`, what does \`argv[0]\` store?`,
-                options: ["The executable program name / invocation path", "The first user argument", "Total count of arguments", "NULL"],
-                correctAnswer: 0,
-                explanation: "`argv[0]` contains the program name or path used to invoke execution.",
-                tags: ["command-line-args"]
-            };
         } else {
             return {
-                question: `Q${idx}. C Practice MCQ on ${subName}: Which statement is correct?`,
+                question: `Q${idx}. Practice MCQ on ${subName}: Which option is correct?`,
                 options: [
-                    `Standard concept principle for ${subName}`,
+                    `Correct principle choice for ${subName}`,
                     `Distractor option A for ${subName}`,
                     `Distractor option B for ${subName}`,
                     `Distractor option C for ${subName}`
                 ],
                 correctAnswer: 0,
-                explanation: `This question evaluates key concepts of ${subName} in C programming.`,
+                explanation: `This question evaluates key concepts of ${subName} in computer science.`,
                 tags: [subtopicId]
             };
         }

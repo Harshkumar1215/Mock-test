@@ -255,6 +255,12 @@ const App = {
         document.getElementById(navId)?.classList.add("active");
     },
 
+    // Clean Question Text Helper (Strips any legacy Q1., Q95., Q10. prefixes)
+    cleanQuestionText(text) {
+        if (!text) return "";
+        return String(text).replace(/^(Q\d+[\.\s]*)+/gi, "").trim();
+    },
+
     // ------------------------------------------------------------------
     // PAGE 1: HOME SCREEN RENDERER
     // ------------------------------------------------------------------
@@ -598,6 +604,14 @@ const App = {
         }
 
         const session = TestEngine.createTestSession(subtopicId, timeLimitMinutes, modeFilter, questionCount);
+        
+        // Sanitize stored questions inside session
+        if (session && session.questions) {
+            session.questions.forEach(q => {
+                q.question = this.cleanQuestionText(q.question);
+            });
+        }
+
         this.state.testSession = session;
         StorageManager.saveActiveDraft(session);
 
@@ -619,6 +633,11 @@ const App = {
             const remaining = draft.totalTimeSeconds - elapsed;
 
             if (remaining > 5 || draft.totalTimeSeconds > 50000) {
+                // Sanitize draft questions on restore
+                draft.questions.forEach(q => {
+                    q.question = this.cleanQuestionText(q.question);
+                });
+
                 if (confirm("You have an unfinished test attempt. Would you like to resume?")) {
                     draft.timeRemainingSeconds = remaining;
                     this.state.testSession = draft;
@@ -651,9 +670,10 @@ const App = {
         const progressFill = document.getElementById("test-progress-fill");
         if (progressFill) progressFill.style.width = `${((idx + 1) / session.questions.length) * 100}%`;
 
-        // Question Text
+        // Clean Question Text (strip any legacy Q1., Q95. prefixes)
+        const cleanText = this.cleanQuestionText(q.question);
         const qTextEl = document.getElementById("test-q-text");
-        if (qTextEl) qTextEl.innerHTML = `<strong>Q${idx + 1}.</strong> ${this.escapeHTML(q.question)}`;
+        if (qTextEl) qTextEl.innerHTML = `<strong>Q${idx + 1}.</strong> ${this.escapeHTML(cleanText)}`;
 
         // Options Stack
         const optionsStack = document.getElementById("test-options-stack");
@@ -941,31 +961,34 @@ const App = {
 
         const optionLabels = ["A", "B", "C", "D"];
 
-        container.innerHTML = mistakes.map((item, idx) => `
-            <div class="mistake-card">
-                <div class="mistake-header">
-                    <span style="font-weight:800; font-size:0.82rem; color:var(--danger);">
-                        <i class="fa-solid fa-xmark"></i> Mistake #${idx + 1} (Q${item.questionIndex + 1})
-                    </span>
-                    <span class="badge bg-danger">Incorrect</span>
-                </div>
-                <div class="mistake-q-text">${this.escapeHTML(item.question.question)}</div>
-                
-                <div style="display:flex; flex-direction:column; gap:6px; margin:10px 0; font-size:0.8rem;">
-                    <div style="color:var(--danger);">
-                        <strong>Your Answer:</strong> ${optionLabels[item.userAnswer]} - ${this.escapeHTML(item.question.options[item.userAnswer])}
+        container.innerHTML = mistakes.map((item, idx) => {
+            const cleanQ = this.cleanQuestionText(item.question.question);
+            return `
+                <div class="mistake-card">
+                    <div class="mistake-header">
+                        <span style="font-weight:800; font-size:0.82rem; color:var(--danger);">
+                            <i class="fa-solid fa-xmark"></i> Mistake #${idx + 1} (Q${item.questionIndex + 1})
+                        </span>
+                        <span class="badge bg-danger">Incorrect</span>
                     </div>
-                    <div style="color:var(--success);">
-                        <strong>Correct Answer:</strong> ${optionLabels[item.correctAnswer]} - ${this.escapeHTML(item.question.options[item.correctAnswer])}
+                    <div class="mistake-q-text">${this.escapeHTML(cleanQ)}</div>
+                    
+                    <div style="display:flex; flex-direction:column; gap:6px; margin:10px 0; font-size:0.8rem;">
+                        <div style="color:var(--danger);">
+                            <strong>Your Answer:</strong> ${optionLabels[item.userAnswer]} - ${this.escapeHTML(item.question.options[item.userAnswer])}
+                        </div>
+                        <div style="color:var(--success);">
+                            <strong>Correct Answer:</strong> ${optionLabels[item.correctAnswer]} - ${this.escapeHTML(item.question.options[item.correctAnswer])}
+                        </div>
                     </div>
-                </div>
 
-                <div class="explanation-box">
-                    <div class="explanation-title"><i class="fa-solid fa-lightbulb"></i> Explanation:</div>
-                    <div>${this.escapeHTML(item.question.explanation)}</div>
+                    <div class="explanation-box">
+                        <div class="explanation-title"><i class="fa-solid fa-lightbulb"></i> Explanation:</div>
+                        <div>${this.escapeHTML(item.question.explanation)}</div>
+                    </div>
                 </div>
-            </div>
-        `).join("");
+            `;
+        }).join("");
     },
 
     renderResultSuggestions() {
@@ -1022,6 +1045,8 @@ const App = {
             if (item.isUnattempted) statusBadge = `<span class="badge bg-secondary">Skipped</span>`;
             else if (!item.isCorrect) statusBadge = `<span class="badge bg-danger">Incorrect</span>`;
 
+            const cleanQ = this.cleanQuestionText(item.question.question);
+
             return `
                 <div class="card-item" style="flex-direction:column; align-items:stretch;">
                     <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
@@ -1029,7 +1054,7 @@ const App = {
                         ${statusBadge}
                     </div>
 
-                    <div style="font-weight:700; font-size:0.9rem; margin-bottom:12px;">${this.escapeHTML(item.question.question)}</div>
+                    <div style="font-weight:700; font-size:0.9rem; margin-bottom:12px;">${this.escapeHTML(cleanQ)}</div>
 
                     <div class="options-stack" style="margin-bottom:10px;">
                         ${item.question.options.map((opt, optIdx) => {
@@ -1099,7 +1124,7 @@ const App = {
         historyContainer.innerHTML = attempts.map((a, idx) => {
             const meta = findSubtopicGlobal(a.subtopicId);
             const title = meta ? meta.subtopic.name : a.subtopicId;
-            const subTitle = meta ? `${meta.subject.name} • ${meta.topic.name}` : "C Programming Practice Test";
+            const subTitle = meta ? `${meta.subject.name} • ${meta.topic.name}` : "Practice Test Attempt";
 
             return `
                 <div class="card-item" style="flex-direction:column; align-items:stretch;">

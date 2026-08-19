@@ -190,7 +190,15 @@ window.QuestionBank = (function () {
     // ------------------------------------------------------------------
     function generate100QuestionsForSubtopic(subtopicId) {
         const seeds = seedQuestions[subtopicId] || [];
-        const result = [...seeds];
+        const result = [];
+
+        // Clean initial seeds
+        seeds.forEach(seed => {
+            result.push({
+                ...seed,
+                question: seed.question.replace(/^(Q\d+[\.\s]*)+/gi, '').trim()
+            });
+        });
 
         let subName = "Subtopic Module";
         let subSubject = "Computer Science Course";
@@ -216,9 +224,9 @@ window.QuestionBank = (function () {
             const currentDiff = diffs[counter % 3];
             const qObj = createVariationQuestion(subtopicId, counter, currentDiff, subName, subSubject);
 
-            // Ensure NO "Q1." prefix or distractor placeholder exists
+            // Ensure NO "Q1." or "Q95." prefix exists in question text
             let rawQText = qObj.question || qObj.q || `Question evaluating ${subName}`;
-            rawQText = rawQText.replace(/^Q\d+\.\s*/, ''); // strip any prepended Q numbers
+            rawQText = rawQText.replace(/^(Q\d+[\.\s]*)+/gi, '').trim();
 
             const qOpts = qObj.options || qObj.opts;
             const qAns = (qObj.correctAnswer !== undefined) ? qObj.correctAnswer : (qObj.ans !== undefined ? qObj.ans : 0);
